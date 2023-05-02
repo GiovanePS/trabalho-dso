@@ -1,4 +1,7 @@
 from pessoa import Pessoa
+from datetime import datetime
+
 
 class Doador(Pessoa):
-    pass
+    def __init__(self, cpf: str, nome: str, nascimento: datetime, endereco: str):
+        super().__init__(cpf, nome, nascimento, endereco)
