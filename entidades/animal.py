@@ -13,7 +13,7 @@ class Animal:
         return self.__codigo
 
     @codigo.setter
-    def codigo(self, codigo):
+    def codigo(self, codigo: int):
         self.__codigo = codigo
 
     @property
@@ -21,7 +21,7 @@ class Animal:
         return self.__nome
 
     @nome.setter
-    def nome(self, nome):
+    def nome(self, nome: str):
         self.__nome = nome
 
     @property
@@ -29,7 +29,7 @@ class Animal:
         return self.__tipo
 
     @tipo.setter
-    def tipo(self, tipo):
+    def tipo(self, tipo: str):
         self.__tipo = tipo
 
     @property
@@ -37,7 +37,7 @@ class Animal:
         return self.__raca
 
     @raca.setter
-    def raca(self, raca):
+    def raca(self, raca: str):
         self.__raca = raca
 
     @property
@@ -45,7 +45,7 @@ class Animal:
         return self.__tamanho
 
     @tamanho.setter
-    def tamanho(self, tamanho):
+    def tamanho(self, tamanho: str):
         self.__tamanho = tamanho
 
     @property

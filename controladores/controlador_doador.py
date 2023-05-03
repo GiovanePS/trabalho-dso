@@ -1,0 +1,6 @@
+class ControladorDoador:
+    def __init__(self):
+        ...
+
+    def abre_tela(self):
+        ...

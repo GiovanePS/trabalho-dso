@@ -5,7 +5,6 @@ from entidades.animal import Animal
 
 class TelaAnimal:
     def abre_tela(self):
-        print("Animais: ")
         print("Escolha uma opção:")
         print("[1] Cadastrar animal.")
         print("[2] Alterar animal.")
@@ -38,7 +37,6 @@ class TelaAnimal:
         else:
             tamanho = None
 
-        os.system('cls')
         return {"nome": nome, "tipo": tipos[opcao_tipo],
                 "raca": raca, "tamanho": tamanho}
 
@@ -47,7 +45,7 @@ class TelaAnimal:
         print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" \
             else print(".")
 
-    def seleciona_animal(self):
+    def seleciona_codigo_animal(self):
         while True:
             try:
                 codigo_selecionado = int(input("Digite o código do animal: "))

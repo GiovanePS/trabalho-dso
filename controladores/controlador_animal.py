@@ -1,5 +1,6 @@
 from entidades.animal import Animal
 from telas.tela_animal import TelaAnimal
+import os
 
 
 class ControladorAnimal:
@@ -16,34 +17,51 @@ class ControladorAnimal:
 
     def incluir_animal(self):
         self.__id += 1
-        self.__tela_animal.mensagem("Cadastro de animal:")
+        self.__tela_animal.mensagem("Cadastro de animal.")
         dados_animal = self.__tela_animal.pega_dados_animal()
         animal = Animal(self.__id, dados_animal["nome"],
                         dados_animal["tipo"], dados_animal["raca"],
                         dados_animal["tamanho"])
         self.__animais.append(animal)
+        os.system('cls')
         self.__tela_animal.mensagem("Animal cadastrado com sucesso.")
+        print()
 
     def alterar_animal(self):
         self.__tela_animal.mensagem("Alteração cadastral de animal.")
-        codigo_selecionado = self.__tela_animal.seleciona_animal()
+        codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
+        os.system('cls')
         if isinstance(animal, Animal):
             novos_dados_animal = self.__tela_animal.pega_dados_animal()
             animal.nome = novos_dados_animal["nome"]
             animal.tipo = novos_dados_animal["tipo"]
             animal.raca = novos_dados_animal["raca"]
             animal.tamanho = novos_dados_animal["tamanho"]
-            self.__tela_animal.mensagem("Alteração realizada com sucesso!")
+            self.__tela_animal.mensagem("Alteração realizada com sucesso.")
         else:
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
+        print()
 
     def excluir_animal(self):
-        ...
+        self.__tela_animal.mensagem("Exclusão de animal do sistema.")
+        codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
+        animal = self.pegar_animal_por_codigo(codigo_selecionado)
+        os.system('cls')
+        if isinstance(animal, Animal):
+            self.__animais.remove(animal)
+            self.__tela_animal.mensagem("Animal removido com sucesso!")
+        else:
+            self.__tela_animal.mensagem("Animal inexistente no sistema.")
+        print()
 
     def listar_animais(self):
-        for animal in self.__animais:
-            self.__tela_animal.mostra_animal(animal)
+        if len(self.__animais) != 0:
+            for animal in self.__animais:
+                self.__tela_animal.mostra_animal(animal)
+        else:
+            self.__tela_animal.mensagem(
+                "Não há animais cadastrados no sistema.")
         print()
 
     def abre_tela(self):
