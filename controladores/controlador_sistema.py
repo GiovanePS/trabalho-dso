@@ -7,11 +7,12 @@ import os
 class ControladorSistema:
     def __init__(self):
         self.__tela_sistema = TelaSistema()
-        self.__controlador_animais = ControladorAnimal(self)
+        self.__controlador_animais = ControladorAnimal()
 
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
         sleep(1)
+        os.system('cls')
         self.abre_tela()
 
     def cadastra_animais(self):
@@ -28,5 +29,5 @@ class ControladorSistema:
         while True:
             opcao = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao]
-            funcao_escolhida()
             os.system('cls')
+            funcao_escolhida()
