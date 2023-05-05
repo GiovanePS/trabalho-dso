@@ -56,6 +56,7 @@ class ControladorAnimal:
         print()
 
     def listar_animais(self):
+        self.__tela_animal.mensagem("Lista de animais:")
         if len(self.__animais) != 0:
             for animal in self.__animais:
                 self.__tela_animal.mostra_animal(animal)
