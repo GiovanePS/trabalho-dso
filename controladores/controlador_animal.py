@@ -31,15 +31,16 @@ class ControladorAnimal:
         self.__tela_animal.mensagem("Alteração cadastral de animal.")
         codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
-        os.system('cls')
         if isinstance(animal, Animal):
             novos_dados_animal = self.__tela_animal.pega_dados_animal()
             animal.nome = novos_dados_animal["nome"]
             animal.tipo = novos_dados_animal["tipo"]
             animal.raca = novos_dados_animal["raca"]
             animal.tamanho = novos_dados_animal["tamanho"]
+            os.system('cls')
             self.__tela_animal.mensagem("Alteração realizada com sucesso.")
         else:
+            os.system('cls')
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
         print()
 

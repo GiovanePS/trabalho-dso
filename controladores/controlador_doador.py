@@ -30,15 +30,16 @@ class ControladorDoador:
         self.__tela_doador.mensagem("Alteração cadastral de doador")
         cpf = self.__tela_doador.pega_cpf()
         doador = self.pega_doador_por_cpf(cpf)
-        os.system('cls')
         if isinstance(doador, Doador):
             novos_dados_doador = self.__tela_doador.pega_dados_doador()
             doador.cpf = novos_dados_doador["cpf"]
             doador.nome = novos_dados_doador["nome"]
             doador.data_nascimento = novos_dados_doador["data_nascimento"]
             doador.endereco = novos_dados_doador["endereco"]
+            os.system('cls')
             self.__tela_doador.mensagem("Alteração realizada com sucesso!")
         else:
+            os.system('cls')
             self.__tela_doador.mensagem("Doador inexistente no sistema.")
         print()
 
