@@ -15,7 +15,15 @@ class TelaDoador():
         print("[3] Excluir doador.")
         print("[4] Listar doadores.")
         print("[0] Retornar para o menu princiapal.")
-        opcao_escolhida = int(input("Opção: "))
+        while True:
+            try:
+                opcao_escolhida = int(input("Opção: "))
+                if 0 <= opcao_escolhida <= 4:
+                    raise ValorInvalido
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite uma das opções.")
+            else:
+                break
         os.system('cls')
         return opcao_escolhida
 

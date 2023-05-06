@@ -1,6 +1,7 @@
 from telas.tela_sistema import TelaSistema
 from controladores.controlador_animal import ControladorAnimal
 from controladores.controlador_doador import ControladorDoador
+from controladores.controlador_adotante import ControladorAdotante
 from time import sleep
 import os
 
@@ -10,6 +11,7 @@ class ControladorSistema:
         self.__tela_sistema = TelaSistema()
         self.__controlador_animais = ControladorAnimal()
         self.__controlador_doador = ControladorDoador()
+        self.__controlador_adotante = ControladorAdotante()
 
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
@@ -23,6 +25,9 @@ class ControladorSistema:
     def menu_doador(self):
         self.__controlador_doador.abre_tela()
 
+    def menu_adotante(self):
+        self.__controlador_adotante.abre_tela()
+
     def encerra_sistema(self):
         print("Até logo!")
         sleep(1)
@@ -30,7 +35,7 @@ class ControladorSistema:
 
     def abre_tela(self):
         lista_opcoes = {1: self.menu_animais, 2: self.menu_doador,
-                        0: self.encerra_sistema}
+                        3: self.menu_adotante, 0: self.encerra_sistema}
 
         while True:
             opcao = self.__tela_sistema.tela_opcoes()

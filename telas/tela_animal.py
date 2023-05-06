@@ -11,9 +11,17 @@ class TelaAnimal:
         print("[3] Excluir animal.")
         print("[4] Listar animais.")
         print("[0] Retornar para o menu principal.")
-        opcao = int(input("Opção: "))
+        while True:
+            try:
+                opcao_escolhida = int(input("Opção: "))
+                if 0 <= opcao_escolhida <= 4:
+                    raise ValorInvalido
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite uma das opções.")
+            else:
+                break
         os.system('cls')
-        return opcao
+        return opcao_escolhida
 
     def pega_dados_animal(self):
         nome = input("  Nome do animal: ")
@@ -29,7 +37,7 @@ class TelaAnimal:
                 else:
                     break
             except (ValorInvalido, ValueError):
-                print("Digite uma das opções!")
+                print("Valor inválido! Digite uma das opções.")
 
         raca = input("  Raça do animal: ")
         if opcao_tipo == 1:
@@ -50,7 +58,7 @@ class TelaAnimal:
             try:
                 codigo_selecionado = int(input("Digite o código do animal: "))
             except ValueError:
-                print("Digite um valor inteiro válido.")
+                print("Valor inválido! Digite um valor inteiro válido.")
             else:
                 break
         return codigo_selecionado

@@ -1,5 +1,5 @@
 from pessoa import Pessoa
-from datetime import datetime
+from datetime import date
 
 
 class Adotante(Pessoa):
@@ -7,12 +7,12 @@ class Adotante(Pessoa):
         self,
         cpf: str,
         nome: str,
-        nascimento: datetime,
+        data_nascimento: date,
         endereco: str,
         tipo_habitacao: str,
         tem_animais: bool,
     ):
-        super().__init__(cpf, nome, nascimento, endereco)
+        super().__init__(cpf, nome, data_nascimento, endereco)
         self.__tipo_habitacao = tipo_habitacao
         self.__tem_animais = tem_animais
 
@@ -21,7 +21,7 @@ class Adotante(Pessoa):
         return self.__tipo_habitacao
 
     @tipo_habitacao.setter
-    def tipo_habitacao(self, tipo_habitacao):
+    def tipo_habitacao(self, tipo_habitacao: str):
         self.__tipo_habitacao = tipo_habitacao
 
     @property
@@ -29,5 +29,5 @@ class Adotante(Pessoa):
         return self.__tem_animais
 
     @tem_animais.setter
-    def tem_animais(self, tem_animais):
+    def tem_animais(self, tem_animais: bool):
         self.__tem_animais = tem_animais
