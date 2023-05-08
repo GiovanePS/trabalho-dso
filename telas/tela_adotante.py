@@ -1,4 +1,5 @@
 from exceptions.valor_invalido_exception import ValorInvalido
+from datetime import date
 import os
 
 
@@ -21,3 +22,27 @@ class TelaAdotante:
                 break
         os.system('cls')
         return opcao
+
+    def pega_dados(self):
+        cpf = input("CPF: ")
+        nome = input("Nome: ")
+        ano_nascimento = input("Ano de nascimento: ")
+        mes_nascimento = input("Mês de nascimento: ")
+        dia_nascimento = input("Dia de nascimento: ")
+        data_nascimento = date(ano_nascimento, mes_nascimento, dia_nascimento)
+        endereco = input("Endereço: ")
+        tipo_habitacao = input("Tipo de habitação: ")
+        print("Tem animais?")
+        print("[1] Sim")
+        print("[2] Não")
+        tem_animais = input("Opção: ")
+
+        return {"cpf": cpf,
+                "nome": nome,
+                "data_nascimento": data_nascimento,
+                "endereco": endereco,
+                "tipo_habitacao": tipo_habitacao,
+                "tem_animais": tem_animais}
+
+    def mensagem(self, mensagem):
+        print(mensagem)
