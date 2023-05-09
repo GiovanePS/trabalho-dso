@@ -14,7 +14,7 @@ class TelaAnimal:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 <= opcao_escolhida <= 4:
+                if 0 < opcao_escolhida > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")

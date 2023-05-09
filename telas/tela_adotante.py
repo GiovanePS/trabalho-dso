@@ -14,7 +14,7 @@ class TelaAdotante:
         while True:
             try:
                 opcao = int(input("Opção: "))
-                if 0 <= opcao <= 4:
+                if 0 < opcao > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
