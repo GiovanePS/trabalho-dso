@@ -1,14 +1,18 @@
+from entidades.doacao import Doacao
 from exceptions.valor_invalido_exception import ValorInvalido
+from datetime import date
 import os
 
-
-class TelaSistema:
+def TelaDoacao():
+    def __init__(self):
+        ...
     def tela_opcoes(self):
-        print("Escolha um dos Menus:")
-        print("[1] Animais.")
-        print("[2] Doadores")
-        print("[4] Doações")
-        print("[0] Finalizar sistema.")
+        print("Escolha uma opção:")
+        print("[1] Cadastrar doacao.")
+        print("[2] Alterar doacao.")
+        print("[3] Excluir doacao.")
+        print("[4] Listar doacoes.")
+        print("[0] Retornar para o menu princiapal.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
