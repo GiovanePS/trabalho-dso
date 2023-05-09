@@ -2,6 +2,7 @@ from telas.tela_doacao import TelaDoacao
 from entidades.doacao import Doacao
 import os
 
+
 class ControladorDoacao:
     def __init__(self):
         self.__doacoes = []

@@ -3,9 +3,10 @@ from exceptions.valor_invalido_exception import ValorInvalido
 from datetime import date
 import os
 
-def TelaDoacao():
+class TelaDoacao():
     def __init__(self):
         ...
+
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Cadastrar doacao.")
