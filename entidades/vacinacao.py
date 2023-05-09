@@ -1,5 +1,5 @@
 #acho que nao é agregacao nao
-from animal import Animal
+from entidades.animal import Animal
 from datetime import datetime
 
 class Vacinacao:
