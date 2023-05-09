@@ -3,6 +3,7 @@ from controladores.controlador_animal import ControladorAnimal
 from controladores.controlador_doador import ControladorDoador
 from controladores.controlador_adotante import ControladorAdotante
 from controladores.controlador_doacao import ControladorDoacao
+from controladores.controlador_adocao import ControladorAdocao
 from time import sleep
 import os
 
@@ -14,6 +15,7 @@ class ControladorSistema:
         self.__controlador_doador = ControladorDoador()
         self.__controlador_adotante = ControladorAdotante()
         self.__controlador_doacao = ControladorDoacao()
+        self.__controlador_adocao = ControladorAdocao()
 
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
@@ -33,6 +35,9 @@ class ControladorSistema:
     def menu_doacao(self):
         self.__controlador_doacao.abre_tela()
 
+    def menu_adocao(self):
+        self.__controlador_adocao.abre_tela()
+
     def encerra_sistema(self):
         print("Até logo!")
         sleep(1)
@@ -40,7 +45,7 @@ class ControladorSistema:
 
     def abre_tela(self):
         lista_opcoes = {1: self.menu_animais, 2: self.menu_doador,
-                        3: self.menu_adotante, 4: self.menu_doacao, 0: self.encerra_sistema}
+                        3: self.menu_adotante, 4: self.menu_doacao, 5:self.menu_adocao, 0: self.encerra_sistema}
 
         while True:
             opcao = self.__tela_sistema.tela_opcoes()
