@@ -8,7 +8,7 @@ class ControladorAnimal():
         self.__animais = []
         self.__id = 0
         self.__tela_animal = TelaAnimal()
-        self.__controlador_sistema=controlador_sistema
+        self.__controlador_sistema = controlador_sistema
 
     def pegar_animal_por_codigo(self, codigo):
         for animal in self.__animais:
@@ -25,7 +25,7 @@ class ControladorAnimal():
                         dados_animal["tamanho"])
         self.__animais.append(animal)
         os.system('cls')
-        self.__tela_animal.mensagem("Animal cadastrado com sucesso.")
+        self.__tela_animal.mensagem("Animal cadastrado com sucesso!")
         print()
 
     def alterar_animal(self):
@@ -39,7 +39,7 @@ class ControladorAnimal():
             animal.raca = novos_dados_animal["raca"]
             animal.tamanho = novos_dados_animal["tamanho"]
             os.system('cls')
-            self.__tela_animal.mensagem("Alteração realizada com sucesso.")
+            self.__tela_animal.mensagem("Alteração realizada com sucesso!")
         else:
             os.system('cls')
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
@@ -78,5 +78,3 @@ class ControladorAnimal():
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
-
-

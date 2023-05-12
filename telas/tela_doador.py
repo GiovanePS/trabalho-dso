@@ -1,5 +1,6 @@
 from entidades.doador import Doador
 from exceptions.valor_invalido_exception import ValorInvalido
+from utils.cpf_validador import cpf_validador
 from datetime import date
 import os
 
@@ -32,7 +33,13 @@ class TelaDoador():
         return cpf
 
     def pega_dados_doador(self):
-        cpf = input("CPF do doador: ")
+        while True:
+            cpf = input("CPF: ")
+            if cpf_validador(cpf):
+                break
+            else:
+                print("CPF inválido. Digite novamente.")
+
         nome = input("Nome do doador: ")
 
         while True:

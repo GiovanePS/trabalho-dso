@@ -7,13 +7,17 @@ class ControladorAdotante:
     def __init__(self, controlador_sistema):
         self.__adotantes = []
         self.__tela_adotante = TelaAdotante()
-        self.__controlador_sistema=controlador_sistema
+        self.__controlador_sistema = controlador_sistema
 
-    def pega_adotante_por_cpf(self):
-        ...
+    def pega_adotante_por_cpf(self, cpf):
+        for adotante in self.__adotantes:
+            if adotante.cpf == cpf:
+                return adotante
+        return None
 
     def incluir_adotante(self):
-        dados_adotante = self.__tela_adotante.pega_dados()
+        self.__tela_adotante.mensagem("Cadastro de adotante.")
+        dados_adotante = self.__tela_adotante.pega_dados_adotante()
         adotante = Adotante(dados_adotante["cpf"],
                             dados_adotante["nome"],
                             dados_adotante["data_nascimento"],
@@ -21,26 +25,55 @@ class ControladorAdotante:
                             dados_adotante["tipo_habitacao"],
                             dados_adotante["tem_animais"])
         self.__adotantes.append(adotante)
+        os.system('cls')
+        self.__tela_adotante.mensagem("Adotante cadastrado com sucesso.")
+        print()
 
     def alterar_adotante(self):
-        ...
+        self.__tela_adotante.mensagem("Alteração cadastral de adotante.")
+        cpf = self.__tela_adotante.seleciona_cpf()
+        adotante = self.pega_adotante_por_cpf(cpf)
+        if isinstance(adotante, Adotante):
+            novos_dados_adotante = self.__tela_adotante.pega_dados_adotante()
+            adotante.cpf = novos_dados_adotante["cpf"]
+            adotante.nome = novos_dados_adotante["nome"],
+            adotante.data_nascimento = novos_dados_adotante["data_nascimento"],
+            adotante.endereco = novos_dados_adotante["endereco"],
+            adotante.tipo_habitacao = novos_dados_adotante["tipo_habitacao"],
+            adotante.tem_animais = novos_dados_adotante["tem_animais"]
+            os.system('cls')
+            self.__tela_adotante.mensagem("Alteração realizada com sucesso!")
+        else:
+            os.system('cls')
+            self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
+        print()
 
     def excluir_adotante(self):
         self.__tela_adotante.mensagem("Exclusão de adotante do sistema.")
         cpf = self.__tela_adotante.seleciona_cpf()
         adotante = self.pega_adotante_por_cpf(cpf)
+        os.system('cls')
         if isinstance(adotante, Adotante):
             self.__adotantes.remove(adotante)
             self.__tela_adotante.mensagem("Adotante removido com sucesso!")
         else:
             self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
-        os.system('cls')
+        print()
 
     def listar_adotantes(self):
-        self.__tela_adotante.mensagem("Lista de adotantes:")
+        if len(self.__adotantes) != 0:
+            self.__tela_adotante.mensagem("Lista de adotantes:")
+            for adotante in self.__adotantes:
+                self.__tela_adotante.mostra_adotante(adotante)
+        else:
+            self.__tela_adotante.menasgem(
+                "Não há adotantes cadastrados no sistema.")
+        print()
 
     def abre_tela(self):
-        lista_opcoes = {0: "Retornar para menu principal."}
+        lista_opcoes = {1: self.incluir_adotante, 2: self.alterar_adotante,
+                        3: self.excluir_adotante, 4: self.listar_adotantes,
+                        0: "Retornar para menu principal."}
 
         while True:
             opcao = self.__tela_adotante.abre_tela()
