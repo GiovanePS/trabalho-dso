@@ -3,11 +3,12 @@ from telas.tela_animal import TelaAnimal
 import os
 
 
-class ControladorAnimal:
-    def __init__(self):
+class ControladorAnimal():
+    def __init__(self, controlador_sistema):
         self.__animais = []
         self.__id = 0
         self.__tela_animal = TelaAnimal()
+        self.__controlador_sistema=controlador_sistema
 
     def pegar_animal_por_codigo(self, codigo):
         for animal in self.__animais:
@@ -57,8 +58,8 @@ class ControladorAnimal:
         print()
 
     def listar_animais(self):
-        self.__tela_animal.mensagem("Lista de animais:")
         if len(self.__animais) != 0:
+            self.__tela_animal.mensagem("Lista de animais:")
             for animal in self.__animais:
                 self.__tela_animal.mostra_animal(animal)
         else:
@@ -77,3 +78,5 @@ class ControladorAnimal:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
+
+

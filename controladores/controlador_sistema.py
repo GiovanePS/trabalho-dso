@@ -12,12 +12,24 @@ import os
 class ControladorSistema:
     def __init__(self):
         self.__tela_sistema = TelaSistema()
-        self.__controlador_animais = ControladorAnimal()
-        self.__controlador_doador = ControladorDoador()
-        self.__controlador_adotante = ControladorAdotante()
-        self.__controlador_doacao = ControladorDoacao()
+        self.__controlador_animais = ControladorAnimal(self)
+        self.__controlador_doador = ControladorDoador(self)
+        self.__controlador_adotante = ControladorAdotante(self)
+        self.__controlador_doacao = ControladorDoacao(self)
         self.__controlador_adocao = ControladorAdocao()
         self.__controlador_vacinacao = ControladorVacinacao()
+
+    @property
+    def controlador_animais(self):
+        return self.__controlador_animais
+    
+    @property
+    def controlador_doador(self):
+        return self.__controlador_doador
+
+    @property
+    def controlador_adotante(self):
+        return self.__controlador_adotante
 
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
