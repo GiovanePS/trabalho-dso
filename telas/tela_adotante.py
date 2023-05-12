@@ -1,4 +1,5 @@
 from exceptions.valor_invalido_exception import ValorInvalido
+from entidades.adotante import Adotante
 from datetime import date
 import os
 
@@ -44,5 +45,18 @@ class TelaAdotante:
                 "tipo_habitacao": tipo_habitacao,
                 "tem_animais": tem_animais}
 
-    def mensagem(self, mensagem):
+    def mostra_adotante(self, adotante: Adotante):
+        print(f"{adotante}")
+
+    def seleciona_cpf(self):
+        while True:
+            try:
+                cpf = input("Digite o CPF: ")
+            except ValueError:
+                print("Valor inválido! Digite um valor inteiro válido.")
+            else:
+                break
+        return cpf
+
+    def mensagem(self, mensagem: str):
         print(mensagem)

@@ -7,6 +7,7 @@ class TelaSistema:
         print("Escolha um dos Menus:")
         print("[1] Animais.")
         print("[2] Doadores")
+        print("[3] Adotante")
         print("[0] Finalizar sistema.")
         while True:
             try:
