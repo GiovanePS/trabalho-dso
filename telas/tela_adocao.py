@@ -13,7 +13,7 @@ class TelaAdocao():
         print("[2] Alterar adocao.")
         print("[3] Excluir adocao.")
         print("[4] Listar adocoes.")
-        print("[0] Retornar para o menu princiapal.")
+        print("[0] Retornar para o menu principal.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
@@ -43,6 +43,7 @@ class TelaAdocao():
                     break
                 elif opcao_tipo==2:
                     assinatura=False
+                    break
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
         return{"data_adocao":data_adocao, "codigo_animal_adotado":codigo_animal_adotado, "cpf_adotante":cpf_adotante, "assinatura":assinatura}
@@ -54,6 +55,10 @@ class TelaAdocao():
         print("Codigo da adoção: ", dados_adocao["codigo_adocao"])
         print("Data da adoção: ", dados_adocao["data_adocao"])
         print("Nome/Código do animal: ", f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}')
-        print("Nome/Cpf do adotante: ", dados_adocao["nome_adotante"], dados_adocao["cpf_adotante"])
+        print("Nome/Cpf do adotante: ", f'{dados_adocao["nome_adotante"]} / {dados_adocao["cpf_adotante"]}')
         print("Termo de responsabilidade assinado: ", dados_adocao["assinatura"])
         print("\n")
+    
+    def seleciona_adocao(self):
+        id_adocao= input("Código da adoção que deseja selecionar: ")
+        return id_adocao

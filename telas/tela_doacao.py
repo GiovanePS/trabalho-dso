@@ -37,7 +37,8 @@ class TelaDoacao():
 
     def mostra_doacao(self, dados_doacao):
         print("Código da doação: ", dados_doacao["id"])
-        print("Nome/Cpf do doador: ", f'{dados_doacao["nome_doador"]} - {dados_doacao["cpf_doador"]}')
+        print("Data da doação: ", dados_doacao["data_doacao"])
+        print("Nome/Cpf do doador: ", f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}')
         print("Nome/Código do animal: ", f'{dados_doacao["nome_animal"]} / {dados_doacao["codigo_animal"]}')
         print("Motivo da doação: ", dados_doacao["motivo"])
         print("\n")

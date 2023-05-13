@@ -10,9 +10,9 @@ class ControladorAdocao:
         self.__tela_adocao = TelaAdocao()
         self.__id=0
     
-    def pega_adocao_por_id(self, id_adocao):
+    def pega_adocao_por_id(self, id):
         for adocao in self.__adocoes:
-            if int(adocao.id)==int(id_adocao):
+            if int(adocao.id_adocao)==int(id):
                 return adocao
         return None
 
@@ -29,7 +29,8 @@ class ControladorAdocao:
             self.__id+=1
             adocao=Adocao(dados_adocao["data_adocao"], animal, adotante, dados_adocao["assinatura"], self.__id )
             self.__adocoes.append(adocao)
-            print("Adoção cadastrada com sucesso!")
+            os.system('cls') 
+            print("Adoção cadastrada com sucesso!")           
         else:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
 
@@ -37,17 +38,33 @@ class ControladorAdocao:
         print('alterando animal')
 
     def excluir_adocao(self):
-        print('excluindo animal')
+        self.listar_adocoes()
+        id_adocao = self.__tela_adocao.seleciona_adocao()
+        adocao = self.pega_adocao_por_id(id_adocao)
+
+        if (adocao is not None):
+            self.__adocoes.remove(adocao)
+            os.system('cls') 
+            self.__tela_adocao.mostra_mensagem("Adoção removida com sucesso!")
+        else:
+            self.__tela_adocao.mostra_mensagem("Esta adoção NÃO EXISTE.")
 
     def listar_adocoes(self):
-        for adocao in self.__adocoes:
-            self.__tela_adocao.mostra_adocao({"codigo_adocao": adocao.id_adocao, 
-                                             "data_adocao": adocao.data_adocao, 
-                                             "nome_animal":adocao.animal_adotado.nome, 
-                                             "codigo_animal":adocao.animal_adotado.codigo, 
-                                             "nome_adotante":adocao.adotante.nome, 
-                                             "cpf_adotante":adocao.adotante.cpf, 
-                                             "assinatura": adocao.assinatura})
+        if len(self.__adocoes)==0:
+            print("Não há nenhuma adoção cadastrada!")
+        else:
+            print('Adoções:')
+            print()
+            for adocao in self.__adocoes:
+                self.__tela_adocao.mostra_adocao({"codigo_adocao": adocao.id_adocao, 
+                                                    "data_adocao": adocao.data_adocao, 
+                                                    "nome_animal":adocao.animal_adotado.nome, 
+                                                    "codigo_animal":adocao.animal_adotado.codigo, 
+                                                    "nome_adotante":adocao.adotante.nome, 
+                                                    "cpf_adotante":adocao.adotante.cpf, 
+                                                    "assinatura": adocao.assinatura})
+                print()
+
     def abre_tela(self):
         lista_opcoes = {1: self.incluir_adocao, 2: self.alterar_adocao,
                         3: self.excluir_adocao, 4: self.listar_adocoes,
