@@ -46,3 +46,14 @@ class TelaAdocao():
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
         return{"data_adocao":data_adocao, "codigo_animal_adotado":codigo_animal_adotado, "cpf_adotante":cpf_adotante, "assinatura":assinatura}
+    
+    def mostra_mensagem(self, msg):
+        print(msg)
+    
+    def mostra_adocao(self, dados_adocao):
+        print("Codigo da adoção: ", dados_adocao["codigo_adocao"])
+        print("Data da adoção: ", dados_adocao["data_adocao"])
+        print("Nome/Código do animal: ", f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}')
+        print("Nome/Cpf do adotante: ", dados_adocao["nome_adotante"], dados_adocao["cpf_adotante"])
+        print("Termo de responsabilidade assinado: ", dados_adocao["assinatura"])
+        print("\n")
