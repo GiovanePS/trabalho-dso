@@ -3,16 +3,16 @@ from telas.tela_animal import TelaAnimal
 import os
 
 
-class ControladorAnimal():
+class ControladorAnimal:
     def __init__(self, controlador_sistema):
         self.__animais = []
         self.__id = 0
         self.__tela_animal = TelaAnimal()
         self.__controlador_sistema = controlador_sistema
 
-    def pegar_animal_por_codigo(self, codigo):
+    def pegar_animal_por_codigo(self, codigo_animal):
         for animal in self.__animais:
-            if animal.codigo == codigo:
+            if int(animal.codigo) == int(codigo_animal):
                 return animal
         return None
 

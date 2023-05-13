@@ -1,7 +1,7 @@
 from telas.tela_doacao import TelaDoacao
 from entidades.doacao import Doacao
 import os
-from controladores.controlador_animal import *
+# from controladores.controlador_animal import *
 
 
 class ControladorDoacao():
@@ -17,7 +17,7 @@ class ControladorDoacao():
                 return doacao
             
     def incluir_doacao(self):
-        self.__controlador_sistema.controlador_animais.listar_animais()
+        self.__controlador_sistema.controlador_animal.listar_animais()
         self.__controlador_sistema.controlador_doador.listar_doadores()
 
         dados_doacao = self.__tela_doacao.pega_dados_doacao()
@@ -25,19 +25,21 @@ class ControladorDoacao():
         self.__id += 1
         self.__tela_doacao.mensagem("Cadastro de doação:")
         
-        animal = self.__controlador_sistema.controlador_animais.pegar_animal_por_codigo(dados_doacao["codigo_animal"])
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_doacao["codigo_animal"])
         doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(dados_doacao["cpf_doador"])
+        print('ok')
+        print('*******',animal, '********',doador) #so testando aq
+        if (doador is not None and animal is not None):
+            doacao = Doacao(dados_doacao["data_doacao"],
+                            animal, doador,
+                            dados_doacao["motivo"], self.__id)
+            self.__doacoes.append(doacao)
+            self.__tela_doacao.mensagem("Doação cadastrada com sucesso.")
+            print()           
+        else:
+            self.__tela_doacao.mensagem("Dados inválidos!")
+        # os.system('cls')
 
-        # if (doador is not None and animal is not None):
-        doacao = Doacao(dados_doacao["data_doacao"],
-                        animal, doador,
-                        dados_doacao["motivo"], self.__id)
-        self.__doacoes.append(doacao)
-        # else:
-            # self.__tela_doacao.mensagem("Dados inválidos!")
-        os.system('cls')
-        self.__tela_doacao.mensagem("Doação cadastrada com sucesso.")
-        print()
 
     def alterar_doacao(self):
         print('alterando animal')

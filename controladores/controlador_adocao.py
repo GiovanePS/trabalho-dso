@@ -4,12 +4,22 @@ import os
 
 
 class ControladorAdocao:
-    def __init__(self):
+    def __init__(self, controlador_sistema):
+        self.__controlador_sistema=controlador_sistema
         self.__adocoes = []
         self.__tela_adocao = TelaAdocao()
     
     def incluir_adocao(self):
-        print('incluindo animal')
+        self.__controlador_sistema.controlador_adotante.listar_adotantes()
+        self.__controlador_sistema.controlador_animal.listar_animais()
+        dados_adocao=self.__tela_adocao.pega_dados_adocao()
+
+
+        adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"])
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"])
+
+        print(f'adotante: ', adotante)
+        print(f'animal: ', animal) 
 
     def alterar_adocao(self):
         print('alterando animal')

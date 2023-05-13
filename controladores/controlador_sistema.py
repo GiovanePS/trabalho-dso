@@ -12,16 +12,16 @@ import os
 class ControladorSistema:
     def __init__(self):
         self.__tela_sistema = TelaSistema()
-        self.__controlador_animais = ControladorAnimal(self)
+        self.__controlador_animal = ControladorAnimal(self)
         self.__controlador_doador = ControladorDoador(self)
         self.__controlador_adotante = ControladorAdotante(self)
         self.__controlador_doacao = ControladorDoacao(self)
-        self.__controlador_adocao = ControladorAdocao()
+        self.__controlador_adocao = ControladorAdocao(self)
         self.__controlador_vacinacao = ControladorVacinacao()
 
     @property
-    def controlador_animais(self):
-        return self.__controlador_animais
+    def controlador_animal(self):
+        return self.__controlador_animal
     
     @property
     def controlador_doador(self):
@@ -38,7 +38,7 @@ class ControladorSistema:
         self.abre_tela()
 
     def menu_animais(self):
-        self.__controlador_animais.abre_tela()
+        self.__controlador_animal.abre_tela()
 
     def menu_doador(self):
         self.__controlador_doador.abre_tela()

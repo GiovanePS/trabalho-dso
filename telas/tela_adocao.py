@@ -25,3 +25,24 @@ class TelaAdocao():
                 break
         os.system('cls')
         return opcao_escolhida
+    
+    def pega_dados_adocao(self):
+        data_adocao=input("Data da adoção: ")
+        codigo_animal_adotado=input("Código do animal adotado: ")
+        cpf_adotante=input("Cpf do adotante: ")
+        print("Assinar termo de responsabilidade: ")
+        while True:
+            print("  [1] Sim.")
+            print("  [2] Não.")
+            try:
+                opcao_tipo = int(input("  Opção: "))
+                if opcao_tipo != 1 and opcao_tipo != 2:
+                    raise ValorInvalido
+                elif opcao_tipo==1:
+                    assinatura=True
+                    break
+                elif opcao_tipo==2:
+                    assinatura=False
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite uma das opções.")
+        return{"data_adocao":data_adocao, "codigo_animal_adotado":codigo_animal_adotado, "cpf_adotante":cpf_adotante, "assinatura":assinatura}

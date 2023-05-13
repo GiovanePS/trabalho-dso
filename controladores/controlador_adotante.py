@@ -66,7 +66,7 @@ class ControladorAdotante:
             for adotante in self.__adotantes:
                 self.__tela_adotante.mostra_adotante(adotante)
         else:
-            self.__tela_adotante.menasgem(
+            self.__tela_adotante.mensagem(
                 "Não há adotantes cadastrados no sistema.")
         print()
 
