@@ -8,6 +8,7 @@ class ControladorAdocao:
         self.__controlador_sistema=controlador_sistema
         self.__adocoes = []
         self.__tela_adocao = TelaAdocao()
+        self.__id=0
     
     def incluir_adocao(self):
         self.__controlador_sistema.controlador_adotante.listar_adotantes()
@@ -18,9 +19,15 @@ class ControladorAdocao:
         adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"])
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"])
 
+        if (adotante is not None and animal is not None):
+            self.__id+=1
+            adocao=Adocao(dados_adocao["data_adocao", animal, adotante, dados_adocao["assinatura"], self.__id ])
+            self.__adocoes.append(adocao)
+
         print(f'adotante: ', adotante)
         print(f'animal: ', animal) 
-
+        print(f'adocao: ', adocao)
+        
     def alterar_adocao(self):
         print('alterando animal')
 
