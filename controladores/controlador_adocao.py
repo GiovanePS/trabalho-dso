@@ -35,7 +35,22 @@ class ControladorAdocao:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
 
     def alterar_adocao(self):
-        print('alterando animal')
+        self.listar_adocoes()
+        id_adocao= self.__tela_adocao.seleciona_adocao()
+        adocao = self.pega_adocao_por_id(id_adocao)
+
+        if (adocao is not None):
+            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
+            adocao.data_adocao = novos_dados_adocao["data_adocao"]
+            # adocao.animal_adotado.nome = novos_dados_adocao["nome_animal"]
+            adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal"]
+            # adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
+            adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
+            adocao.assinatura = novos_dados_adocao["assinatura"]
+            self.listar_adocoes()
+        
+        else:
+            self.__tela_adocao.mostra_mensagem("Essa adoção NÃO EXISTE!")
 
     def excluir_adocao(self):
         self.listar_adocoes()
@@ -52,6 +67,7 @@ class ControladorAdocao:
     def listar_adocoes(self):
         if len(self.__adocoes)==0:
             print("Não há nenhuma adoção cadastrada!")
+            self.__controlador_sistema.menu_doacao()
         else:
             print('Adoções:')
             print()

@@ -41,7 +41,22 @@ class ControladorDoacao():
 
 
     def alterar_doacao(self):
-        print('alterando animal')
+        self.listar_doacoes()
+        id_doacao= self.__tela_doacao.seleciona_doacao()
+        doacao = self.pega_doacao_por_codigo(id_doacao)
+
+        if (doacao is not None):
+            novos_dados_doacao = self.__tela_doacao.pega_dados_doacao()
+            doacao.data_doacao = novos_dados_doacao["data_doacao"]
+            # doacao.animal.nome = novos_dados_doacao["nome_animal"]
+            doacao.animal.codigo = novos_dados_doacao["codigo_animal"]
+            # adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
+            doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
+            doacao.assinatura = novos_dados_doacao["assinatura"]
+            self.listar_doacoes()
+        
+        else:
+            self.__tela_doacao.mensagem("Essa doação NÃO EXISTE!")
 
     def excluir_doacao(self):
         self.listar_doacoes()
@@ -59,6 +74,7 @@ class ControladorDoacao():
     def listar_doacoes(self):
         if len(self.__doacoes)==0:
             print("Não há nenhuma doação cadastrada!")
+            self.abre_tela()
         else:
             print("Doações: \n")
             for d in self.__doacoes:
