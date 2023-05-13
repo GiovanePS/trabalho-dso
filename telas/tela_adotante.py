@@ -73,11 +73,40 @@ class TelaAdotante:
                 break
 
         endereco = input("Endereço: ")
-        tipo_habitacao = input("Tipo de habitação: ")
-        print("Tem animais?")
-        print("[1] Sim")
-        print("[2] Não")
-        tem_animais = input("Opção: ")
+        while True:
+            print("Tipo de habitação: ")
+            print("[1] Casa.")
+            print("[2] Apartamento.")
+            try:
+                tipo_habitacao = int(input("Opção: "))
+                if tipo_habitacao != 1 and tipo_habitacao != 2:
+                    raise ValorInvalido
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite um valor inteiro válido.")
+            else:
+                break
+        if tipo_habitacao == 1:
+            tipo_habitacao = "Casa"
+        else:
+            tipo_habitacao = "Apartamento."
+            
+        while True:
+            print("Tem animais?")
+            print("[1] Sim")
+            print("[2] Não")
+            try:
+                tem_animais = int(input("Opção: "))
+                if tem_animais != 1 and tem_animais != 2:
+                    raise ValorInvalido
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite um valor inteiro válido.")
+            else:
+                break
+        if tem_animais == 1:
+            tem_animais = "Sim"
+        else:
+            tem_animais = "Não"
+
 
         return {"cpf": cpf,
                 "nome": nome,
@@ -92,13 +121,11 @@ class TelaAdotante:
 
     def seleciona_cpf(self):
         while True:
-            try:
-                cpf = input("Digite o CPF: ")
-            except ValueError:
-                print("Valor inválido! Digite um valor inteiro válido.")
+            cpf = input("Digite o CPF: ")
+            if cpf_validador(cpf):
+                return cpf
             else:
-                break
-        return cpf
+                print("CPF inválido. Digite novamente.")
 
     def mensagem(self, mensagem: str):
         print(mensagem)
