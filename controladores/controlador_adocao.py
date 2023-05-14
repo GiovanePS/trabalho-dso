@@ -21,8 +21,8 @@ class ControladorAdocao:
         self.__controlador_sistema.controlador_animal.listar_animais()
         dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
-        adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"])
-        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"])
+        adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"]) # noqa
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"]) # noqa
 
         if (adotante is not None and animal is not None):
             self.__id += 1

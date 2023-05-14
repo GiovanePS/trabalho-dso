@@ -9,22 +9,37 @@ class ControladorDoador:
         self.__tela_doador = TelaDoador()
         self.__controlador_sistema = controlador_sistema
 
+    @property
+    def doadores(self):
+        return self.__doadores
+
     def pega_doador_por_cpf(self, cpf):
         for doador in self.__doadores:
             if doador.cpf == cpf:
                 return doador
         return None
 
+    def verificar_adotante(self, cpf):
+        for adotante in self.__controlador_sistema.controlador_adotante.adotantes: # noqa
+            if adotante.cpf == cpf:
+                return True
+        return False
+
     def incluir_doador(self):
         self.__tela_doador.mensagem("Cadastro de doador.")
         dados_doador = self.__tela_doador.pega_dados_doador()
-        doador = Doador(dados_doador["cpf"],
-                        dados_doador["nome"],
-                        dados_doador["data_nascimento"],
-                        dados_doador["endereco"])
-        self.__doadores.append(doador)
-        os.system('cls')
-        self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
+        eh_adotante = self.verificar_adotante(dados_doador["cpf"])
+        if not eh_adotante:
+            doador = Doador(dados_doador["cpf"],
+                            dados_doador["nome"],
+                            dados_doador["data_nascimento"],
+                            dados_doador["endereco"])
+            self.__doadores.append(doador)
+            os.system('cls')
+            self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
+        else:
+            self.__tela_doador.mensagem(
+                "Essa pessoa já está cadastrada como adotante.")
         print()
 
     def alterar_doador(self):

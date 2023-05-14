@@ -15,15 +15,15 @@ class TelaAdotante:
         print("[0] Retornar para o menu principal.")
         while True:
             try:
-                opcao = int(input("Opção: "))
-                if 0 < opcao > 4:
+                opcao_escolhida = int(input("Opção: "))
+                if 0 < opcao_escolhida > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
         os.system('cls')
-        return opcao
+        return opcao_escolhida
 
     def pega_dados_adotante(self):
         while True:

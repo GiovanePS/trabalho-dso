@@ -23,8 +23,8 @@ class ControladorDoacao():
 
         self.__tela_doacao.mensagem("Cadastro de doação:")
 
-        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_doacao["codigo_animal"])
-        doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(dados_doacao["cpf_doador"])
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_doacao["codigo_animal"]) # noqa
+        doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(dados_doacao["cpf_doador"]) # noqa
 
         if (doador is not None and animal is not None):
             self.__id += 1

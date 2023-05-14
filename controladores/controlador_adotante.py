@@ -9,24 +9,39 @@ class ControladorAdotante:
         self.__tela_adotante = TelaAdotante()
         self.__controlador_sistema = controlador_sistema
 
+    @property
+    def adotantes(self):
+        return self.__adotantes
+
     def pega_adotante_por_cpf(self, cpf):
         for adotante in self.__adotantes:
             if adotante.cpf == cpf:
                 return adotante
         return None
 
+    def verificar_doador(self, cpf):
+        for doador in self.__controlador_sistema.controlador_doador.doadores:
+            if doador.cpf == cpf:
+                return True
+        return False
+
     def incluir_adotante(self):
         self.__tela_adotante.mensagem("Cadastro de adotante.")
         dados_adotante = self.__tela_adotante.pega_dados_adotante()
-        adotante = Adotante(dados_adotante["cpf"],
-                            dados_adotante["nome"],
-                            dados_adotante["data_nascimento"],
-                            dados_adotante["endereco"],
-                            dados_adotante["tipo_habitacao"],
-                            dados_adotante["tem_animais"])
-        self.__adotantes.append(adotante)
-        os.system('cls')
-        self.__tela_adotante.mensagem("Adotante cadastrado com sucesso.")
+        eh_doador = self.verificar_doador(dados_adotante["cpf"])
+        if not eh_doador:
+            adotante = Adotante(dados_adotante["cpf"],
+                                dados_adotante["nome"],
+                                dados_adotante["data_nascimento"],
+                                dados_adotante["endereco"],
+                                dados_adotante["tipo_habitacao"],
+                                dados_adotante["tem_animais"])
+            self.__adotantes.append(adotante)
+            os.system('cls')
+            self.__tela_adotante.mensagem("Adotante cadastrado com sucesso.")
+        else:
+            self.__tela_adotante.mensagem(
+                "Essa pessoa já está cadastrada como doadora.")
         print()
 
     def alterar_adotante(self):

@@ -17,7 +17,7 @@ class ControladorSistema:
         self.__controlador_adotante = ControladorAdotante(self)
         self.__controlador_doacao = ControladorDoacao(self)
         self.__controlador_adocao = ControladorAdocao(self)
-        self.__controlador_vacinacao = ControladorVacinacao()
+        self.__controlador_vacinacao = ControladorVacinacao(self)
 
     @property
     def controlador_animal(self):
