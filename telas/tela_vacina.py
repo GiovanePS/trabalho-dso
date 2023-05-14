@@ -36,8 +36,8 @@ class TelaVacina:
         return {"nome_vacina": nome_vacina, "codigo_vacina": codigo_vacina}
 
     def mostra_vacina(self, vacina: Vacina):
-        print(f'Código: {vacina.codigo_vacina}')
-        print(f'Vacina: {vacina.nome_vacina}')
+        print(f'{vacina.codigo_vacina} - {vacina.nome_vacina}')
+
 
     def seleciona_codigo(self):
         codigo = input("Digite o codigo: ")

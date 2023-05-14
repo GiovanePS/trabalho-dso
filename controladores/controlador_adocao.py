@@ -9,7 +9,7 @@ class ControladorAdocao:
         self.__adocoes = []
         self.__tela_adocao = TelaAdocao()
         self.__id = 0
-        self.__animais_adotados=[]
+
 
     def pega_adocao_por_id(self, id):
         for adocao in self.__adocoes:
@@ -26,10 +26,7 @@ class ControladorAdocao:
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"]) # noqa
 
         if (adotante is not None and animal is not None):
-            if animal in self.__animais_adotados:
-                os.system('cls')
-                print('Este animal já foi adotado.')
-            else:
+            if animal.pode_ser_adotado==True and animal.foi_adotado==False:
                 if (animal.tamanho)==('Grande') and adotante.tipo_habitacao==('Apartamento pequeno'):
                     self.__tela_adocao.mostra_mensagem("Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!")
                     self.__controlador_sistema.abre_tela()
@@ -39,10 +36,12 @@ class ControladorAdocao:
                     adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
                                     dados_assinatura["assinatura"], self.__id)
                     self.__adocoes.append(adocao)
-                    self.__animais_adotados.append(animal)
+                    animal.foi_adotado=True
                     
                     os.system('cls')
                     print("Adoção cadastrada com sucesso!")
+            else:
+                print("Como informado acima, este animal não está disponível para adoção")
         else:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
 

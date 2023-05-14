@@ -28,9 +28,15 @@ class ControladorVacinacao:
             vacinacao = Vacinacao(dados_vacinacao["data_vacinacao"], vacina, animal, self.__id)
             self.__vacinacoes.append(vacinacao)
             os.system('cls')
+            animal.vacinas.append(vacina.nome_vacina)
             print("Vacinação registrada com sucesso!")
+            if 'Raiva' in animal.vacinas and 'Leptospirose' in animal.vacinas and 'Hepatite Infecciosa' in animal.vacinas:
+                animal.pode_ser_adotado=True
         else:
             self.__tela_vacinacao.mostra_mensagem("Dados inválidos!")
+        
+        # if 'Raiva' in animal.vacinas and 'Leptospirose' in animal.vacinas and 'Hepatite Infecciosa' in animal.vacinas:
+        #     animal.pode_ser_adotado=True
 
     def alterar_vacinacao(self):
         self.listar_vacinacoes()

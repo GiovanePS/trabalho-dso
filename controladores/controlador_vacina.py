@@ -8,6 +8,7 @@ class ControladorVacina:
         self.__vacinas = []
         self.__tela_vacina = TelaVacina()
         self.__controlador_sistema = controlador_sistema
+        self.__codigos=[]
 
     @property
     def vacinas(self):
@@ -21,9 +22,15 @@ class ControladorVacina:
 
     def incluir_vacina(self):
         self.__tela_vacina.mensagem("Cadastro de Vacina:")
-        dados_vacina = self.__tela_vacina.pega_dados_vacina()
+        while True:
+            dados_vacina = self.__tela_vacina.pega_dados_vacina()
+            if dados_vacina["codigo_vacina"] in self.__codigos:
+                self.__tela_vacina.mensagem('Este código já está cadastrado como o de outra vacina, por favor insira outro valor.')
+            else:
+                break
         os.system('cls')
         vacina = Vacina( dados_vacina["nome_vacina"],dados_vacina["codigo_vacina"])
+        self.__codigos.append(dados_vacina["codigo_vacina"])
         self.__vacinas.append(vacina)
         self.__tela_vacina.mensagem("Vacina cadastrada com sucesso!")
 
@@ -37,7 +44,7 @@ class ControladorVacina:
             self.__tela_vacina.mensagem("Novos dados: ")
             novos_dados_vacina = self.__tela_vacina.pega_dados_vacina()
             vacina.nome_vacina= novos_dados_vacina["nome_vacina"]
-            vacina.codigo_vacina= novos_dados_vacina["codigo_vacina"]
+            # vacina.codigo_vacina= novos_dados_vacina["codigo_vacina"]
             os.system('cls')
             self.__tela_vacina.mensagem("Alteração realizada com sucesso!")
         else:
@@ -55,13 +62,14 @@ class ControladorVacina:
         if isinstance(vacina, Vacina):
             self.__vacinas.remove(vacina)
             self.__tela_vacina.mensagem("Vacina removida com sucesso!")
+            self.__codigos.remove(codigo)
         else:
             self.__tela_vacina.mensagem("Vacina inexistente no sistema.")
         print()
 
     def listar_vacina(self):
         if len(self.__vacinas) != 0:
-            self.__tela_vacina.mensagem("Lista de vacinas:")
+            self.__tela_vacina.mensagem("Lista de vacinas (código - vacina):")
             print()
             for vacina in self.__vacinas:
                 self.__tela_vacina.mostra_vacina(vacina)

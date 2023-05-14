@@ -7,6 +7,8 @@ class Animal:
         self.__raca = raca
         self.__tamanho = tamanho
         self.__vacinas = []
+        self.__foi_adotado=False
+        self.__pode_ser_adotado=False
 
     @property
     def codigo(self):
@@ -51,3 +53,19 @@ class Animal:
     @property
     def vacinas(self):
         return self.__vacinas
+
+    @property
+    def foi_adotado(self):
+        return self.__foi_adotado
+
+    @foi_adotado.setter
+    def foi_adotado(self, foi_adotado: str):
+        self.__foi_adotado = foi_adotado
+
+    @property
+    def pode_ser_adotado(self):
+        return self.__pode_ser_adotado
+
+    @pode_ser_adotado.setter
+    def pode_ser_adotado(self, pode_ser_adotado: bool):
+        self.__pode_ser_adotado = pode_ser_adotado
