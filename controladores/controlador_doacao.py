@@ -47,9 +47,9 @@ class ControladorDoacao():
             doacao.data_doacao = novos_dados_doacao["data_doacao"]
             doacao.animal.nome = novos_dados_doacao["nome_animal"]
             doacao.animal.codigo = novos_dados_doacao["codigo_animal"]
-            doacao.adotante.nome = novos_dados_doacao["nome_adotante"]
+            doacao.doador.nome = novos_dados_doacao["nome_doador"]
             doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
-            doacao.assinatura = novos_dados_doacao["assinatura"]
+            doacao.motivo = novos_dados_doacao["motivo"]
             self.listar_doacoes()
 
         else:
@@ -69,8 +69,9 @@ class ControladorDoacao():
 
     def listar_doacoes(self):
         if len(self.__doacoes) == 0:
-            print("Não há nenhuma doação cadastrada!")
-            self.abre_tela()
+            self.__tela_doacao.mensagem(
+                "Ainda não há doações no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         else:
             print("Doações: \n")
             for doador in self.__doacoes:

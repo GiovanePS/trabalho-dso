@@ -49,10 +49,16 @@ class TelaAnimal:
                 "raca": raca, "tamanho": tamanho}
 
     def mostra_animal(self, animal: Animal):
-        print(f"{animal.codigo} - {animal.nome}, {animal.tipo}", end='')
+        print(f"{animal.codigo} - {animal.nome}, {animal.tipo}, {animal.raca}", end='')
         print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" \
             else print(".")
-
+        print(f'Vacinas: {animal.vacinas}')
+        if animal.pode_ser_adotado==True and animal.foi_adotado==False:
+            print("Disponível para adoção: Sim")
+        else:
+            print("Disponível para adoção: Não")
+        print()
+        
     def seleciona_codigo_animal(self):
         while True:
             try:

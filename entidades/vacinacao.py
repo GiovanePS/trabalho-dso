@@ -1,11 +1,11 @@
-# acho que nao é agregacao nao
 from entidades.animal import Animal
+from entidades.vacina import Vacina
 from datetime import datetime
 
 
 class Vacinacao:
     def __init__(self, data_vacina: datetime,
-                 vacina: str, animal: Animal,
+                 vacina: Vacina, animal: Animal,
                  id_vacinacao: int):
         self.__data_vacina = data_vacina
         self.__vacina = vacina

@@ -10,6 +10,7 @@ class ControladorAdocao:
         self.__tela_adocao = TelaAdocao()
         self.__id = 0
 
+
     def pega_adocao_por_id(self, id):
         for adocao in self.__adocoes:
             if int(adocao.id_adocao) == int(id):
@@ -25,12 +26,22 @@ class ControladorAdocao:
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"]) # noqa
 
         if (adotante is not None and animal is not None):
-            self.__id += 1
-            adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
-                            dados_adocao["assinatura"], self.__id)
-            self.__adocoes.append(adocao)
-            os.system('cls')
-            print("Adoção cadastrada com sucesso!")
+            if animal.pode_ser_adotado==True and animal.foi_adotado==False:
+                if (animal.tamanho)==('Grande') and adotante.tipo_habitacao==('Apartamento pequeno'):
+                    self.__tela_adocao.mostra_mensagem("Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!")
+                    self.__controlador_sistema.abre_tela()
+                else:
+                    dados_assinatura = self.__tela_adocao.pega_assinatura()
+                    self.__id += 1
+                    adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
+                                    dados_assinatura["assinatura"], self.__id)
+                    self.__adocoes.append(adocao)
+                    animal.foi_adotado=True
+                    
+                    os.system('cls')
+                    print("Adoção cadastrada com sucesso!")
+            else:
+                print("Como informado acima, este animal não está disponível para adoção")
         else:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
 
@@ -42,11 +53,11 @@ class ControladorAdocao:
         if (adocao is not None):
             novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
             adocao.data_adocao = novos_dados_adocao["data_adocao"]
-            adocao.animal_adotado.nome = novos_dados_adocao["nome_animal"]
-            adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal"]
+            adocao.animal_adotado.nome = novos_dados_adocao["nome_animal_adotado"]
+            adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal_adotado"]
             adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
             adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
-            adocao.assinatura = novos_dados_adocao["assinatura"]
+            # adocao.assinatura = novos_dados_adocao["assinatura"]
             self.listar_adocoes()
 
         else:
@@ -66,8 +77,9 @@ class ControladorAdocao:
 
     def listar_adocoes(self):
         if len(self.__adocoes) == 0:
-            print("Não há nenhuma adoção cadastrada!")
-            self.__controlador_sistema.menu_doacao()
+            self.__tela_adocao.mostra_mensagem(
+                "Ainda não há adoções no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         else:
             print('Adoções:')
             print()

@@ -29,6 +29,7 @@ class ControladorAnimal:
         print()
 
     def alterar_animal(self):
+        self.listar_animais()
         self.__tela_animal.mensagem("Alteração cadastral de animal.")
         codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
@@ -64,7 +65,8 @@ class ControladorAnimal:
                 self.__tela_animal.mostra_animal(animal)
         else:
             self.__tela_animal.mensagem(
-                "Não há animais cadastrados no sistema.")
+                "Ainda não há animais no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
@@ -78,3 +80,15 @@ class ControladorAnimal:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
+
+    # def listar_animais_adocao(self):
+    #     if len(self.__animais) != 0:
+    #         self.__tela_animal.mensagem("Lista de animais disponíveis para adoção:")
+    #         for animal in self.__animais:
+    #             if animal.foi_adotado==False and animal.pode_ser_adotado==True:
+    #                 self.__tela_animal.mostra_animal(animal)
+    #     else:
+    #         self.__tela_animal.mensagem(
+    #             "Não há animais disponíveis no sistema. Voce deve cadastrar primeiro!")
+    #         self.__controlador_sistema.abre_tela()
+    #     print()
