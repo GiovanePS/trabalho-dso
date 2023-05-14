@@ -1,6 +1,4 @@
 from telas.tela_vacinacao import TelaVacinacao
-from entidades.vacinacao import Vacinacao
-import os
 
 
 class ControladorVacinacao:

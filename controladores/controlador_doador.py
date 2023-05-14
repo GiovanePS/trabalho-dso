@@ -7,7 +7,7 @@ class ControladorDoador:
     def __init__(self, controlador_sistema):
         self.__doadores = []
         self.__tela_doador = TelaDoador()
-        self.__controlador_sistema=controlador_sistema
+        self.__controlador_sistema = controlador_sistema
 
     def pega_doador_por_cpf(self, cpf):
         for doador in self.__doadores:
@@ -76,4 +76,3 @@ class ControladorDoador:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
-

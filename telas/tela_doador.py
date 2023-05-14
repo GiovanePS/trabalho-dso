@@ -6,9 +6,6 @@ import os
 
 
 class TelaDoador():
-    def __init__(self):
-        ...
-
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Cadastrar doador.")

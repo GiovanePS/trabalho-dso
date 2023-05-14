@@ -89,7 +89,7 @@ class TelaAdotante:
             tipo_habitacao = "Casa"
         else:
             tipo_habitacao = "Apartamento."
-            
+
         while True:
             print("Tem animais?")
             print("[1] Sim")
@@ -106,7 +106,6 @@ class TelaAdotante:
             tem_animais = "Sim"
         else:
             tem_animais = "Não"
-
 
         return {"cpf": cpf,
                 "nome": nome,

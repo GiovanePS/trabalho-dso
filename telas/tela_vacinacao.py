@@ -1,12 +1,8 @@
-from entidades.vacinacao import Vacinacao
 from exceptions.valor_invalido_exception import ValorInvalido
-from datetime import date
 import os
 
-class TelaVacinacao():
-    def __init__(self):
-        ...
 
+class TelaVacinacao():
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Cadastrar vacina.")

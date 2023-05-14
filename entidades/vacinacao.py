@@ -1,14 +1,17 @@
-#acho que nao é agregacao nao
+# acho que nao é agregacao nao
 from entidades.animal import Animal
 from datetime import datetime
 
+
 class Vacinacao:
-    def __init__(self, data_vacina: datetime, vacina:str, animal: Animal, id_vacinacao: int ):
-        self.__data_vacina=data_vacina
-        self.__vacina=vacina
-        self.__animal=animal
-        self.__id_vacinacao=id_vacinacao
-    
+    def __init__(self, data_vacina: datetime,
+                 vacina: str, animal: Animal,
+                 id_vacinacao: int):
+        self.__data_vacina = data_vacina
+        self.__vacina = vacina
+        self.__animal = animal
+        self.__id_vacinacao = id_vacinacao
+
     @property
     def data_vacina(self):
         return self.__data_vacina
@@ -24,7 +27,7 @@ class Vacinacao:
     @vacina.setter
     def vacina(self, vacina):
         self.__vacina = vacina
-    
+
     @property
     def animal(self):
         return self.__animal
@@ -36,7 +39,3 @@ class Vacinacao:
     @property
     def id_vacinacao(self):
         return self.__id_vacinacao
-
-
-
-

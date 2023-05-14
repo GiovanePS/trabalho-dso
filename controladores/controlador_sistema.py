@@ -61,8 +61,13 @@ class ControladorSistema:
         exit()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.menu_animais, 2: self.menu_doador,
-                        3: self.menu_adotante, 4: self.menu_doacao, 5:self.menu_adocao, 6:self.menu_vacinacao, 0: self.encerra_sistema}
+        lista_opcoes = {1: self.menu_animais,
+                        2: self.menu_doador,
+                        3: self.menu_adotante,
+                        4: self.menu_doacao,
+                        5: self.menu_adocao,
+                        6: self.menu_vacinacao,
+                        0: self.encerra_sistema}
 
         while True:
             opcao = self.__tela_sistema.tela_opcoes()

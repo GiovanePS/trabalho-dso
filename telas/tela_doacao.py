@@ -1,12 +1,8 @@
-from entidades.doacao import Doacao
 from exceptions.valor_invalido_exception import ValorInvalido
-from datetime import date
 import os
 
-class TelaDoacao():
-    def __init__(self):
-        ...
 
+class TelaDoacao():
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Cadastrar doacao.")
@@ -38,8 +34,10 @@ class TelaDoacao():
     def mostra_doacao(self, dados_doacao):
         print("Código da doação: ", dados_doacao["id"])
         print("Data da doação: ", dados_doacao["data_doacao"])
-        print("Nome/Cpf do doador: ", f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}')
-        print("Nome/Código do animal: ", f'{dados_doacao["nome_animal"]} / {dados_doacao["codigo_animal"]}')
+        print("Nome/Cpf do doador: ", f'{dados_doacao["nome_doador"]} / " \
+              {dados_doacao["cpf_doador"]}')
+        print("Nome/Código do animal: ", f'{dados_doacao["nome_animal"]} / " \
+              {dados_doacao["codigo_animal"]}')
         print("Motivo da doação: ", dados_doacao["motivo"])
         print("\n")
         pass
