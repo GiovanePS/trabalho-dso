@@ -95,7 +95,8 @@ class ControladorAdotante:
                 self.__tela_adotante.mostra_adotante(adotante)
         else:
             self.__tela_adotante.mensagem(
-                "Não há adotantes cadastrados no sistema.")
+                "Ainda não há adotantes no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):

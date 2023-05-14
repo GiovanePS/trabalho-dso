@@ -69,8 +69,9 @@ class ControladorDoacao():
 
     def listar_doacoes(self):
         if len(self.__doacoes) == 0:
-            print("Não há nenhuma doação cadastrada!")
-            self.abre_tela()
+            self.__tela_doacao.mensagem(
+                "Ainda não há doações no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         else:
             print("Doações: \n")
             for doador in self.__doacoes:

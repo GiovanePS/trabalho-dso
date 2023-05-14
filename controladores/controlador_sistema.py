@@ -69,6 +69,7 @@ class ControladorSistema:
         sleep(1)
         exit()
 
+
     def abre_tela(self):
         lista_opcoes = {1: self.menu_animais,
                         2: self.menu_doador,

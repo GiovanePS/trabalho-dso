@@ -25,7 +25,13 @@ class TelaVacina:
 
     def pega_dados_vacina(self):
         nome_vacina = input("Nome: ")
-        codigo_vacina = input("Código: ")
+        while True:
+            codigo = input("Código: ")
+            if codigo.isnumeric():
+                codigo_vacina=codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
 
         return {"nome_vacina": nome_vacina, "codigo_vacina": codigo_vacina}
 

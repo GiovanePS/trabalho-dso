@@ -23,8 +23,20 @@ class TelaVacinacao():
         return opcao_escolhida
 
     def pega_dados_vacinacao(self):
-        data_vacinacao = input("Data da vacinação: ")
-        codigo_animal_vacinado = input("Código do animal vacinado: ")
+        while True:
+            data = input("Data da vacinação (dia/mês/ano): ")
+            if (1<=int(data[0:2])<=31) and (1<=int(data[3:5])<=12) and (1900<=int(data[6:10])<=2023):
+                data_vacinacao = data
+                break
+            else:
+                print("ERRO. Uma data válida deve ser preenchida conforme formato solicitado.")
+        while True:
+            codigo = input("Código do animal vacinado: ")
+            if codigo.isnumeric():
+                codigo_animal_vacinado=codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
         codigo_vacina = input("Código da vacina aplicada: ")
         return {"data_vacinacao": data_vacinacao,
                 "codigo_animal_vacinado": codigo_animal_vacinado,

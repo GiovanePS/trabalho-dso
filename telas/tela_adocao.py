@@ -23,8 +23,21 @@ class TelaAdocao():
         return opcao_escolhida
 
     def pega_dados_adocao(self):
-        data_adocao = input("Data da adoção: ")
-        codigo_animal_adotado = input("Código do animal adotado: ")
+        while True:
+            data = input("Data da adoção (dia/mês/ano): ")
+            if (1<=int(data[0:2])<=31) and (1<=int(data[3:5])<=12) and (1900<=int(data[6:10])<=2023):
+                data_adocao = data
+                break
+            else:
+                print("ERRO. Uma data válida deve ser preenchida conforme formato solicitado.")
+        
+        while True:
+            codigo = input("Código do animal adotado: ")
+            if codigo.isnumeric():
+                codigo_animal_adotado=codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
         nome_animal_adotado = input("Nome do animal adotado: ")
         cpf_adotante = input("Cpf do adotante: ")
         nome_adotante = input("Nome do adotante: ")

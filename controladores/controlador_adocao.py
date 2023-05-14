@@ -66,8 +66,9 @@ class ControladorAdocao:
 
     def listar_adocoes(self):
         if len(self.__adocoes) == 0:
-            print("Não há nenhuma adoção cadastrada!")
-            self.__controlador_sistema.menu_doacao()
+            self.__tela_adocao.mostra_mensagem(
+                "Ainda não há adoções no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         else:
             print('Adoções:')
             print()

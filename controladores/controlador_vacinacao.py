@@ -62,8 +62,9 @@ class ControladorVacinacao:
 
     def listar_vacinacoes(self):
         if len(self.__vacinacoes) == 0:
-            print("Não há nenhuma vacinação cadastrada!")
-            self.__controlador_sistema.menu_vacinacao()
+            self.__tela_vacinacao.mostra_mensagem(
+                "Ainda não há vacinações no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         else:
             print('Vacinações:')
             print()
@@ -89,6 +90,3 @@ class ControladorVacinacao:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
-
-    def retornar(self):
-        self.__controlador_sistema.abre_tela()

@@ -78,7 +78,9 @@ class ControladorDoador:
             for doador in self.__doadores:
                 self.__tela_doador.mostra_doador(doador)
         else:
-            print("Não há doadores cadastrados no sistema.")
+            self.__tela_doador.mensagem(
+                "Ainda não há doadores no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):

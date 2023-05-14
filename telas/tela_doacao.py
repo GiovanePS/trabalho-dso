@@ -23,8 +23,22 @@ class TelaDoacao():
         return opcao_escolhida
 
     def pega_dados_doacao(self):
-        data_doacao = input("Data de doação: ")
-        codigo_animal = input("Código do animal: ")
+        while True:
+            data = input("Data de doação(dia/mês/ano): ")
+            if (1<=int(data[0:2])<=31) and (1<=int(data[3:5])<=12) and (1900<=int(data[6:10])<=2023):
+                data_doacao = data
+                break
+            else:
+                print("ERRO. Uma data válida deve ser preenchida conforme formato solicitado.")
+        
+        while True:
+            codigo = input("Código do animal: ")
+            if codigo.isnumeric():
+                codigo_animal=codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
+
         nome_animal = input("Nome do animal: ")
         cpf_doador = input("Cpf do doador: ")
         nome_doador = input("Nome do doador: ")
