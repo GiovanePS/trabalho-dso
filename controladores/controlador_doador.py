@@ -28,19 +28,19 @@ class ControladorDoador:
     def incluir_doador(self):
         self.__tela_doador.mensagem("Cadastro de doador.")
         dados_doador = self.__tela_doador.pega_dados_doador()
-        eh_adotante = self.verificar_adotante(dados_doador["cpf"])
         os.system('cls')
-        if not eh_adotante:
-            doador = Doador(dados_doador["cpf"],
-                            dados_doador["nome"],
-                            dados_doador["data_nascimento"],
-                            dados_doador["endereco"])
-            self.__doadores.append(doador)
-            self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
-        else:
+        if self.verificar_adotante(dados_doador["cpf"]):
             self.__tela_doador.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
                 "Essa pessoa já está cadastrada como adotante.")
+            return
+
+        doador = Doador(dados_doador["cpf"],
+                        dados_doador["nome"],
+                        dados_doador["data_nascimento"],
+                        dados_doador["endereco"])
+        self.__doadores.append(doador)
+        self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
         print()
 
     def alterar_doador(self):
@@ -49,6 +49,11 @@ class ControladorDoador:
         doador = self.pega_doador_por_cpf(cpf)
         if isinstance(doador, Doador):
             novos_dados_doador = self.__tela_doador.pega_dados_doador()
+            if self.verificar_adotante(novos_dados_doador["cpf"]):
+                self.__tela_doador.mensagem(
+                    "Não foi possível alterar o cadastro desta pessoa. "
+                    "Este novo CPF já está cadastrado como doador.\n")
+                return
             doador.cpf = novos_dados_doador["cpf"]
             doador.nome = novos_dados_doador["nome"]
             doador.data_nascimento = novos_dados_doador["data_nascimento"]

@@ -63,6 +63,11 @@ class ControladorAdotante:
         adotante = self.pega_adotante_por_cpf(cpf)
         if isinstance(adotante, Adotante):
             novos_dados_adotante = self.__tela_adotante.pega_dados_adotante()
+            if self.verificar_doador(novos_dados_adotante["cpf"]):
+                self.__tela_adotante.mensagem(
+                    "Não foi possível alterar o cadastro desta pessoa. "
+                    "Este novo CPF já está cadastrado como doador.\n")
+                return
             adotante.cpf = novos_dados_adotante["cpf"]
             adotante.nome = novos_dados_adotante["nome"],
             adotante.data_nascimento = novos_dados_adotante["data_nascimento"],
