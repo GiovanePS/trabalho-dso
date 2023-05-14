@@ -25,12 +25,16 @@ class ControladorAdocao:
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"]) # noqa
 
         if (adotante is not None and animal is not None):
-            self.__id += 1
-            adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
-                            dados_adocao["assinatura"], self.__id)
-            self.__adocoes.append(adocao)
-            os.system('cls')
-            print("Adoção cadastrada com sucesso!")
+            if (animal.tamanho)==('Grande') and adotante.tipo_habitacao==('Apartamento pequeno'):
+                self.__tela_adocao.mostra_mensagem("Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!")
+                self.__controlador_sistema.abre_tela()
+            else:
+                self.__id += 1
+                adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
+                                dados_adocao["assinatura"], self.__id)
+                self.__adocoes.append(adocao)
+                # os.system('cls')
+                print("Adoção cadastrada com sucesso!")
         else:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
 

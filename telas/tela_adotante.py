@@ -39,7 +39,7 @@ class TelaAdotante:
             try:
                 while True:
                     try:
-                        ano = int(input("Ano de nascimento do doador: "))
+                        ano = int(input("Ano de nascimento do adotante: "))
                         if 1900 <= ano <= 2023:
                             break
                         else:
@@ -49,7 +49,7 @@ class TelaAdotante:
 
                 while True:
                     try:
-                        mes = int(input("Mês de nascimento do doador: "))
+                        mes = int(input("Mês de nascimento do adotante: "))
                         if 1 <= mes <= 12:
                             break
                         else:
@@ -59,7 +59,7 @@ class TelaAdotante:
 
                 while True:
                     try:
-                        dia = int(input("Dia de nascimento do doador: "))
+                        dia = int(input("Dia de nascimento do adotante: "))
                         if 1 <= dia <= 31:
                             break
                         else:

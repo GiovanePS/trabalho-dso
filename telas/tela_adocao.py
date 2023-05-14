@@ -1,6 +1,6 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 import os
-
+from datetime import date
 
 class TelaAdocao():
     def tela_opcoes(self):
@@ -24,13 +24,43 @@ class TelaAdocao():
 
     def pega_dados_adocao(self):
         while True:
-            data = input("Data da adoção (dia/mês/ano): ")
-            if (1<=int(data[0:2])<=31) and (1<=int(data[3:5])<=12) and (1900<=int(data[6:10])<=2023):
-                data_adocao = data
-                break
+            try:
+                while True:
+                    try:
+                        dia = int(input("Dia da adoção: "))
+                        if 1 <= dia <= 31:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um dia válido!")
+                while True:
+                    try:
+                        mes = int(input("Mês da adoção: "))
+                        if 1 <= mes <= 12:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um mês válido!")
+
+                while True:
+                    try:
+                        ano = int(input("Ano da adoção: "))
+                        if 1900 <= ano <= 2023:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um ano válido!")
+
+                    
+                data_adocao = date(ano, mes, dia)
+            except ValueError:
+                print("Data inválida. Digite a data novamente!")
             else:
-                print("ERRO. Uma data válida deve ser preenchida conforme formato solicitado.")
-        
+                break
+
         while True:
             codigo = input("Código do animal adotado: ")
             if codigo.isnumeric():
@@ -38,9 +68,9 @@ class TelaAdocao():
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
-        nome_animal_adotado = input("Nome do animal adotado: ")
+        # nome_animal_adotado = input("Nome do animal adotado: ")
         cpf_adotante = input("Cpf do adotante: ")
-        nome_adotante = input("Nome do adotante: ")
+        # nome_adotante = input("Nome do adotante: ")
         print("Assinar termo de responsabilidade: ")
         while True:
             print("  [1] Sim.")
@@ -57,13 +87,13 @@ class TelaAdocao():
                     break
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
+
         return {"data_adocao": data_adocao,
                 "codigo_animal_adotado": codigo_animal_adotado,
-                "nome_animal_adotado": nome_animal_adotado,
                 "cpf_adotante": cpf_adotante,
-                "nome_adotante": nome_adotante,
                 "assinatura": assinatura}
-
+    
+#"nome_adotante": nome_adotante,"nome_animal_adotado": nome_animal_adotado,
     def mostra_mensagem(self, msg):
         print(msg)
 
@@ -79,3 +109,23 @@ class TelaAdocao():
     def seleciona_adocao(self):
         id_adocao = input("Código da adoção que deseja selecionar: ")
         return id_adocao
+
+    def pega_assinatura(self):
+        print("Assinar termo de responsabilidade: ")
+        while True:
+            print("  [1] Sim.")
+            print("  [2] Não.")
+            try:
+                opcao_tipo = int(input("  Opção: "))
+                if opcao_tipo != 1 and opcao_tipo != 2:
+                    raise ValorInvalido
+                elif opcao_tipo == 1:
+                    assinatura = True
+                    break
+                elif opcao_tipo == 2:
+                    assinatura = False
+                    break
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite uma das opções.")
+
+        return {"assintura": assinatura}

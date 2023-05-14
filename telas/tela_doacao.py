@@ -1,6 +1,6 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 import os
-
+from datetime import date 
 
 class TelaDoacao():
     def tela_opcoes(self):
@@ -24,13 +24,43 @@ class TelaDoacao():
 
     def pega_dados_doacao(self):
         while True:
-            data = input("Data de doação(dia/mês/ano): ")
-            if (1<=int(data[0:2])<=31) and (1<=int(data[3:5])<=12) and (1900<=int(data[6:10])<=2023):
-                data_doacao = data
-                break
+            try:
+                while True:
+                    try:
+                        dia = int(input("Dia da doação: "))
+                        if 1 <= dia <= 31:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um dia válido!")
+                while True:
+                    try:
+                        mes = int(input("Mês da doação: "))
+                        if 1 <= mes <= 12:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um mês válido!")
+
+                while True:
+                    try:
+                        ano = int(input("Ano da doação: "))
+                        if 1900 <= ano <= 2023:
+                            break
+                        else:
+                            raise ValorInvalido
+                    except (ValorInvalido, ValueError):
+                        print("Digite um ano válido!")
+
+                    
+                data_doacao = date(ano, mes, dia)
+            except ValueError:
+                print("Data inválida. Digite a data novamente!")
             else:
-                print("ERRO. Uma data válida deve ser preenchida conforme formato solicitado.")
-        
+                break
+
         while True:
             codigo = input("Código do animal: ")
             if codigo.isnumeric():
