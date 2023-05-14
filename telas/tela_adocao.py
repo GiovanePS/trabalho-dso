@@ -68,32 +68,16 @@ class TelaAdocao():
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
-        # nome_animal_adotado = input("Nome do animal adotado: ")
+        nome_animal_adotado = input("Nome do animal adotado: ")
         cpf_adotante = input("Cpf do adotante: ")
-        # nome_adotante = input("Nome do adotante: ")
-        print("Assinar termo de responsabilidade: ")
-        while True:
-            print("  [1] Sim.")
-            print("  [2] Não.")
-            try:
-                opcao_tipo = int(input("  Opção: "))
-                if opcao_tipo != 1 and opcao_tipo != 2:
-                    raise ValorInvalido
-                elif opcao_tipo == 1:
-                    assinatura = True
-                    break
-                elif opcao_tipo == 2:
-                    assinatura = False
-                    break
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite uma das opções.")
+        nome_adotante = input("Nome do adotante: ")
 
         return {"data_adocao": data_adocao,
                 "codigo_animal_adotado": codigo_animal_adotado,
-                "cpf_adotante": cpf_adotante,
-                "assinatura": assinatura}
+                "cpf_adotante": cpf_adotante,"nome_adotante": nome_adotante,
+                "nome_animal_adotado": nome_animal_adotado,}
     
-#"nome_adotante": nome_adotante,"nome_animal_adotado": nome_animal_adotado,
+
     def mostra_mensagem(self, msg):
         print(msg)
 
@@ -128,4 +112,4 @@ class TelaAdocao():
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
 
-        return {"assintura": assinatura}
+        return {"assinatura": assinatura}
