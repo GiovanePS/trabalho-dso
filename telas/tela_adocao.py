@@ -5,7 +5,7 @@ import os
 class TelaAdocao():
     def tela_opcoes(self):
         print("Escolha uma opção:")
-        print("[1] Cadastrar adocao.")
+        print("[1] Registrar adocao.")
         print("[2] Alterar adocao.")
         print("[3] Excluir adocao.")
         print("[4] Listar adocoes.")
@@ -25,7 +25,9 @@ class TelaAdocao():
     def pega_dados_adocao(self):
         data_adocao = input("Data da adoção: ")
         codigo_animal_adotado = input("Código do animal adotado: ")
+        nome_animal_adotado = input("Nome do animal adotado: ")
         cpf_adotante = input("Cpf do adotante: ")
+        nome_adotante = input("Nome do adotante: ")
         print("Assinar termo de responsabilidade: ")
         while True:
             print("  [1] Sim.")
@@ -44,7 +46,9 @@ class TelaAdocao():
                 print("Valor inválido! Digite uma das opções.")
         return {"data_adocao": data_adocao,
                 "codigo_animal_adotado": codigo_animal_adotado,
+                "nome_animal_adotado": nome_animal_adotado,
                 "cpf_adotante": cpf_adotante,
+                "nome_adotante": nome_adotante,
                 "assinatura": assinatura}
 
     def mostra_mensagem(self, msg):
@@ -53,10 +57,8 @@ class TelaAdocao():
     def mostra_adocao(self, dados_adocao):
         print("Codigo da adoção: ", dados_adocao["codigo_adocao"])
         print("Data da adoção: ", dados_adocao["data_adocao"])
-        print("Nome/Código do animal: ", f'{dados_adocao["nome_animal"]} / " \
-              "{dados_adocao["codigo_animal"]}')
-        print("Nome/Cpf do adotante: ", f'{dados_adocao["nome_adotante"]} / " \
-              {dados_adocao["cpf_adotante"]}')
+        print("Nome/Código do animal: ", f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}')
+        print("Nome/Cpf do adotante: ", f'{dados_adocao["nome_adotante"]} / {dados_adocao["cpf_adotante"]}')
         print("Termo de responsabilidade assinado: ",
               dados_adocao["assinatura"])
         print("\n")

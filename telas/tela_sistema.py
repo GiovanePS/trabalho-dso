@@ -10,12 +10,13 @@ class TelaSistema:
         print("[3] Adotante")
         print("[4] Doações")
         print("[5] Adoções")
-        print("[6] Vacinações")
+        print("[6] Vacinas")
+        print("[7] Vacinações")
         print("[0] Finalizar sistema.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 6:
+                if 0 < opcao_escolhida > 7:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")

@@ -64,7 +64,8 @@ class ControladorAnimal:
                 self.__tela_animal.mostra_animal(animal)
         else:
             self.__tela_animal.mensagem(
-                "Não há animais cadastrados no sistema.")
+                "Ainda não há animais no sistema. Voce deve cadastrar primeiro!")
+            self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
