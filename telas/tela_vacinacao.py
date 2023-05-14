@@ -9,7 +9,7 @@ class TelaVacinacao():
         print("[2] Alterar vacina.")
         print("[3] Excluir vacina.")
         print("[4] Listar vacinas.")
-        print("[0] Retornar para o menu princiapal.")
+        print("[0] Retornar para o menu principal.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))

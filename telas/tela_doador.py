@@ -12,7 +12,7 @@ class TelaDoador():
         print("[2] Alterar doador.")
         print("[3] Excluir doador.")
         print("[4] Listar doadores.")
-        print("[0] Retornar para o menu princiapal.")
+        print("[0] Retornar para o menu principal.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))

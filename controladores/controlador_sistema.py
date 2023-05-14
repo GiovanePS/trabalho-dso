@@ -22,7 +22,7 @@ class ControladorSistema:
     @property
     def controlador_animal(self):
         return self.__controlador_animal
-    
+
     @property
     def controlador_doador(self):
         return self.__controlador_doador

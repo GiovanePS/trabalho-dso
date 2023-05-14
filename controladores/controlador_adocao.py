@@ -59,7 +59,7 @@ class ControladorAdocao:
 
         if (adocao is not None):
             self.__adocoes.remove(adocao)
-            os.system('cls') 
+            os.system('cls')
             self.__tela_adocao.mostra_mensagem("Adoção removida com sucesso!")
         else:
             self.__tela_adocao.mostra_mensagem("Esta adoção NÃO EXISTE.")
