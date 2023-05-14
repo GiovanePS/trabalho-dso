@@ -29,16 +29,17 @@ class ControladorDoador:
         self.__tela_doador.mensagem("Cadastro de doador.")
         dados_doador = self.__tela_doador.pega_dados_doador()
         eh_adotante = self.verificar_adotante(dados_doador["cpf"])
+        os.system('cls')
         if not eh_adotante:
             doador = Doador(dados_doador["cpf"],
                             dados_doador["nome"],
                             dados_doador["data_nascimento"],
                             dados_doador["endereco"])
             self.__doadores.append(doador)
-            os.system('cls')
             self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
         else:
             self.__tela_doador.mensagem(
+                "Não foi possível cadastrar esta pessoa. "
                 "Essa pessoa já está cadastrada como adotante.")
         print()
 

@@ -75,20 +75,31 @@ class TelaAdotante:
         endereco = input("Endereço: ")
         while True:
             print("Tipo de habitação: ")
-            print("[1] Casa.")
-            print("[2] Apartamento.")
+            print("[1] Casa pequena.")
+            print("[2] Casa média.")
+            print("[3] Casa grande.")
+            print("[4] Apartamento pequeno.")
+            print("[5] Apartamento médio.")
+            print("[6] Apartamento grande.")
             try:
-                tipo_habitacao = int(input("Opção: "))
-                if tipo_habitacao != 1 and tipo_habitacao != 2:
+                opcao_tipo_habitacao = int(input("Opção: "))
+                if 1 < opcao_tipo_habitacao > 6:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite um valor inteiro válido.")
+                print(
+                    "Valor inválido! Digite um dos valores inteiros válidos.")
             else:
                 break
-        if tipo_habitacao == 1:
-            tipo_habitacao = "Casa"
-        else:
-            tipo_habitacao = "Apartamento."
+        tipos_de_habitacoes = {
+            1: "Casa pequena",
+            2: "Casa média",
+            3: "Casa grande",
+            4: "Apartamento pequeno",
+            5: "Apartamento médio",
+            6: "Apartamento grande"
+        }
+
+        tipo_habitacao = tipos_de_habitacoes[opcao_tipo_habitacao]
 
         while True:
             print("Tem animais?")
@@ -96,16 +107,13 @@ class TelaAdotante:
             print("[2] Não")
             try:
                 tem_animais = int(input("Opção: "))
-                if tem_animais != 1 and tem_animais != 2:
+                if 1 < tem_animais > 2:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite um valor inteiro válido.")
             else:
                 break
-        if tem_animais == 1:
-            tem_animais = "Sim"
-        else:
-            tem_animais = "Não"
+        tem_animais = True if tem_animais == 1 else False
 
         return {"cpf": cpf,
                 "nome": nome,

@@ -25,23 +25,36 @@ class ControladorAdotante:
                 return True
         return False
 
+    def verificar_de_menor(self, data_nascimento):
+        from datetime import datetime
+        if datetime.now().year - data_nascimento.year < 18:
+            return True
+        else:
+            return False
+
     def incluir_adotante(self):
         self.__tela_adotante.mensagem("Cadastro de adotante.")
         dados_adotante = self.__tela_adotante.pega_dados_adotante()
-        eh_doador = self.verificar_doador(dados_adotante["cpf"])
-        if not eh_doador:
-            adotante = Adotante(dados_adotante["cpf"],
-                                dados_adotante["nome"],
-                                dados_adotante["data_nascimento"],
-                                dados_adotante["endereco"],
-                                dados_adotante["tipo_habitacao"],
-                                dados_adotante["tem_animais"])
-            self.__adotantes.append(adotante)
-            os.system('cls')
-            self.__tela_adotante.mensagem("Adotante cadastrado com sucesso.")
-        else:
+        os.system('cls')
+        if self.verificar_doador(dados_adotante["cpf"]):
             self.__tela_adotante.mensagem(
-                "Essa pessoa já está cadastrada como doadora.")
+                "Não foi possível cadastrar esta pessoa. "
+                "Essa pessoa já está cadastrada como doadora.\n")
+            return
+        if self.verificar_de_menor(dados_adotante["data_nascimento"]):
+            self.__tela_adotante.mensagem(
+                "Não foi possível cadastrar esta pessoa. "
+                "Somente pessoas maiores de 18 anos podem ser adotantes.\n")
+            return
+
+        adotante = Adotante(dados_adotante["cpf"],
+                            dados_adotante["nome"],
+                            dados_adotante["data_nascimento"],
+                            dados_adotante["endereco"],
+                            dados_adotante["tipo_habitacao"],
+                            dados_adotante["tem_animais"])
+        self.__adotantes.append(adotante)
+        self.__tela_adotante.mensagem("Adotante cadastrado com sucesso!")
         print()
 
     def alterar_adotante(self):
