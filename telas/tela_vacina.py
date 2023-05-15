@@ -1,7 +1,6 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 from entidades.vacina import Vacina
 import os
-from random import randint
 
 
 class TelaVacina:
@@ -15,7 +14,7 @@ class TelaVacina:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 4:
+                if 0 > opcao_escolhida or opcao_escolhida > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
@@ -33,7 +32,7 @@ class TelaVacina:
             print("[4] Outra")
             try:
                 opcao = int(input("Opção: "))
-                if 1 < opcao > 4:
+                if 1 > opcao or opcao > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite um valor inteiro válido.")

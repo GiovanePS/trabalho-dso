@@ -16,7 +16,7 @@ class TelaAdotante:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 4:
+                if 0 > opcao_escolhida or opcao_escolhida > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
@@ -40,30 +40,30 @@ class TelaAdotante:
                 while True:
                     try:
                         ano = int(input("Ano de nascimento do adotante: "))
-                        if 1900 <= ano <= 2023:
-                            break
-                        else:
+                        if 1900 > ano or ano > 2023:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um ano de nascimento válido!")
 
                 while True:
                     try:
                         mes = int(input("Mês de nascimento do adotante: "))
-                        if 1 <= mes <= 12:
-                            break
-                        else:
+                        if 1 > mes or mes > 12:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um mês de nascimento válido!")
 
                 while True:
                     try:
                         dia = int(input("Dia de nascimento do adotante: "))
-                        if 1 <= dia <= 31:
-                            break
-                        else:
+                        if 1 > dia or dia > 31:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um dia de nascimento válido!")
                 data_nascimento = date(ano, mes, dia)
@@ -83,7 +83,7 @@ class TelaAdotante:
             print("[6] Apartamento grande.")
             try:
                 opcao_tipo_habitacao = int(input("Opção: "))
-                if 1 < opcao_tipo_habitacao > 6:
+                if 1 > opcao_tipo_habitacao or opcao_tipo_habitacao > 6:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite um dos valores inteiros válidos.")
@@ -106,7 +106,7 @@ class TelaAdotante:
             print("[2] Não")
             try:
                 tem_animais = int(input("Opção: "))
-                if 1 < tem_animais > 2:
+                if 1 > tem_animais or tem_animais > 2:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite um valor inteiro válido.")

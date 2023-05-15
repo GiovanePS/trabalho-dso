@@ -14,7 +14,7 @@ class TelaMenuRelatorios:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 3:
+                if 0 > opcao_escolhida or opcao_escolhida > 3:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
@@ -29,30 +29,30 @@ class TelaMenuRelatorios:
                 while True:
                     try:
                         ano = int(input("Ano: "))
-                        if 1900 <= ano <= 2023:
-                            break
-                        else:
+                        if 1900 > ano or ano > 2023:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um ano válido!")
 
                 while True:
                     try:
                         mes = int(input("Mês: "))
-                        if 1 <= mes <= 12:
-                            break
-                        else:
+                        if 1 > mes or mes > 12:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um mês válido!")
 
                 while True:
                     try:
                         dia = int(input("Dia: "))
-                        if 1 <= dia <= 31:
-                            break
-                        else:
+                        if 1 > dia or dia > 31:
                             raise ValorInvalido
+                        else:
+                            break
                     except (ValorInvalido, ValueError):
                         print("Digite um dia válido!")
                 periodo = date(ano, mes, dia)

@@ -14,7 +14,7 @@ class TelaAnimal:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 4:
+                if 0 > opcao_escolhida or opcao_escolhida > 4:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
@@ -32,7 +32,7 @@ class TelaAnimal:
             print("  [2] Gato.")
             try:
                 opcao_tipo = int(input("  Opção: "))
-                if 1 < opcao_tipo > 2:
+                if 1 > opcao_tipo or opcao_tipo > 2:
                     raise ValorInvalido
                 else:
                     break
@@ -49,7 +49,7 @@ class TelaAnimal:
                 print("  [3] Grande.")
                 try:
                     opcao_tamanho = int(input("  Opção: "))
-                    if 1 < opcao_tamanho > 3:
+                    if 1 > opcao_tamanho or opcao_tamanho > 3:
                         raise ValorInvalido
                 except (ValorInvalido, ValueError):
                     print("Valor inválido! Digite uma das opções.")

@@ -17,7 +17,7 @@ class TelaSistema:
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 8:
+                if 0 > opcao_escolhida or opcao_escolhida > 8:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")
