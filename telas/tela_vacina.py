@@ -24,7 +24,30 @@ class TelaVacina:
         return opcao_escolhida
 
     def pega_dados_vacina(self):
-        nome_vacina = input("Nome: ")
+        while True:
+            print("Nome da Vacina:")
+            print("[1] Raiva")
+            print("[2] Leptospirose")
+            print("[3] Hepatite Infecciosa")
+            print("[4] Outra")
+            try:
+                opcao = int(input("Opção: "))
+                if 1 < opcao > 4:
+                    raise ValorInvalido
+            except (ValorInvalido, ValueError):
+                print("Valor inválido! Digite um valor inteiro válido.")
+            else:
+                break
+        tipos_de_vacina = {
+            1:"Raiva",
+            2:"Leptospirose",
+            3:"Hepatite Infecciosa",
+            4:"Outra"
+        }
+        if opcao==4:
+            nome_vacina=input("Outra: ")
+        else:
+            nome_vacina=tipos_de_vacina[opcao]
         while True:
             codigo = input("Código: ")
             if codigo.isnumeric():
