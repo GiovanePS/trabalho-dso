@@ -2,7 +2,8 @@ from exceptions.valor_invalido_exception import ValorInvalido
 import os
 from datetime import date
 
-class TelaVacinacao():
+
+class TelaVacinacao:
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Registrar vacinação.")
@@ -54,7 +55,6 @@ class TelaVacinacao():
                     except (ValorInvalido, ValueError):
                         print("Digite um ano válido!")
 
-                    
                 data_vacinacao = date(ano, mes, dia)
             except ValueError:
                 print("Data inválida. Digite a data novamente!")
@@ -63,7 +63,7 @@ class TelaVacinacao():
         while True:
             codigo = input("Código do animal vacinado: ")
             if codigo.isnumeric():
-                codigo_animal_vacinado=codigo
+                codigo_animal_vacinado = codigo
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
@@ -71,7 +71,7 @@ class TelaVacinacao():
         return {"data_vacinacao": data_vacinacao,
                 "codigo_animal_vacinado": codigo_animal_vacinado,
                 "codigo_vacina": codigo_vacina}
-    
+
     def mostra_mensagem(self, msg):
         print(msg)
 

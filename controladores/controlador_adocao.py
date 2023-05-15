@@ -10,7 +10,6 @@ class ControladorAdocao:
         self.__tela_adocao = TelaAdocao()
         self.__id = 0
 
-
     def pega_adocao_por_id(self, id):
         for adocao in self.__adocoes:
             if int(adocao.id_adocao) == int(id):
@@ -36,14 +35,15 @@ class ControladorAdocao:
                     adocao = Adocao(dados_adocao["data_adocao"], animal, adotante,
                                     dados_assinatura["assinatura"], self.__id)
                     self.__adocoes.append(adocao)
-                    animal.foi_adotado=True
-                    
+                    animal.foi_adotado = True
+
                     os.system('cls')
                     print("Adoção cadastrada com sucesso!")
             else:
                 print("Como informado acima, este animal não está disponível para adoção")
         else:
             self.__tela_adocao.mostra_mensagem("Dados inválidos!")
+        print()
 
     def alterar_adocao(self):
         self.listar_adocoes()

@@ -6,6 +6,7 @@ from controladores.controlador_doacao import ControladorDoacao
 from controladores.controlador_adocao import ControladorAdocao
 from controladores.controlador_vacinacao import ControladorVacinacao
 from controladores.controlador_vacina import ControladorVacina
+from controladores.controlador_menu_relatorios import ControladorMenuRelatorios
 from time import sleep
 import os
 
@@ -20,6 +21,7 @@ class ControladorSistema:
         self.__controlador_adocao = ControladorAdocao(self)
         self.__controlador_vacinacao = ControladorVacinacao(self)
         self.__controlador_vacina = ControladorVacina(self)
+        self.__controlador_menu_relatorios = ControladorMenuRelatorios(self)
 
     @property
     def controlador_animal(self):
@@ -32,7 +34,7 @@ class ControladorSistema:
     @property
     def controlador_adotante(self):
         return self.__controlador_adotante
-    
+
     @property
     def controlador_vacina(self):
         return self.__controlador_vacina
@@ -64,11 +66,13 @@ class ControladorSistema:
     def menu_vacina(self):
         self.__controlador_vacina.abre_tela()
 
+    def menu_relatorios(self):
+        self.__controlador_menu_relatorios.abre_tela()
+
     def encerra_sistema(self):
         print("Até logo!")
         sleep(1)
         exit()
-
 
     def abre_tela(self):
         lista_opcoes = {1: self.menu_animais,
@@ -78,6 +82,7 @@ class ControladorSistema:
                         5: self.menu_adocao,
                         6: self.menu_vacina,
                         7: self.menu_vacinacao,
+                        8: self.menu_relatorios,
                         0: self.encerra_sistema}
 
         while True:

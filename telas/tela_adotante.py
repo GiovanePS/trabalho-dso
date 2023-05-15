@@ -126,7 +126,7 @@ class TelaAdotante:
         print(f'{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento}\n'
               f'\tEndereço: {adotante.endereco}')
         print()
-        
+
     def seleciona_cpf(self):
         while True:
             cpf = input("Digite o CPF: ")

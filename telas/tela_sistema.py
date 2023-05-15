@@ -6,17 +6,18 @@ class TelaSistema:
     def tela_opcoes(self):
         print("Escolha um dos Menus:")
         print("[1] Animais.")
-        print("[2] Doadores")
-        print("[3] Adotante")
-        print("[4] Doações")
-        print("[5] Adoções")
-        print("[6] Vacinas")
-        print("[7] Vacinações")
+        print("[2] Doadores.")
+        print("[3] Adotante.")
+        print("[4] Doações.")
+        print("[5] Adoções.")
+        print("[6] Vacinas.")
+        print("[7] Vacinações.")
+        print("[8] Menu de relatórios.")
         print("[0] Finalizar sistema.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
-                if 0 < opcao_escolhida > 7:
+                if 0 < opcao_escolhida > 8:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
                 print("Valor inválido! Digite uma das opções.")

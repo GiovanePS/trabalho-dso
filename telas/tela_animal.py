@@ -32,7 +32,7 @@ class TelaAnimal:
             print("  [2] Gato.")
             try:
                 opcao_tipo = int(input("  Opção: "))
-                if opcao_tipo != 1 and opcao_tipo != 2:
+                if 1 < opcao_tipo > 2:
                     raise ValorInvalido
                 else:
                     break
@@ -41,7 +41,19 @@ class TelaAnimal:
 
         raca = input("  Raça do animal: ")
         if opcao_tipo == 1:
-            tamanho = input("  Tamanho do animal: ")
+            while True:
+                print("  Tamanho do animal: ")
+                print("  [1] Pequeno.")
+                print("  [2] Médio.")
+                print("  [3] Grande.")
+                try:
+                    opcao_tamanho = int(input("  Opção: "))
+                    if 1 < opcao_tamanho > 3:
+                        raise ValorInvalido
+                except (ValorInvalido, ValueError):
+                    print("Valor inválido! Digite uma das opções.")
+                else:
+                    break
         else:
             tamanho = None
 
@@ -49,16 +61,20 @@ class TelaAnimal:
                 "raca": raca, "tamanho": tamanho}
 
     def mostra_animal(self, animal: Animal):
-        print(f"{animal.codigo} - {animal.nome}, {animal.tipo}, {animal.raca}", end='')
+        print(f"{animal.codigo} - {animal.nome}, "
+              f"{animal.tipo}, {animal.raca}", end='')
+
         print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" \
             else print(".")
-        print(f'Vacinas: {animal.vacinas}')
-        if animal.pode_ser_adotado==True and animal.foi_adotado==False:
-            print("Disponível para adoção: Sim")
+
+        print('  Vacinas: ', end='')
+        if len(animal.vacinas) > 0:
+            vacinas = ", ".join(animal.vacinas)
+            print(f"{vacinas}.")
         else:
-            print("Disponível para adoção: Não")
+            print("nenhuma vacina cadastrada.")
         print()
-        
+
     def seleciona_codigo_animal(self):
         while True:
             try:

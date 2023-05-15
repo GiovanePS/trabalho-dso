@@ -2,6 +2,7 @@ from telas.tela_vacinacao import TelaVacinacao
 from entidades.vacinacao import Vacinacao
 import os
 
+
 class ControladorVacinacao:
     def __init__(self, controlador_sistema):
         self.__vacinacoes = []
@@ -31,10 +32,10 @@ class ControladorVacinacao:
             animal.vacinas.append(vacina.nome_vacina)
             print("Vacinação registrada com sucesso!")
             if 'Raiva' in animal.vacinas and 'Leptospirose' in animal.vacinas and 'Hepatite Infecciosa' in animal.vacinas:
-                animal.pode_ser_adotado=True
+                animal.pode_ser_adotado = True
         else:
             self.__tela_vacinacao.mostra_mensagem("Dados inválidos!")
-        
+
         # if 'Raiva' in animal.vacinas and 'Leptospirose' in animal.vacinas and 'Hepatite Infecciosa' in animal.vacinas:
         #     animal.pode_ser_adotado=True
 
@@ -52,7 +53,6 @@ class ControladorVacinacao:
 
         else:
             self.__tela_adocao.mostra_mensagem("Essa vacinação NÃO está registrada neste sistema!")
-
 
     def excluir_vacinacao(self):
         self.listar_vacinacoes()
@@ -81,7 +81,7 @@ class ControladorVacinacao:
                         "nome_animal": vacinacao.animal.nome,
                         "codigo_animal": vacinacao.animal.codigo,
                         "nome_vacina": vacinacao.vacina.nome_vacina,
-                        "codigo_vacina": vacinacao.vacina.codigo_vacina,})
+                        "codigo_vacina": vacinacao.vacina.codigo_vacina})
                 print()
 
     def abre_tela(self):

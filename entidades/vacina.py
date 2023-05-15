@@ -1,8 +1,8 @@
 
 class Vacina:
     def __init__(self, nome_vacina: str, codigo_vacina: int):
-        self.__nome_vacina=nome_vacina
-        self.__codigo_vacina=codigo_vacina
+        self.__nome_vacina = nome_vacina
+        self.__codigo_vacina = codigo_vacina
 
     @property
     def nome_vacina(self):

@@ -28,7 +28,7 @@ class TelaVacina:
         while True:
             codigo = input("Código: ")
             if codigo.isnumeric():
-                codigo_vacina=codigo
+                codigo_vacina = codigo
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
@@ -38,11 +38,9 @@ class TelaVacina:
     def mostra_vacina(self, vacina: Vacina):
         print(f'{vacina.codigo_vacina} - {vacina.nome_vacina}')
 
-
     def seleciona_codigo(self):
         codigo = input("Digite o codigo: ")
         return codigo
-
 
     def mensagem(self, mensagem: str):
         print(mensagem)
