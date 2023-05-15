@@ -1,7 +1,7 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 from entidades.vacina import Vacina
 import os
-
+from random import randint
 
 class TelaVacina:
     def abre_tela(self):
@@ -48,6 +48,7 @@ class TelaVacina:
             nome_vacina=input("Outra: ")
         else:
             nome_vacina=tipos_de_vacina[opcao]
+        
         while True:
             codigo = input("Código: ")
             if codigo.isnumeric():
