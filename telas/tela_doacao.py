@@ -6,11 +6,11 @@ from datetime import date
 class TelaDoacao:
     def tela_opcoes(self):
         print("Escolha uma opção:")
-        print("[1] Registrar doacao.")
-        print("[2] Alterar doacao.")
-        print("[3] Excluir doacao.")
-        print("[4] Listar doacoes.")
-        print("[0] Retornar para o menu princiapal.")
+        print("[1] Registrar doação.")
+        print("[2] Alterar doação.")
+        print("[3] Excluir doação.")
+        print("[4] Listar doações.")
+        print("[0] Retornar para o menu principal.")
         while True:
             try:
                 opcao_escolhida = int(input("Opção: "))
@@ -70,7 +70,7 @@ class TelaDoacao:
                 print("ERRO. O código deve ser um número inteiro.")
 
         nome_animal = input("Nome do animal: ")
-        cpf_doador = input("Cpf do doador: ")
+        cpf_doador = input("CPF do doador: ")
         nome_doador = input("Nome do doador: ")
         motivo = input("Motivo da doação: ")
 
@@ -87,7 +87,7 @@ class TelaDoacao:
         print("Código da doação: ", dados_doacao["id"])
         print("Data da doação: ", dados_doacao["data_doacao"])
         print(
-            "Nome/Cpf do doador: ",
+            "Nome/CPF do doador: ",
             f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}',
         )
         print(

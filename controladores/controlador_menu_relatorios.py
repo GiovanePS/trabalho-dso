@@ -15,9 +15,17 @@ class ControladorMenuRelatorios:
         if contador_de_animais_disponiveis == 0:
             print("Não há animais disponíveis.\n")
 
+    def adocoes_por_periodo(self):
+        ...
+
+    def doacoes_por_periodo(self):
+        ...
+
     def abre_tela(self):
         lista_opcoes = {
             1: self.animais_disponiveis_para_adocao,
+            2: self.adocoes_por_periodo,
+            3: self.doacoes_por_periodo,
             0: "Retornar para o menu principal",
         }
 

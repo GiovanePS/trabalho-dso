@@ -80,6 +80,12 @@ class TelaAnimal:
             print(f"{vacinas}.")
         else:
             print("nenhuma vacina cadastrada.")
+
+        if animal.pode_ser_adotado and not animal.foi_adotado:
+            print("Disponível para adoção: Sim")
+        else:
+            print("Disponível para adoção: Não")
+
         print()
 
     def seleciona_codigo_animal(self):
