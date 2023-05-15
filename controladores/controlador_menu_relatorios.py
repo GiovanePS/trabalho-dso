@@ -23,7 +23,7 @@ class ControladorMenuRelatorios:
         contador_adocoes = 0
         self.__tela_menu_relatorios.mensagem(f"Lista de adoções entre {data_inicio.strftime('%d/%m/%Y')} e {data_final.strftime('%d/%m/%Y')}")
         for adocao in self.__controlador_sistema.controlador_adocao.adocoes:
-            if data_inicio < adocao.data_doacao < data_final:
+            if data_inicio < adocao.data_adocao < data_final:
                 self.__controlador_sistema.controlador_adocao.tela_adocao.mostra_adocao(adocao)
                 contador_adocoes += 1
 
