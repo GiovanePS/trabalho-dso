@@ -46,8 +46,6 @@ class ControladorVacinacao:
         else:
             self.__tela_vacinacao.mostra_mensagem("Dados inválidos!")
 
-        # if 'Raiva' in animal.vacinas and 'Leptospirose' in animal.vacinas and 'Hepatite Infecciosa' in animal.vacinas:
-        #     animal.pode_ser_adotado=True
 
     def alterar_vacinacao(self):
         self.listar_vacinacoes()
