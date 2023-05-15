@@ -1,6 +1,5 @@
 class Animal:
-    def __init__(self, codigo: int, nome: str,
-                 tipo: str, raca: str, tamanho: str = ''):
+    def __init__(self, codigo: int, nome: str, tipo: str, raca: str, tamanho: str = ""):
         self.__codigo = codigo
         self.__nome = nome
         self.__tipo = tipo

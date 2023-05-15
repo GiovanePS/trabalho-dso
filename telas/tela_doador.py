@@ -5,7 +5,7 @@ from datetime import date
 import os
 
 
-class TelaDoador():
+class TelaDoador:
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Cadastrar doador.")
@@ -22,7 +22,7 @@ class TelaDoador():
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_cpf(self):
@@ -78,13 +78,18 @@ class TelaDoador():
 
         endereco = input("Endereço do doador: ")
 
-        return {"cpf": cpf, "nome": nome,
-                "data_nascimento": data_nascimento,
-                "endereco": endereco}
+        return {
+            "cpf": cpf,
+            "nome": nome,
+            "data_nascimento": data_nascimento,
+            "endereco": endereco,
+        }
 
     def mostra_doador(self, doador: Doador):
-        print(f'{doador.cpf} - {doador.nome}, {doador.data_nascimento}\n'
-              f'\tEndereço: {doador.endereco}')
+        print(
+            f"{doador.cpf} - {doador.nome}, {doador.data_nascimento}\n"
+            f"\tEndereço: {doador.endereco}"
+        )
 
     def mensagem(self, mensagem: str):
         print(mensagem)

@@ -27,12 +27,12 @@ class ControladorVacina:
             if dados_vacina["codigo_vacina"] in self.__codigos:
                 self.__tela_vacina.mensagem(
                     "Este código já está cadastrado como o de outra"
-                    " vacina, por favor insira outro valor.")
+                    " vacina, por favor insira outro valor."
+                )
             else:
                 break
-        os.system('cls')
-        vacina = Vacina(dados_vacina["nome_vacina"],
-                        dados_vacina["codigo_vacina"])
+        os.system("cls")
+        vacina = Vacina(dados_vacina["nome_vacina"], dados_vacina["codigo_vacina"])
         self.__codigos.append(dados_vacina["codigo_vacina"])
         self.__vacinas.append(vacina)
         self.__tela_vacina.mensagem("Vacina cadastrada com sucesso!")
@@ -49,10 +49,10 @@ class ControladorVacina:
             novos_dados_vacina = self.__tela_vacina.pega_dados_vacina()
             vacina.nome_vacina = novos_dados_vacina["nome_vacina"]
             vacina.codigo_vacina = novos_dados_vacina["codigo_vacina"]
-            os.system('cls')
+            os.system("cls")
             self.__tela_vacina.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system('cls')
+            os.system("cls")
             self.__tela_vacina.mensagem("Vacina inexistente no sistema.")
         print()
 
@@ -61,7 +61,7 @@ class ControladorVacina:
         self.listar_vacina()
         codigo = self.__tela_vacina.seleciona_codigo()
         vacina = self.pega_vacina_por_codigo(codigo)
-        os.system('cls')
+        os.system("cls")
         if isinstance(vacina, Vacina):
             self.__vacinas.remove(vacina)
             self.__tela_vacina.mensagem("Vacina removida com sucesso!")
@@ -79,15 +79,19 @@ class ControladorVacina:
                 print()
         else:
             self.__tela_vacina.mensagem(
-                "Ainda não há vacinas no sistema. "
-                "Você deve cadastrar primeiro!")
+                "Ainda não há vacinas no sistema. " "Você deve cadastrar primeiro!"
+            )
             self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.incluir_vacina, 2: self.alterar_vacina,
-                        3: self.excluir_vacina, 4: self.listar_vacina,
-                        0: "Retornar para menu principal."}
+        lista_opcoes = {
+            1: self.incluir_vacina,
+            2: self.alterar_vacina,
+            3: self.excluir_vacina,
+            4: self.listar_vacina,
+            0: "Retornar para menu principal.",
+        }
 
         while True:
             opcao = self.__tela_vacina.abre_tela()

@@ -22,7 +22,7 @@ class TelaAdotante:
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_adotante(self):
@@ -86,8 +86,7 @@ class TelaAdotante:
                 if 1 < opcao_tipo_habitacao > 6:
                     raise ValorInvalido
             except (ValorInvalido, ValueError):
-                print(
-                    "Valor inválido! Digite um dos valores inteiros válidos.")
+                print("Valor inválido! Digite um dos valores inteiros válidos.")
             else:
                 break
         tipos_de_habitacoes = {
@@ -96,7 +95,7 @@ class TelaAdotante:
             3: "Casa grande",
             4: "Apartamento pequeno",
             5: "Apartamento médio",
-            6: "Apartamento grande"
+            6: "Apartamento grande",
         }
 
         tipo_habitacao = tipos_de_habitacoes[opcao_tipo_habitacao]
@@ -115,16 +114,20 @@ class TelaAdotante:
                 break
         tem_animais = True if tem_animais == 1 else False
 
-        return {"cpf": cpf,
-                "nome": nome,
-                "data_nascimento": data_nascimento,
-                "endereco": endereco,
-                "tipo_habitacao": tipo_habitacao,
-                "tem_animais": tem_animais}
+        return {
+            "cpf": cpf,
+            "nome": nome,
+            "data_nascimento": data_nascimento,
+            "endereco": endereco,
+            "tipo_habitacao": tipo_habitacao,
+            "tem_animais": tem_animais,
+        }
 
     def mostra_adotante(self, adotante: Adotante):
-        print(f'{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento}\n'
-              f'\tEndereço: {adotante.endereco}')
+        print(
+            f"{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento}\n"
+            f"\tEndereço: {adotante.endereco}"
+        )
         print()
 
     def seleciona_cpf(self):

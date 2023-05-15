@@ -42,7 +42,7 @@ class ControladorSistema:
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
         sleep(1)
-        os.system('cls')
+        os.system("cls")
         self.abre_tela()
 
     def menu_animais(self):
@@ -75,18 +75,20 @@ class ControladorSistema:
         exit()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.menu_animais,
-                        2: self.menu_doador,
-                        3: self.menu_adotante,
-                        4: self.menu_doacao,
-                        5: self.menu_adocao,
-                        6: self.menu_vacina,
-                        7: self.menu_vacinacao,
-                        8: self.menu_relatorios,
-                        0: self.encerra_sistema}
+        lista_opcoes = {
+            1: self.menu_animais,
+            2: self.menu_doador,
+            3: self.menu_adotante,
+            4: self.menu_doacao,
+            5: self.menu_adocao,
+            6: self.menu_vacina,
+            7: self.menu_vacinacao,
+            8: self.menu_relatorios,
+            0: self.encerra_sistema,
+        }
 
         while True:
             opcao = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao]
-            os.system('cls')
+            os.system("cls")
             funcao_escolhida()

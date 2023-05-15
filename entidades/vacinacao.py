@@ -4,9 +4,9 @@ from datetime import datetime
 
 
 class Vacinacao:
-    def __init__(self, data_vacina: datetime,
-                 vacina: Vacina, animal: Animal,
-                 id_vacinacao: int):
+    def __init__(
+        self, data_vacina: datetime, vacina: Vacina, animal: Animal, id_vacinacao: int
+    ):
         self.__data_vacina = data_vacina
         self.__vacina = vacina
         self.__animal = animal

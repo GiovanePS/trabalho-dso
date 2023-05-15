@@ -1,4 +1,3 @@
-
 class Vacina:
     def __init__(self, nome_vacina: str, codigo_vacina: int):
         self.__nome_vacina = nome_vacina

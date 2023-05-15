@@ -20,7 +20,7 @@ class TelaVacinacao:
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_vacinacao(self):
@@ -68,9 +68,11 @@ class TelaVacinacao:
             else:
                 print("ERRO. O código deve ser um número inteiro.")
         codigo_vacina = input("Código da vacina aplicada: ")
-        return {"data_vacinacao": data_vacinacao,
-                "codigo_animal_vacinado": codigo_animal_vacinado,
-                "codigo_vacina": codigo_vacina}
+        return {
+            "data_vacinacao": data_vacinacao,
+            "codigo_animal_vacinado": codigo_animal_vacinado,
+            "codigo_vacina": codigo_vacina,
+        }
 
     def mostra_mensagem(self, msg):
         print(msg)
@@ -78,8 +80,14 @@ class TelaVacinacao:
     def mostra_vacinacao(self, dados_vacinacao):
         print("Codigo da vacinação: ", dados_vacinacao["codigo_vacinacao"])
         print("Data da vacinação: ", dados_vacinacao["data_vacinacao"])
-        print("Nome/Código do animal vacinado: ", f'{dados_vacinacao["nome_animal"]} / {dados_vacinacao["codigo_animal"]}')
-        print("Nome/Código da vacina: ", f'{dados_vacinacao["nome_vacina"]} / {dados_vacinacao["codigo_vacina"]}')
+        print(
+            "Nome/Código do animal vacinado: ",
+            f'{dados_vacinacao["nome_animal"]} / {dados_vacinacao["codigo_animal"]}',
+        )
+        print(
+            "Nome/Código da vacina: ",
+            f'{dados_vacinacao["nome_vacina"]} / {dados_vacinacao["codigo_vacina"]}',
+        )
         print("\n")
 
     def seleciona_vacinacao(self):

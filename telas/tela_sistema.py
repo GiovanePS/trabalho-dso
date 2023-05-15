@@ -23,5 +23,5 @@ class TelaSistema:
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida

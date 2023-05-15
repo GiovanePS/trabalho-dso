@@ -3,6 +3,7 @@ from entidades.vacina import Vacina
 import os
 from random import randint
 
+
 class TelaVacina:
     def abre_tela(self):
         print("Escolha uma opcão:")
@@ -20,7 +21,7 @@ class TelaVacina:
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_vacina(self):
@@ -39,16 +40,16 @@ class TelaVacina:
             else:
                 break
         tipos_de_vacina = {
-            1:"Raiva",
-            2:"Leptospirose",
-            3:"Hepatite Infecciosa",
-            4:"Outra"
+            1: "Raiva",
+            2: "Leptospirose",
+            3: "Hepatite Infecciosa",
+            4: "Outra",
         }
-        if opcao==4:
-            nome_vacina=input("Outra: ")
+        if opcao == 4:
+            nome_vacina = input("Outra: ")
         else:
-            nome_vacina=tipos_de_vacina[opcao]
-        
+            nome_vacina = tipos_de_vacina[opcao]
+
         while True:
             codigo = input("Código: ")
             if codigo.isnumeric():
@@ -60,7 +61,7 @@ class TelaVacina:
         return {"nome_vacina": nome_vacina, "codigo_vacina": codigo_vacina}
 
     def mostra_vacina(self, vacina: Vacina):
-        print(f'{vacina.codigo_vacina} - {vacina.nome_vacina}')
+        print(f"{vacina.codigo_vacina} - {vacina.nome_vacina}")
 
     def seleciona_codigo(self):
         codigo = input("Digite o codigo: ")

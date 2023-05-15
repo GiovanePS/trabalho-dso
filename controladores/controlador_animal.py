@@ -28,11 +28,15 @@ class ControladorAnimal:
         self.__id += 1
         self.__tela_animal.mensagem("Cadastro de animal.")
         dados_animal = self.__tela_animal.pega_dados_animal()
-        animal = Animal(self.__id, dados_animal["nome"],
-                        dados_animal["tipo"], dados_animal["raca"],
-                        dados_animal["tamanho"])
+        animal = Animal(
+            self.__id,
+            dados_animal["nome"],
+            dados_animal["tipo"],
+            dados_animal["raca"],
+            dados_animal["tamanho"],
+        )
         self.__animais.append(animal)
-        os.system('cls')
+        os.system("cls")
         self.__tela_animal.mensagem("Animal cadastrado com sucesso!")
         print()
 
@@ -47,10 +51,10 @@ class ControladorAnimal:
             animal.tipo = novos_dados_animal["tipo"]
             animal.raca = novos_dados_animal["raca"]
             animal.tamanho = novos_dados_animal["tamanho"]
-            os.system('cls')
+            os.system("cls")
             self.__tela_animal.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system('cls')
+            os.system("cls")
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
         print()
 
@@ -58,7 +62,7 @@ class ControladorAnimal:
         self.__tela_animal.mensagem("Exclusão de animal do sistema.")
         codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
-        os.system('cls')
+        os.system("cls")
         if isinstance(animal, Animal):
             self.__animais.remove(animal)
             self.__tela_animal.mensagem("Animal removido com sucesso!")
@@ -72,14 +76,17 @@ class ControladorAnimal:
             for animal in self.__animais:
                 self.__tela_animal.mostra_animal(animal)
         else:
-            self.__tela_animal.mensagem(
-                "Ainda não há animais no sistema. ")
+            self.__tela_animal.mensagem("Ainda não há animais no sistema. ")
         print()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.incluir_animal, 2: self.alterar_animal,
-                        3: self.excluir_animal, 4: self.listar_animais,
-                        0: "Retornar para menu principal"}
+        lista_opcoes = {
+            1: self.incluir_animal,
+            2: self.alterar_animal,
+            3: self.excluir_animal,
+            4: self.listar_animais,
+            0: "Retornar para menu principal",
+        }
 
         while True:
             opcao = self.__tela_animal.abre_tela()

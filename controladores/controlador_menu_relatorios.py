@@ -10,14 +10,18 @@ class ControladorMenuRelatorios:
         contador_de_animais_disponiveis = 0
         for animal in self.__controlador_sistema.controlador_animal.animais:
             if not animal.foi_adotado and animal.pode_ser_adotado:
-                self.__controlador_sistema.controlador_animal.tela_animal.mostra_animal(animal) # noqa
+                self.__controlador_sistema.controlador_animal.tela_animal.mostra_animal(
+                    animal
+                )  # noqa
                 contador_de_animais_disponiveis += 1
         if contador_de_animais_disponiveis == 0:
             print("Não há animais disponíveis.\n")
 
     def abre_tela(self):
-        lista_opcoes = {1: self.animais_disponiveis_para_adocao,
-                        0: "Retornar para o menu principal"}
+        lista_opcoes = {
+            1: self.animais_disponiveis_para_adocao,
+            0: "Retornar para o menu principal",
+        }
 
         while True:
             opcao = self.__tela_menu_relatorios.abre_tela()

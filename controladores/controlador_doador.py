@@ -20,7 +20,9 @@ class ControladorDoador:
         return None
 
     def verificar_adotante(self, cpf):
-        for adotante in self.__controlador_sistema.controlador_adotante.adotantes: # noqa
+        for (
+            adotante
+        ) in self.__controlador_sistema.controlador_adotante.adotantes:  # noqa
             if adotante.cpf == cpf:
                 return True
         return False
@@ -28,17 +30,20 @@ class ControladorDoador:
     def incluir_doador(self):
         self.__tela_doador.mensagem("Cadastro de doador.")
         dados_doador = self.__tela_doador.pega_dados_doador()
-        os.system('cls')
+        os.system("cls")
         if self.verificar_adotante(dados_doador["cpf"]):
             self.__tela_doador.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
-                "Essa pessoa já está cadastrada como adotante.")
+                "Essa pessoa já está cadastrada como adotante."
+            )
             return
 
-        doador = Doador(dados_doador["cpf"],
-                        dados_doador["nome"],
-                        dados_doador["data_nascimento"],
-                        dados_doador["endereco"])
+        doador = Doador(
+            dados_doador["cpf"],
+            dados_doador["nome"],
+            dados_doador["data_nascimento"],
+            dados_doador["endereco"],
+        )
         self.__doadores.append(doador)
         self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
         print()
@@ -52,16 +57,17 @@ class ControladorDoador:
             if self.verificar_adotante(novos_dados_doador["cpf"]):
                 self.__tela_doador.mensagem(
                     "Não foi possível alterar o cadastro desta pessoa. "
-                    "Este novo CPF já está cadastrado como doador.\n")
+                    "Este novo CPF já está cadastrado como doador.\n"
+                )
                 return
             doador.cpf = novos_dados_doador["cpf"]
             doador.nome = novos_dados_doador["nome"]
             doador.data_nascimento = novos_dados_doador["data_nascimento"]
             doador.endereco = novos_dados_doador["endereco"]
-            os.system('cls')
+            os.system("cls")
             self.__tela_doador.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system('cls')
+            os.system("cls")
             self.__tela_doador.mensagem("Doador inexistente no sistema.")
         print()
 
@@ -69,7 +75,7 @@ class ControladorDoador:
         self.__tela_doador.mensagem("Exclusão de doador do sistema.")
         cpf = self.__tela_doador.pega_cpf()
         doador = self.pega_doador_por_cpf(cpf)
-        os.system('cls')
+        os.system("cls")
         if isinstance(doador, Doador):
             self.__doadores.remove(doador)
             self.__tela_doador.mensagem("Doador removido com sucesso!")
@@ -84,14 +90,19 @@ class ControladorDoador:
                 self.__tela_doador.mostra_doador(doador)
         else:
             self.__tela_doador.mensagem(
-                "Ainda não há doadores no sistema. Voce deve cadastrar primeiro!")
+                "Ainda não há doadores no sistema. Voce deve cadastrar primeiro!"
+            )
             self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.incluir_doador, 2: self.alterar_doador,
-                        3: self.excluir_doador, 4: self.listar_doadores,
-                        0: "Retornar para menu principal"}
+        lista_opcoes = {
+            1: self.incluir_doador,
+            2: self.alterar_doador,
+            3: self.excluir_doador,
+            4: self.listar_doadores,
+            0: "Retornar para menu principal",
+        }
 
         while True:
             opcao = self.__tela_doador.tela_opcoes()

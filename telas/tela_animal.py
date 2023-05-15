@@ -20,7 +20,7 @@ class TelaAnimal:
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_animal(self):
@@ -57,17 +57,21 @@ class TelaAnimal:
         else:
             tamanho = None
 
-        return {"nome": nome, "tipo": tipos[opcao_tipo],
-                "raca": raca, "tamanho": tamanho}
+        return {
+            "nome": nome,
+            "tipo": tipos[opcao_tipo],
+            "raca": raca,
+            "tamanho": tamanho,
+        }
 
     def mostra_animal(self, animal: Animal):
-        print(f"{animal.codigo} - {animal.nome}, "
-              f"{animal.tipo}, {animal.raca}", end='')
+        print(
+            f"{animal.codigo} - {animal.nome}, " f"{animal.tipo}, {animal.raca}", end=""
+        )
 
-        print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" \
-            else print(".")
+        print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" else print(".")
 
-        print('  Vacinas: ', end='')
+        print("  Vacinas: ", end="")
         if len(animal.vacinas) > 0:
             vacinas = ", ".join(animal.vacinas)
             print(f"{vacinas}.")

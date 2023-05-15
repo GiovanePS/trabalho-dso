@@ -1,8 +1,9 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 import os
-from datetime import date 
+from datetime import date
 
-class TelaDoacao():
+
+class TelaDoacao:
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Registrar doacao.")
@@ -19,7 +20,7 @@ class TelaDoacao():
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_doacao(self):
@@ -54,7 +55,6 @@ class TelaDoacao():
                     except (ValorInvalido, ValueError):
                         print("Digite um ano válido!")
 
-                    
                 data_doacao = date(ano, mes, dia)
             except ValueError:
                 print("Data inválida. Digite a data novamente!")
@@ -64,7 +64,7 @@ class TelaDoacao():
         while True:
             codigo = input("Código do animal: ")
             if codigo.isnumeric():
-                codigo_animal=codigo
+                codigo_animal = codigo
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
@@ -74,14 +74,26 @@ class TelaDoacao():
         nome_doador = input("Nome do doador: ")
         motivo = input("Motivo da doação: ")
 
-        return {"data_doacao": data_doacao, "codigo_animal": codigo_animal,
-                "nome_animal": nome_animal, "cpf_doador": cpf_doador, "nome_doador": nome_doador, "motivo": motivo}
+        return {
+            "data_doacao": data_doacao,
+            "codigo_animal": codigo_animal,
+            "nome_animal": nome_animal,
+            "cpf_doador": cpf_doador,
+            "nome_doador": nome_doador,
+            "motivo": motivo,
+        }
 
     def mostra_doacao(self, dados_doacao):
         print("Código da doação: ", dados_doacao["id"])
         print("Data da doação: ", dados_doacao["data_doacao"])
-        print("Nome/Cpf do doador: ", f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}')
-        print("Nome/Código do animal: ", f'{dados_doacao["nome_animal"]} / {dados_doacao["codigo_animal"]}')
+        print(
+            "Nome/Cpf do doador: ",
+            f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}',
+        )
+        print(
+            "Nome/Código do animal: ",
+            f'{dados_doacao["nome_animal"]} / {dados_doacao["codigo_animal"]}',
+        )
         print("Motivo da doação: ", dados_doacao["motivo"])
         print("\n")
         pass

@@ -27,6 +27,7 @@ class ControladorAdotante:
 
     def verificar_de_menor(self, data_nascimento):
         from datetime import datetime
+
         if datetime.now().year - data_nascimento.year < 18:
             return True
         else:
@@ -35,24 +36,28 @@ class ControladorAdotante:
     def incluir_adotante(self):
         self.__tela_adotante.mensagem("Cadastro de adotante.")
         dados_adotante = self.__tela_adotante.pega_dados_adotante()
-        os.system('cls')
+        os.system("cls")
         if self.verificar_doador(dados_adotante["cpf"]):
             self.__tela_adotante.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
-                "Essa pessoa já está cadastrada como doadora.\n")
+                "Essa pessoa já está cadastrada como doadora.\n"
+            )
             return
         if self.verificar_de_menor(dados_adotante["data_nascimento"]):
             self.__tela_adotante.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
-                "Somente pessoas maiores de 18 anos podem ser adotantes.\n")
+                "Somente pessoas maiores de 18 anos podem ser adotantes.\n"
+            )
             return
 
-        adotante = Adotante(dados_adotante["cpf"],
-                            dados_adotante["nome"],
-                            dados_adotante["data_nascimento"],
-                            dados_adotante["endereco"],
-                            dados_adotante["tipo_habitacao"],
-                            dados_adotante["tem_animais"])
+        adotante = Adotante(
+            dados_adotante["cpf"],
+            dados_adotante["nome"],
+            dados_adotante["data_nascimento"],
+            dados_adotante["endereco"],
+            dados_adotante["tipo_habitacao"],
+            dados_adotante["tem_animais"],
+        )
         self.__adotantes.append(adotante)
         self.__tela_adotante.mensagem("Adotante cadastrado com sucesso!")
         print()
@@ -66,18 +71,19 @@ class ControladorAdotante:
             if self.verificar_doador(novos_dados_adotante["cpf"]):
                 self.__tela_adotante.mensagem(
                     "Não foi possível alterar o cadastro desta pessoa. "
-                    "Este novo CPF já está cadastrado como doador.\n")
+                    "Este novo CPF já está cadastrado como doador.\n"
+                )
                 return
             adotante.cpf = novos_dados_adotante["cpf"]
-            adotante.nome = novos_dados_adotante["nome"],
-            adotante.data_nascimento = novos_dados_adotante["data_nascimento"],
-            adotante.endereco = novos_dados_adotante["endereco"],
-            adotante.tipo_habitacao = novos_dados_adotante["tipo_habitacao"],
+            adotante.nome = (novos_dados_adotante["nome"],)
+            adotante.data_nascimento = (novos_dados_adotante["data_nascimento"],)
+            adotante.endereco = (novos_dados_adotante["endereco"],)
+            adotante.tipo_habitacao = (novos_dados_adotante["tipo_habitacao"],)
             adotante.tem_animais = novos_dados_adotante["tem_animais"]
-            os.system('cls')
+            os.system("cls")
             self.__tela_adotante.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system('cls')
+            os.system("cls")
             self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
         print()
 
@@ -85,7 +91,7 @@ class ControladorAdotante:
         self.__tela_adotante.mensagem("Exclusão de adotante do sistema.")
         cpf = self.__tela_adotante.seleciona_cpf()
         adotante = self.pega_adotante_por_cpf(cpf)
-        os.system('cls')
+        os.system("cls")
         if isinstance(adotante, Adotante):
             self.__adotantes.remove(adotante)
             self.__tela_adotante.mensagem("Adotante removido com sucesso!")
@@ -100,14 +106,19 @@ class ControladorAdotante:
                 self.__tela_adotante.mostra_adotante(adotante)
         else:
             self.__tela_adotante.mensagem(
-                "Ainda não há adotantes no sistema. Voce deve cadastrar primeiro!")
+                "Ainda não há adotantes no sistema. Voce deve cadastrar primeiro!"
+            )
             self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.incluir_adotante, 2: self.alterar_adotante,
-                        3: self.excluir_adotante, 4: self.listar_adotantes,
-                        0: "Retornar para menu principal."}
+        lista_opcoes = {
+            1: self.incluir_adotante,
+            2: self.alterar_adotante,
+            3: self.excluir_adotante,
+            4: self.listar_adotantes,
+            0: "Retornar para menu principal.",
+        }
 
         while True:
             opcao = self.__tela_adotante.abre_tela()

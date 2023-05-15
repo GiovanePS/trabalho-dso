@@ -2,7 +2,8 @@ from exceptions.valor_invalido_exception import ValorInvalido
 import os
 from datetime import date
 
-class TelaAdocao():
+
+class TelaAdocao:
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Registrar adocao.")
@@ -19,7 +20,7 @@ class TelaAdocao():
                 print("Valor inválido! Digite uma das opções.")
             else:
                 break
-        os.system('cls')
+        os.system("cls")
         return opcao_escolhida
 
     def pega_dados_adocao(self):
@@ -54,7 +55,6 @@ class TelaAdocao():
                     except (ValorInvalido, ValueError):
                         print("Digite um ano válido!")
 
-                    
                 data_adocao = date(ano, mes, dia)
             except ValueError:
                 print("Data inválida. Digite a data novamente!")
@@ -64,7 +64,7 @@ class TelaAdocao():
         while True:
             codigo = input("Código do animal adotado: ")
             if codigo.isnumeric():
-                codigo_animal_adotado=codigo
+                codigo_animal_adotado = codigo
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
@@ -72,11 +72,13 @@ class TelaAdocao():
         cpf_adotante = input("Cpf do adotante: ")
         nome_adotante = input("Nome do adotante: ")
 
-        return {"data_adocao": data_adocao,
-                "codigo_animal_adotado": codigo_animal_adotado,
-                "cpf_adotante": cpf_adotante,"nome_adotante": nome_adotante,
-                "nome_animal_adotado": nome_animal_adotado,}
-    
+        return {
+            "data_adocao": data_adocao,
+            "codigo_animal_adotado": codigo_animal_adotado,
+            "cpf_adotante": cpf_adotante,
+            "nome_adotante": nome_adotante,
+            "nome_animal_adotado": nome_animal_adotado,
+        }
 
     def mostra_mensagem(self, msg):
         print(msg)
@@ -84,10 +86,15 @@ class TelaAdocao():
     def mostra_adocao(self, dados_adocao):
         print("Codigo da adoção: ", dados_adocao["codigo_adocao"])
         print("Data da adoção: ", dados_adocao["data_adocao"])
-        print("Nome/Código do animal: ", f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}')
-        print("Nome/Cpf do adotante: ", f'{dados_adocao["nome_adotante"]} / {dados_adocao["cpf_adotante"]}')
-        print("Termo de responsabilidade assinado: ",
-              dados_adocao["assinatura"])
+        print(
+            "Nome/Código do animal: ",
+            f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}',
+        )
+        print(
+            "Nome/Cpf do adotante: ",
+            f'{dados_adocao["nome_adotante"]} / {dados_adocao["cpf_adotante"]}',
+        )
+        print("Termo de responsabilidade assinado: ", dados_adocao["assinatura"])
         print("\n")
 
     def seleciona_adocao(self):
