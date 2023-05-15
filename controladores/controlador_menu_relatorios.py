@@ -10,9 +10,7 @@ class ControladorMenuRelatorios:
         contador_de_animais_disponiveis = 0
         for animal in self.__controlador_sistema.controlador_animal.animais:
             if not animal.foi_adotado and animal.pode_ser_adotado:
-                self.__controlador_sistema.controlador_animal.tela_animal.mostra_animal(
-                    animal
-                )  # noqa
+                self.__controlador_sistema.controlador_animal.tela_animal.mostra_animal(animal) # noqa
                 contador_de_animais_disponiveis += 1
         if contador_de_animais_disponiveis == 0:
             print("Não há animais disponíveis.\n")

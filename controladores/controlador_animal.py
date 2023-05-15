@@ -72,12 +72,13 @@ class ControladorAnimal:
 
     def listar_animais(self):
         if len(self.__animais) != 0:
-            self.__tela_animal.mensagem("Lista de animais:")
+            self.__tela_animal.mensagem(
+                "Lista de animais (código, nome, tipo, raça, tamanho):"
+                )
             for animal in self.__animais:
                 self.__tela_animal.mostra_animal(animal)
         else:
-            self.__tela_animal.mensagem("Ainda não há animais no sistema. ")
-        print()
+            self.__tela_animal.mensagem("Ainda não há animais no sistema. \n")
 
     def abre_tela(self):
         lista_opcoes = {

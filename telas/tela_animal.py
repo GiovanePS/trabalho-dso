@@ -41,6 +41,7 @@ class TelaAnimal:
 
         raca = input("  Raça do animal: ")
         if opcao_tipo == 1:
+            tamanhos = {1: "Pequeno", 2: "Médio", 3: "Grande"}
             while True:
                 print("  Tamanho do animal: ")
                 print("  [1] Pequeno.")
@@ -54,6 +55,7 @@ class TelaAnimal:
                     print("Valor inválido! Digite uma das opções.")
                 else:
                     break
+            tamanho = tamanhos[opcao_tamanho]
         else:
             tamanho = None
 
@@ -66,7 +68,8 @@ class TelaAnimal:
 
     def mostra_animal(self, animal: Animal):
         print(
-            f"{animal.codigo} - {animal.nome}, " f"{animal.tipo}, {animal.raca}", end=""
+            f"{animal.codigo} - {animal.nome}, "
+            f"{animal.tipo}, {animal.raca}", end=""
         )
 
         print(f", {animal.tamanho}.") if animal.tipo == "Cachorro" else print(".")
