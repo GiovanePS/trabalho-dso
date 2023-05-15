@@ -10,6 +10,14 @@ class ControladorAdocao:
         self.__tela_adocao = TelaAdocao()
         self.__id = 0
 
+    @property
+    def adocoes(self):
+        return self.__adocoes
+
+    @property
+    def tela_adocao(self):
+        return self.__tela_adocao
+
     def pega_adocao_por_id(self, id):
         for adocao in self.__adocoes:
             if int(adocao.id_adocao) == int(id):
@@ -96,17 +104,7 @@ class ControladorAdocao:
             print("Adoções:")
             print()
             for adocao in self.__adocoes:
-                self.__tela_adocao.mostra_adocao(
-                    {
-                        "codigo_adocao": adocao.id_adocao,
-                        "data_adocao": adocao.data_adocao,
-                        "nome_animal": adocao.animal_adotado.nome,
-                        "codigo_animal": adocao.animal_adotado.codigo,
-                        "nome_adotante": adocao.adotante.nome,
-                        "cpf_adotante": adocao.adotante.cpf,
-                        "assinatura": adocao.assinatura,
-                    }
-                )
+                self.__tela_adocao.mostra_adocao(adocao)
                 print()
 
     def abre_tela(self):

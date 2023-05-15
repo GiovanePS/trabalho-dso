@@ -83,18 +83,18 @@ class TelaAdocao:
     def mostra_mensagem(self, msg):
         print(msg)
 
-    def mostra_adocao(self, dados_adocao):
-        print("Codigo da adoção: ", dados_adocao["codigo_adocao"])
-        print("Data da adoção: ", dados_adocao["data_adocao"])
+    def mostra_adocao(self, adocao):
+        print("Codigo da adoção:", adocao.id_adocao)
+        print("Data da adoção:", adocao.data_adocao)
         print(
-            "Nome/Código do animal: ",
-            f'{dados_adocao["nome_animal"]} / {dados_adocao["codigo_animal"]}',
+            "Nome/Código do animal:",
+            f'{adocao.animal_adotado.nome} / {adocao.animal_adotado.codigo}',
         )
         print(
-            "Nome/Cpf do adotante: ",
-            f'{dados_adocao["nome_adotante"]} / {dados_adocao["cpf_adotante"]}',
+            "Nome/CPF do adotante:",
+            f'{adocao.adotante.nome} / {adocao.adotante.cpf}',
         )
-        print("Termo de responsabilidade assinado: ", dados_adocao["assinatura"])
+        print("Termo de responsabilidade assinado:", adocao.assinatura)
         print("\n")
 
     def seleciona_adocao(self):

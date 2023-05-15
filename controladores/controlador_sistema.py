@@ -39,6 +39,14 @@ class ControladorSistema:
     def controlador_vacina(self):
         return self.__controlador_vacina
 
+    @property
+    def controlador_adocao(self):
+        return self.__controlador_adocao
+
+    @property
+    def controlador_doacao(self):
+        return self.__controlador_doacao
+
     def inicializa_sistema(self):
         print("Bem-vindo(a)!")
         sleep(1)

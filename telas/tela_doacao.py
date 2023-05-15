@@ -83,18 +83,18 @@ class TelaDoacao:
             "motivo": motivo,
         }
 
-    def mostra_doacao(self, dados_doacao):
-        print("Código da doação: ", dados_doacao["id"])
-        print("Data da doação: ", dados_doacao["data_doacao"])
+    def mostra_doacao(self, doacao):
+        print("Código da doação:", doacao.id_doacao)
+        print("Data da doação:", doacao.data_doacao)
         print(
-            "Nome/CPF do doador: ",
-            f'{dados_doacao["nome_doador"]} / {dados_doacao["cpf_doador"]}',
+            "Nome/CPF do doador:",
+            f'{doacao.doador.nome} / {doacao.doador.cpf}',
         )
         print(
-            "Nome/Código do animal: ",
-            f'{dados_doacao["nome_animal"]} / {dados_doacao["codigo_animal"]}',
+            "Nome/Código do animal:",
+            f'{doacao.animal.nome} / {doacao.animal.codigo}',
         )
-        print("Motivo da doação: ", dados_doacao["motivo"])
+        print("Motivo da doação:", doacao.motivo)
         print("\n")
         pass
 

@@ -87,8 +87,8 @@ class TelaDoador:
 
     def mostra_doador(self, doador: Doador):
         print(
-            f"{doador.cpf} - {doador.nome}, {doador.data_nascimento}\n"
-            f"\tEndereço: {doador.endereco}"
+            f'{doador.cpf} - {doador.nome}, {doador.data_nascimento.strftime("%d/%m/%Y")}\n'
+            f'\tEndereço: {doador.endereco}'
         )
 
     def mensagem(self, mensagem: str):

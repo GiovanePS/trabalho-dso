@@ -125,8 +125,8 @@ class TelaAdotante:
 
     def mostra_adotante(self, adotante: Adotante):
         print(
-            f"{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento}\n"
-            f"\tEndereço: {adotante.endereco}"
+            f'{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento.strftime("%d/%m/%Y")}\n'
+            f'\tEndereço: {adotante.endereco}'
         )
         print()
 

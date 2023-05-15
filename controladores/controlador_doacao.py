@@ -10,6 +10,14 @@ class ControladorDoacao:
         self.__id = 0
         self.__tela_doacao = TelaDoacao()
 
+    @property
+    def doacoes(self):
+        return self.__doacoes
+
+    @property
+    def tela_doacao(self):
+        return self.__tela_doacao
+
     def pega_doacao_por_codigo(self, codigo: int):
         for doacao in self.__doacoes:
             if int(doacao.id_doacao) == int(codigo):
@@ -83,18 +91,9 @@ class ControladorDoacao:
             self.__controlador_sistema.abre_tela()
         else:
             print("Doações: \n")
-            for doador in self.__doacoes:
-                self.__tela_doacao.mostra_doacao(
-                    {
-                        "id": doador.id_doacao,
-                        "data_doacao": doador.data_doacao,
-                        "nome_doador": doador.doador.nome,
-                        "cpf_doador": doador.doador.cpf,
-                        "nome_animal": doador.animal.nome,
-                        "codigo_animal": doador.animal.codigo,
-                        "motivo": doador.motivo,
-                    }
-                )
+            for doacao in self.__doacoes:
+                self.__tela_doacao.mostra_doacao(doacao)
+                print()
 
     def abre_tela(self):
         lista_opcoes = {
