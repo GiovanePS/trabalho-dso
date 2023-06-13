@@ -75,10 +75,10 @@ class ControladorAdotante:
                 )
                 return
             adotante.cpf = novos_dados_adotante["cpf"]
-            adotante.nome = (novos_dados_adotante["nome"],)
-            adotante.data_nascimento = (novos_dados_adotante["data_nascimento"],)
-            adotante.endereco = (novos_dados_adotante["endereco"],)
-            adotante.tipo_habitacao = (novos_dados_adotante["tipo_habitacao"],)
+            adotante.nome = novos_dados_adotante["nome"]
+            adotante.data_nascimento = novos_dados_adotante["data_nascimento"]
+            adotante.endereco = novos_dados_adotante["endereco"]
+            adotante.tipo_habitacao = novos_dados_adotante["tipo_habitacao"]
             adotante.tem_animais = novos_dados_adotante["tem_animais"]
             os.system("cls")
             self.__tela_adotante.mensagem("Alteração realizada com sucesso!")
