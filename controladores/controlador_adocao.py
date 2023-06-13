@@ -76,7 +76,6 @@ class ControladorAdocao:
             adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal_adotado"]
             adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
             adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
-            adocao.assinatura = novos_dados_adocao["assinatura"]
             self.listar_adocoes()
 
         else:
