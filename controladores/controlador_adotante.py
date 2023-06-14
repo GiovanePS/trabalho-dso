@@ -1,26 +1,27 @@
 from telas.tela_adotante import TelaAdotante
 from entidades.adotante import Adotante
+from DAOs.adotante_dao import AdotanteDAO
 import os
 
 
 class ControladorAdotante:
     def __init__(self, controlador_sistema):
-        self.__adotantes = []
+        self.__adotante_DAO = AdotanteDAO()
         self.__tela_adotante = TelaAdotante()
         self.__controlador_sistema = controlador_sistema
 
     @property
     def adotantes(self):
-        return self.__adotantes
+        return self.__adotante_DAO.get_all()
 
     def pega_adotante_por_cpf(self, cpf):
-        for adotante in self.__adotantes:
+        for adotante in self.__adotante_DAO.get_all():
             if adotante.cpf == cpf:
                 return adotante
         return None
 
     def verificar_doador(self, cpf):
-        for doador in self.__controlador_sistema.controlador_doador.doadores:
+        for doador in self.__controlador_sistema.controlador_doador.doadores: #RESOLVER QUANDO FOR FAZER DAO DE DOADORES
             if doador.cpf == cpf:
                 return True
         return False
@@ -58,7 +59,7 @@ class ControladorAdotante:
             dados_adotante["tipo_habitacao"],
             dados_adotante["tem_animais"],
         )
-        self.__adotantes.append(adotante)
+        self.__adotante_DAO.add(adotante)
         self.__tela_adotante.mensagem("Adotante cadastrado com sucesso!")
         print()
 
@@ -74,12 +75,19 @@ class ControladorAdotante:
                     "Este novo CPF já está cadastrado como doador.\n"
                 )
                 return
-            adotante.cpf = novos_dados_adotante["cpf"]
+
+            if adotante.cpf != novos_dados_adotante["cpf"]: # OPERAÇÃO PARA QUE ALTERAÇÃO DA KEY SEJA POSSÍVEL.
+                key_antiga = adotante.cpf
+                adotante = self.__adotante_DAO.get(adotante.cpf)
+                self.__adotante_DAO.remove(key_antiga)
+                adotante.cpf = novos_dados_adotante["cpf"]
+                self.__adotante_DAO.add(adotante)
             adotante.nome = novos_dados_adotante["nome"]
             adotante.data_nascimento = novos_dados_adotante["data_nascimento"]
             adotante.endereco = novos_dados_adotante["endereco"]
             adotante.tipo_habitacao = novos_dados_adotante["tipo_habitacao"]
             adotante.tem_animais = novos_dados_adotante["tem_animais"]
+            self.__adotante_DAO.update(adotante)
             os.system("cls")
             self.__tela_adotante.mensagem("Alteração realizada com sucesso!")
         else:
@@ -93,22 +101,22 @@ class ControladorAdotante:
         adotante = self.pega_adotante_por_cpf(cpf)
         os.system("cls")
         if isinstance(adotante, Adotante):
-            self.__adotantes.remove(adotante)
+            self.__adotante_DAO.remove(adotante.cpf)
             self.__tela_adotante.mensagem("Adotante removido com sucesso!")
         else:
             self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
         print()
 
     def listar_adotantes(self):
-        if len(self.__adotantes) != 0:
+        if len(self.__adotante_DAO.get_all()) != 0:
             self.__tela_adotante.mensagem("Lista de adotantes:")
-            for adotante in self.__adotantes:
+            for adotante in self.__adotante_DAO.get_all():
                 self.__tela_adotante.mostra_adotante(adotante)
         else:
+            os.system('cls')
             self.__tela_adotante.mensagem(
-                "Ainda não há adotantes no sistema. Voce deve cadastrar primeiro!"
+                "Ainda não há adotantes no sistema."
             )
-            self.__controlador_sistema.abre_tela()
         print()
 
     def abre_tela(self):
