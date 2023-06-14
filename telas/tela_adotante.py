@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from utils.cpf_validador import cpf_validador
 
 
 class TelaAdotante:
@@ -41,8 +42,8 @@ class TelaAdotante:
             [sg.Text("Nome:", size=(32, 1)), sg.InputText('', key='nome')],
             [sg.Text("Data de nascimento (Exemplo: 31/12/1999):", size=(32, 1)), sg.InputText('', key='data_nascimento')],
             [sg.Text("Endereço:", size=(32, 1)), sg.InputText('', key='endereco')],
-            [sg.Text("Tipo de habitação:", size=(32, 1)), sg.Combo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"))],
-            [sg.Text("Tem animais?", size=(32, 1)), sg.Radio("Não", 'Radio1', key=0), sg.Radio("Sim", 'Radio1', key=1)],
+            [sg.Text("Tipo de habitação:", size=(32, 1)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), key='tipo_habitacao')],
+            [sg.Text("Tem animais?", size=(32, 1)), sg.Radio("Não", 'Radio1'), sg.Radio("Sim", 'Radio1', key='tem_animais')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Adotante', layout)
@@ -52,10 +53,29 @@ class TelaAdotante:
             return
 
         self.close()
-        return {"nome": values['nome'],
-                "telefone": values['telefone'],
-                "cpf": values['cpf']
-            }
+        return {
+            "cpf": values['cpf'],
+            "nome": values['nome'],
+            "data_nascimento": values['data_nascimento'],
+            "endereco": values['endereco'],
+            "tipo_habitacao": values['tipo_habitacao'],
+            "tem_animais": values['tem_animais'],
+        }
+
+    def seleciona_cpf(self):
+        layout = [
+            [sg.Text("CPF: "), sg.InputText('', key='cpf')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Selecionar adotante por CPF", layout)
+        button, values = self.open()
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido")
+            self.close()
+            return
+        
+        self.close()
+        return values['cpf']
 
     def mostra_adotante(self):
         ...
@@ -71,4 +91,4 @@ class TelaAdotante:
         self.__window.Close()
 
 var = TelaAdotante()
-var.pega_dados_adotante()
+print(var.pega_dados_adotante())
