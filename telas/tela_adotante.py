@@ -94,8 +94,13 @@ class TelaAdotante:
         self.close()
         return values['cpf']
 
-    def mostra_adotante(self):
-        ...
+    def mostra_adotante(self, dados_adotantes: list):
+        string_todos_adotantes = ""
+        for adotante in dados_adotantes:
+            string_todos_adotantes += f"{adotante['cpf']} - {adotante['nome']}, {adotante['data_nascimento'].strftime('%d/%m/%Y')}\n"
+            string_todos_adotantes += f"\tEndereço: {adotante['endereco']}\n\n"
+
+        sg.Popup("Lista de adotantes", string_todos_adotantes)
 
     def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)
