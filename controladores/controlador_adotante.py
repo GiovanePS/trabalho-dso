@@ -1,7 +1,6 @@
 from telas.tela_adotante import TelaAdotante
 from entidades.adotante import Adotante
 from DAOs.adotante_dao import AdotanteDAO
-import os
 
 
 class ControladorAdotante:
@@ -35,19 +34,21 @@ class ControladorAdotante:
             return False
 
     def incluir_adotante(self):
-        self.__tela_adotante.mensagem("Cadastro de adotante.")
         dados_adotante = self.__tela_adotante.pega_dados_adotante()
-        os.system("cls")
+        if dados_adotante is None:
+            self.__tela_adotante.mensagem("Adotante não cadastrado.")
+            return
+
         if self.verificar_doador(dados_adotante["cpf"]):
             self.__tela_adotante.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
-                "Essa pessoa já está cadastrada como doadora.\n"
+                "Essa pessoa já está cadastrada como doadora."
             )
             return
         if self.verificar_de_menor(dados_adotante["data_nascimento"]):
             self.__tela_adotante.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
-                "Somente pessoas maiores de 18 anos podem ser adotantes.\n"
+                "Somente pessoas maiores de 18 anos podem ser adotantes."
             )
             return
 
@@ -61,18 +62,20 @@ class ControladorAdotante:
         )
         self.__adotante_DAO.add(adotante)
         self.__tela_adotante.mensagem("Adotante cadastrado com sucesso!")
-        print()
 
     def alterar_adotante(self):
-        self.__tela_adotante.mensagem("Alteração cadastral de adotante.")
         cpf = self.__tela_adotante.seleciona_cpf()
         adotante = self.pega_adotante_por_cpf(cpf)
         if isinstance(adotante, Adotante):
             novos_dados_adotante = self.__tela_adotante.pega_dados_adotante()
+            if novos_dados_adotante is None:
+                self.__tela_adotante.mensagem("Adotante não alterado.")
+                return
+
             if self.verificar_doador(novos_dados_adotante["cpf"]):
                 self.__tela_adotante.mensagem(
                     "Não foi possível alterar o cadastro desta pessoa. "
-                    "Este novo CPF já está cadastrado como doador.\n"
+                    "Este novo CPF já está cadastrado como doador."
                 )
                 return
 
@@ -88,36 +91,26 @@ class ControladorAdotante:
             adotante.tipo_habitacao = novos_dados_adotante["tipo_habitacao"]
             adotante.tem_animais = novos_dados_adotante["tem_animais"]
             self.__adotante_DAO.update(adotante)
-            os.system("cls")
             self.__tela_adotante.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system("cls")
             self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
-        print()
 
     def excluir_adotante(self):
-        self.__tela_adotante.mensagem("Exclusão de adotante do sistema.")
         cpf = self.__tela_adotante.seleciona_cpf()
         adotante = self.pega_adotante_por_cpf(cpf)
-        os.system("cls")
         if isinstance(adotante, Adotante):
             self.__adotante_DAO.remove(adotante.cpf)
             self.__tela_adotante.mensagem("Adotante removido com sucesso!")
         else:
             self.__tela_adotante.mensagem("Adotante inexistente no sistema.")
-        print()
 
     def listar_adotantes(self):
         if len(self.__adotante_DAO.get_all()) != 0:
-            self.__tela_adotante.mensagem("Lista de adotantes:")
             for adotante in self.__adotante_DAO.get_all():
                 self.__tela_adotante.mostra_adotante(adotante)
         else:
-            os.system('cls')
             self.__tela_adotante.mensagem(
-                "Ainda não há adotantes no sistema."
-            )
-        print()
+                "Ainda não há adotantes no sistema.")
 
     def abre_tela(self):
         lista_opcoes = {

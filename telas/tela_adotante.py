@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from utils.cpf_validador import cpf_validador
+from datetime import date
 
 
 class TelaAdotante:
@@ -42,25 +43,41 @@ class TelaAdotante:
             [sg.Text("Nome:", size=(32, 1)), sg.InputText('', key='nome')],
             [sg.Text("Data de nascimento (Exemplo: 31/12/1999):", size=(32, 1)), sg.InputText('', key='data_nascimento')],
             [sg.Text("Endereço:", size=(32, 1)), sg.InputText('', key='endereco')],
-            [sg.Text("Tipo de habitação:", size=(32, 1)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), key='tipo_habitacao')],
+            [sg.Text("Tipo de habitação:", size=(32, 1)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), readonly=True, key='tipo_habitacao')],
             [sg.Text("Tem animais?", size=(32, 1)), sg.Radio("Não", 'Radio1'), sg.Radio("Sim", 'Radio1', key='tem_animais')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Adotante', layout)
         button, values = self.open()
+        entrada_invalida = False
+
         if button == 'Cancelar':
             self.close()
             return
+        
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido.")
+            entrada_invalida = True
 
+        try:
+            data = [int(x) for x in '12/02/2004'.split('/')]
+            data_nascimento = date(data[2], data[1], data[0])
+        except:
+            sg.popup_error("Data inválida!")
+            entrada_invalida = True
+        
         self.close()
-        return {
-            "cpf": values['cpf'],
-            "nome": values['nome'],
-            "data_nascimento": values['data_nascimento'],
-            "endereco": values['endereco'],
-            "tipo_habitacao": values['tipo_habitacao'],
-            "tem_animais": values['tem_animais'],
-        }
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "cpf": values['cpf'],
+                "nome": values['nome'],
+                "data_nascimento": data_nascimento,
+                "endereco": values['endereco'],
+                "tipo_habitacao": values['tipo_habitacao'],
+                "tem_animais": values['tem_animais'],
+            }
 
     def seleciona_cpf(self):
         layout = [
@@ -70,7 +87,7 @@ class TelaAdotante:
         self.__window = sg.Window("Selecionar adotante por CPF", layout)
         button, values = self.open()
         if not cpf_validador(values['cpf']):
-            sg.popup_error("CPF Inválido")
+            sg.popup_error("CPF Inválido.")
             self.close()
             return
         
@@ -89,6 +106,3 @@ class TelaAdotante:
 
     def close(self):
         self.__window.Close()
-
-var = TelaAdotante()
-print(var.pega_dados_adotante())
