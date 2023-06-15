@@ -7,8 +7,6 @@ from controladores.controlador_adocao import ControladorAdocao
 from controladores.controlador_vacinacao import ControladorVacinacao
 from controladores.controlador_vacina import ControladorVacina
 from controladores.controlador_menu_relatorios import ControladorMenuRelatorios
-from time import sleep
-import os
 
 
 class ControladorSistema:
@@ -48,9 +46,6 @@ class ControladorSistema:
         return self.__controlador_doacao
 
     def inicializa_sistema(self):
-        print("Bem-vindo(a)!")
-        sleep(1)
-        os.system("cls")
         self.abre_tela()
 
     def menu_animais(self):
@@ -78,8 +73,7 @@ class ControladorSistema:
         self.__controlador_menu_relatorios.abre_tela()
 
     def encerra_sistema(self):
-        print("Até logo!")
-        sleep(1)
+        self.__tela_sistema.mensagem("Até logo!")
         exit()
 
     def abre_tela(self):
@@ -96,7 +90,6 @@ class ControladorSistema:
         }
 
         while True:
-            opcao = self.__tela_sistema.tela_opcoes()
+            opcao = self.__tela_sistema.abre_tela()
             funcao_escolhida = lista_opcoes[opcao]
-            os.system("cls")
             funcao_escolhida()

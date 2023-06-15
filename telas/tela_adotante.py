@@ -11,7 +11,9 @@ class TelaAdotante:
     def abre_tela(self):
         self.tela_principal()
         button, values = self.open()
-        if values['1']:
+        if button in (None, 'Cancelar') or values['0']:
+            opcao_escolhida = 0
+        elif values['1']:
             opcao_escolhida = 1
         elif values['2']:
             opcao_escolhida = 2
@@ -19,9 +21,8 @@ class TelaAdotante:
             opcao_escolhida = 3
         elif values['4']:
             opcao_escolhida = 4
-        elif values['0'] or button in (None, 'Cancelar'):
-            opcao_escolhida = 0
         self.close()
+
         return opcao_escolhida
 
     def tela_principal(self):
