@@ -1,142 +1,108 @@
-from exceptions.valor_invalido_exception import ValorInvalido
-from entidades.adotante import Adotante
+import PySimpleGUI as sg
 from utils.cpf_validador import cpf_validador
 from datetime import date
-import os
 
 
 class TelaAdotante:
+    def __init__(self):
+        self.__window = None
+        sg.ChangeLookAndFeel('Light Gray')
+
     def abre_tela(self):
-        print("Escolha uma opcão:")
-        print("[1] Cadastrar adotante.")
-        print("[2] Alterar adotante.")
-        print("[3] Excluir adotante.")
-        print("[4] Listar adotantes.")
-        print("[0] Retornar para o menu principal.")
-        while True:
-            try:
-                opcao_escolhida = int(input("Opção: "))
-                if 0 > opcao_escolhida or opcao_escolhida > 4:
-                    raise ValorInvalido
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite uma das opções.")
-            else:
-                break
-        os.system("cls")
+        self.tela_principal()
+        button, values = self.open()
+        if values['1']:
+            opcao_escolhida = 1
+        elif values['2']:
+            opcao_escolhida = 2
+        elif values['3']:
+            opcao_escolhida = 3
+        elif values['4']:
+            opcao_escolhida = 4
+        elif values['0'] or button in (None, 'Cancelar'):
+            opcao_escolhida = 0
+        self.close()
         return opcao_escolhida
 
+    def tela_principal(self):
+        layout = [
+            [sg.Text("Escolha uma opção:")],
+            [sg.Radio("Incluir adotante.", 'Radio1', key='1')],
+            [sg.Radio("Alterar adotante.", 'Radio1', key='2')],
+            [sg.Radio("Excluir adotante.", 'Radio1', key='3')],
+            [sg.Radio("Listar adotantes.", 'Radio1', key='4')],
+            [sg.Radio("Retornar para o menu principal.", 'Radio1', key='0')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Menu de adotantes', layout, finalize=True) #finalize é para ser possível definir um tamanho mínimo para a janela
+        self.__window.set_min_size((300, 200)) #tamanho mínimo para a janela.
+
     def pega_dados_adotante(self):
-        while True:
-            cpf = input("CPF: ")
-            if cpf_validador(cpf):
-                break
-            else:
-                print("CPF inválido. Digite novamente.")
+        layout = [
+            [sg.Text("CPF:", size=(32, 1)), sg.InputText('', key='cpf')],
+            [sg.Text("Nome:", size=(32, 1)), sg.InputText('', key='nome')],
+            [sg.Text("Data de nascimento (Exemplo: 31/12/1999):", size=(32, 1)), sg.InputText('', key='data_nascimento')],
+            [sg.Text("Endereço:", size=(32, 1)), sg.InputText('', key='endereco')],
+            [sg.Text("Tipo de habitação:", size=(32, 1)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), readonly=True, key='tipo_habitacao')],
+            [sg.Text("Tem animais?", size=(32, 1)), sg.Radio("Não", 'Radio1'), sg.Radio("Sim", 'Radio1', key='tem_animais')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Dados do Adotante', layout)
+        button, values = self.open()
+        entrada_invalida = False
 
-        nome = input("Nome: ")
+        if button == 'Cancelar':
+            self.close()
+            return
+        
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido.")
+            entrada_invalida = True
 
-        while True:
-            try:
-                while True:
-                    try:
-                        ano = int(input("Ano de nascimento do adotante: "))
-                        if 1900 > ano or ano > 2023:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um ano de nascimento válido!")
-
-                while True:
-                    try:
-                        mes = int(input("Mês de nascimento do adotante: "))
-                        if 1 > mes or mes > 12:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um mês de nascimento válido!")
-
-                while True:
-                    try:
-                        dia = int(input("Dia de nascimento do adotante: "))
-                        if 1 > dia or dia > 31:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um dia de nascimento válido!")
-                data_nascimento = date(ano, mes, dia)
-            except ValueError:
-                print("Data inválida. Digite a data novamente!")
-            else:
-                break
-
-        endereco = input("Endereço: ")
-        while True:
-            print("Tipo de habitação: ")
-            print("[1] Casa pequena.")
-            print("[2] Casa média.")
-            print("[3] Casa grande.")
-            print("[4] Apartamento pequeno.")
-            print("[5] Apartamento médio.")
-            print("[6] Apartamento grande.")
-            try:
-                opcao_tipo_habitacao = int(input("Opção: "))
-                if 1 > opcao_tipo_habitacao or opcao_tipo_habitacao > 6:
-                    raise ValorInvalido
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite um dos valores inteiros válidos.")
-            else:
-                break
-        tipos_de_habitacoes = {
-            1: "Casa pequena",
-            2: "Casa média",
-            3: "Casa grande",
-            4: "Apartamento pequeno",
-            5: "Apartamento médio",
-            6: "Apartamento grande",
-        }
-
-        tipo_habitacao = tipos_de_habitacoes[opcao_tipo_habitacao]
-
-        while True:
-            print("Tem animais?")
-            print("[1] Sim")
-            print("[2] Não")
-            try:
-                tem_animais = int(input("Opção: "))
-                if 1 > tem_animais or tem_animais > 2:
-                    raise ValorInvalido
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite um valor inteiro válido.")
-            else:
-                break
-        tem_animais = True if tem_animais == 1 else False
-
-        return {
-            "cpf": cpf,
-            "nome": nome,
-            "data_nascimento": data_nascimento,
-            "endereco": endereco,
-            "tipo_habitacao": tipo_habitacao,
-            "tem_animais": tem_animais,
-        }
-
-    def mostra_adotante(self, adotante: Adotante):
-        print(
-            f'{adotante.cpf} - {adotante.nome}, {adotante.data_nascimento.strftime("%d/%m/%Y")}\n'
-            f'\tEndereço: {adotante.endereco}'
-        )
-        print()
+        try:
+            data = [int(x) for x in '12/02/2004'.split('/')]
+            data_nascimento = date(data[2], data[1], data[0])
+        except:
+            sg.popup_error("Data inválida!")
+            entrada_invalida = True
+        
+        self.close()
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "cpf": values['cpf'],
+                "nome": values['nome'],
+                "data_nascimento": data_nascimento,
+                "endereco": values['endereco'],
+                "tipo_habitacao": values['tipo_habitacao'],
+                "tem_animais": values['tem_animais'],
+            }
 
     def seleciona_cpf(self):
-        while True:
-            cpf = input("Digite o CPF: ")
-            if cpf_validador(cpf):
-                return cpf
-            else:
-                print("CPF inválido. Digite novamente.")
+        layout = [
+            [sg.Text("CPF: "), sg.InputText('', key='cpf')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Selecionar adotante por CPF", layout)
+        button, values = self.open()
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido.")
+            self.close()
+            return
+        
+        self.close()
+        return values['cpf']
+
+    def mostra_adotante(self):
+        ...
 
     def mensagem(self, mensagem: str):
-        print(mensagem)
+        sg.Popup("", mensagem)
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
+
+    def close(self):
+        self.__window.Close()
