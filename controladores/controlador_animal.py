@@ -29,7 +29,6 @@ class ControladorAnimal:
         return None
 
     def incluir_animal(self):
-        self.__tela_animal.mensagem("Cadastro de animal.")
         dados_animal = self.__tela_animal.pega_dados_animal()
         self.__codigo += 1
         animal = Animal(
