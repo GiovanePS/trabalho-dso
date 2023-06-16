@@ -73,7 +73,6 @@ class ControladorSistema:
         self.__controlador_menu_relatorios.abre_tela()
 
     def encerra_sistema(self):
-        self.__tela_sistema.mensagem("Até logo!")
         exit()
 
     def abre_tela(self):
