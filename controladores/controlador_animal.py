@@ -7,7 +7,7 @@ import os
 class ControladorAnimal:
     def __init__(self, controlador_sistema):
         self.__animal_DAO = AnimalDAO()
-        if self.__animal_DAO.get_all() == 0:
+        if len(self.__animal_DAO.get_all()) == 0:
             self.__codigo = 0
         else:
             self.__codigo = list(self.__animal_DAO.get_all())[-1].codigo
