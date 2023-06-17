@@ -1,7 +1,6 @@
 from entidades.animal import Animal
 from telas.tela_animal import TelaAnimal
 from DAOs.animal_dao import AnimalDAO
-import os
 
 
 class ControladorAnimal:
@@ -30,6 +29,10 @@ class ControladorAnimal:
 
     def incluir_animal(self):
         dados_animal = self.__tela_animal.pega_dados_animal()
+        if dados_animal == None:
+            self.__tela_animal.mensagem("Animal não cadastrado.")
+            return
+
         self.__codigo += 1
         animal = Animal(
             self.__codigo,
@@ -39,50 +42,52 @@ class ControladorAnimal:
             dados_animal["tamanho"],
         )
         self.__animal_DAO.add(animal)
-        os.system("cls")
         self.__tela_animal.mensagem("Animal cadastrado com sucesso!")
-        print()
 
     def alterar_animal(self):
-        self.listar_animais()
-        self.__tela_animal.mensagem("Alteração cadastral de animal.")
         codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
         if isinstance(animal, Animal):
             novos_dados_animal = self.__tela_animal.pega_dados_animal()
+            if novos_dados_animal == None:
+                self.__tela_animal.mensagem("Animal não alterado.")
+                return
             animal.nome = novos_dados_animal["nome"]
             animal.tipo = novos_dados_animal["tipo"]
             animal.raca = novos_dados_animal["raca"]
             animal.tamanho = novos_dados_animal["tamanho"]
             self.__animal_DAO.update(animal)
-            os.system("cls")
             self.__tela_animal.mensagem("Alteração realizada com sucesso!")
         else:
-            os.system("cls")
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
-        print()
 
     def excluir_animal(self):
-        self.__tela_animal.mensagem("Exclusão de animal do sistema.")
         codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
         animal = self.pegar_animal_por_codigo(codigo_selecionado)
-        os.system("cls")
         if isinstance(animal, Animal):
             self.__animal_DAO.remove(animal.codigo)
             self.__tela_animal.mensagem("Animal removido com sucesso!")
         else:
             self.__tela_animal.mensagem("Animal inexistente no sistema.")
-        print()
 
     def listar_animais(self):
         if len(self.__animal_DAO.get_all()) != 0:
-            self.__tela_animal.mensagem(
-                "Lista de animais (código, nome, tipo, raça, tamanho):"
-                )
+            dados_animais = []
             for animal in self.__animal_DAO.get_all():
-                self.__tela_animal.mostra_animal(animal)
+                dados_animais.append({
+                    "codigo": animal.codigo,
+                    "nome": animal.nome,
+                    "tipo": animal.tipo,
+                    "raca": animal.raca,
+                    "tamanho": animal.tamanho,
+                    "vacinas": animal.vacinas,
+                    "pode_ser_adotado": animal.pode_ser_adotado,
+                    "foi_adotado": animal.foi_adotado
+                })
+
+            self.__tela_animal.mostra_animal(dados_animais)
         else:
-            self.__tela_animal.mensagem("Ainda não há animais no sistema.\n")
+            self.__tela_animal.mensagem("Ainda não há animais no sistema.")
 
     def abre_tela(self):
         lista_opcoes = {

@@ -42,7 +42,7 @@ class TelaSistema:
             [sg.Radio("Vacinas.", 'Radio1', key='6')],
             [sg.Radio("Vacinações.", 'Radio1', key='7')],
             [sg.Radio("Menu de relatórios.", 'Radio1', key='8')],
-            [sg.Radio("Finalizar sistema.", 'Radio1', key='0')],
+            [sg.Radio("Finalizar sistema.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar')]
         ]
         self.__window = sg.Window("Menu principal", layout, finalize=True)

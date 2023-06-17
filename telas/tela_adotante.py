@@ -32,7 +32,7 @@ class TelaAdotante:
             [sg.Radio("Alterar adotante.", 'Radio1', key='2')],
             [sg.Radio("Excluir adotante.", 'Radio1', key='3')],
             [sg.Radio("Listar adotantes.", 'Radio1', key='4')],
-            [sg.Radio("Retornar para o menu principal.", 'Radio1', key='0')],
+            [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Menu de adotantes', layout, finalize=True) #finalize é para ser possível definir um tamanho mínimo para a janela
@@ -46,8 +46,8 @@ class TelaAdotante:
             [sg.Text("Nome:", size=(width_size, height_size)), sg.InputText('', key='nome')],
             [sg.Text("Data de nascimento (Exemplo: 31/12/1999):", size=(width_size, height_size)), sg.InputText('', key='data_nascimento')],
             [sg.Text("Endereço:", size=(width_size, height_size)), sg.InputText('', key='endereco')],
-            [sg.Text("Tipo de habitação:", size=(width_size, height_size)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), readonly=True, key='tipo_habitacao')],
-            [sg.Text("Tem animais?", size=(width_size, height_size)), sg.Radio("Não", 'Radio1'), sg.Radio("Sim", 'Radio1', key='tem_animais')],
+            [sg.Text("Tipo de habitação:", size=(width_size, height_size)), sg.InputCombo(("Casa pequena", "Casa média", "Casa grande", "Apartamento pequeno", "Apartamento médio", "Apartamento grande"), readonly=True, default_value="Casa pequena", key='tipo_habitacao')],
+            [sg.Text("Tem animais?", size=(width_size, height_size)), sg.Radio("Não", 'Radio1', default=True), sg.Radio("Sim", 'Radio1', key='tem_animais')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Dados do Adotante', layout)
