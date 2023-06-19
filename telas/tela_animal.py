@@ -83,8 +83,10 @@ class TelaAnimal:
 
             if animal['pode_ser_adotado'] and not animal['foi_adotado']:
                 string_todos_animais += "   Disponível para adoção: Sim.\n\n"
+            elif animal['pode_ser_adotado'] and animal['foi_adotado']:
+                string_todos_animais += "   Disponível para adoção: Não, pois já foi adotado.\n\n"
             else:
-                string_todos_animais += "   Disponível para adoção: Não.\n\n"
+                string_todos_animais += "   Disponível para adoção: Não, pois não tem as vacinas necessárias.\n\n"
 
         sg.Popup("Lista de animais (código, nome, tipo, raça, tamanho):", string_todos_animais)
 
