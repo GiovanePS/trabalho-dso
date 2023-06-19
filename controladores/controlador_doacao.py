@@ -1,25 +1,27 @@
 from telas.tela_doacao import TelaDoacao
 from entidades.doacao import Doacao
+from DAOs.doacao_dao import DoacaoDAO
+
 import os
 
 
 class ControladorDoacao:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__doacoes = []
+        self.__doacao_DAO= DoacaoDAO()
         self.__id = 0
         self.__tela_doacao = TelaDoacao()
 
     @property
     def doacoes(self):
-        return self.__doacoes
+        return self.__doacao_DAO.get_all()
 
     @property
     def tela_doacao(self):
         return self.__tela_doacao
 
     def pega_doacao_por_codigo(self, codigo: int):
-        for doacao in self.__doacoes:
+        for doacao in self.__doacao_DAO.get_all():
             if int(doacao.id_doacao) == int(codigo):
                 return doacao
 
@@ -50,7 +52,7 @@ class ControladorDoacao:
                     dados_doacao["motivo"],
                     self.__id,
                 )
-                self.__doacoes.append(doacao)
+                self.__doacao_DAO.add(doacao)
                 os.system("cls")
                 print("Doação cadastrada com sucesso.")
             else:
@@ -82,21 +84,21 @@ class ControladorDoacao:
         doacao = self.pega_doacao_por_codigo(id_doacao)
 
         if doacao is not None:
-            self.__doacoes.remove(doacao)
+            self.__doacao_DAO.remove(doacao)
             os.system("cls")
             self.__tela_doacao.mensagem("Doação removida com sucesso!")
         else:
             self.__tela_doacao.mensagem("Esta doação NÃO EXISTE.")
 
     def listar_doacoes(self):
-        if len(self.__doacoes) == 0:
+        if len(self.__doacao_DAO.get_all()) == 0:
             self.__tela_doacao.mensagem(
                 "Ainda não há doações no sistema. Voce deve cadastrar primeiro!"
             )
             self.__controlador_sistema.abre_tela()
         else:
             print("Doações: \n")
-            for doacao in self.__doacoes:
+            for doacao in self.__doacao_DAO.get_all():
                 self.__tela_doacao.mostra_doacao(doacao)
                 print()
 
