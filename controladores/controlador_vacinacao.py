@@ -11,6 +11,11 @@ class ControladorVacinacao:
         self.__tela_vacinacao = TelaVacinacao()
         self.__id = 0
 
+    
+    @property
+    def vacinacoes(self):
+        return self.__vacinacao_DAO.get_all()
+
     def pega_vacinacao_por_id(self, id):
         for vacinacao in self.__vacinacao_DAO.get_all():
             if int(vacinacao.id_vacinacao) == int(id):
