@@ -24,6 +24,8 @@ class ControladorDoacao:
                 return doacao
 
     def incluir_doacao(self):
+
+        self.__controlador_sistema.controlador_animal.incluir_animal()
         self.__controlador_sistema.controlador_animal.listar_animais()
         self.__controlador_sistema.controlador_doador.listar_doadores()
 

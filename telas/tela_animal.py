@@ -12,8 +12,8 @@ class TelaAnimal:
 
         if button in (None, 'Cancelar') or values['0']:
             opcao_escolhida = 0
-        elif values['1']:
-            opcao_escolhida = 1 # Incluir animal somente através de uma doação.
+        # elif values['1']:
+        #     opcao_escolhida = 1 # Incluir animal somente através de uma doação.
         elif values['2']:
             opcao_escolhida = 2
         elif values['3']:
@@ -26,7 +26,7 @@ class TelaAnimal:
 
     def tela_principal(self):
         layout = [
-            [sg.Radio("Incluir animal.", 'Radio1', key='1')],
+            # [sg.Radio("Incluir animal.", 'Radio1', key='1')],
             [sg.Radio("Alterar animal.", 'Radio1', key='2')],
             [sg.Radio("Excluir animal.", 'Radio1', key='3')],
             [sg.Radio("Listar animais.", 'Radio1', key='4')],

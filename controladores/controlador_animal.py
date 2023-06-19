@@ -45,30 +45,38 @@ class ControladorAnimal:
         self.__tela_animal.mensagem("Animal cadastrado com sucesso!")
 
     def alterar_animal(self):
-        codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
-        animal = self.pegar_animal_por_codigo(codigo_selecionado)
-        if isinstance(animal, Animal):
-            novos_dados_animal = self.__tela_animal.pega_dados_animal()
-            if novos_dados_animal == None:
-                self.__tela_animal.mensagem("Animal não alterado.")
-                return
-            animal.nome = novos_dados_animal["nome"]
-            animal.tipo = novos_dados_animal["tipo"]
-            animal.raca = novos_dados_animal["raca"]
-            animal.tamanho = novos_dados_animal["tamanho"]
-            self.__animal_DAO.update(animal)
-            self.__tela_animal.mensagem("Alteração realizada com sucesso!")
+        if len(self.__animal_DAO.get_all()) != 0:
+            ControladorAnimal.listar_animais(self)
+            codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
+            animal = self.pegar_animal_por_codigo(codigo_selecionado)
+            if isinstance(animal, Animal):
+                novos_dados_animal = self.__tela_animal.pega_dados_animal()
+                if novos_dados_animal == None:
+                    self.__tela_animal.mensagem("Animal não alterado.")
+                    return
+                animal.nome = novos_dados_animal["nome"]
+                animal.tipo = novos_dados_animal["tipo"]
+                animal.raca = novos_dados_animal["raca"]
+                animal.tamanho = novos_dados_animal["tamanho"]
+                self.__animal_DAO.update(animal)
+                self.__tela_animal.mensagem("Alteração realizada com sucesso!")
+            else:
+                self.__tela_animal.mensagem("Animal inexistente no sistema.")
         else:
-            self.__tela_animal.mensagem("Animal inexistente no sistema.")
+            self.__tela_animal.mensagem("Ainda não há animais no sistema.")
 
     def excluir_animal(self):
-        codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
-        animal = self.pegar_animal_por_codigo(codigo_selecionado)
-        if isinstance(animal, Animal):
-            self.__animal_DAO.remove(animal.codigo)
-            self.__tela_animal.mensagem("Animal removido com sucesso!")
+        if len(self.__animal_DAO.get_all()) != 0:
+            ControladorAnimal.listar_animais(self)
+            codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
+            animal = self.pegar_animal_por_codigo(codigo_selecionado)
+            if isinstance(animal, Animal):
+                self.__animal_DAO.remove(animal.codigo)
+                self.__tela_animal.mensagem("Animal removido com sucesso!")
+            else:
+                self.__tela_animal.mensagem("Animal inexistente no sistema.")
         else:
-            self.__tela_animal.mensagem("Animal inexistente no sistema.")
+            self.__tela_animal.mensagem("Ainda n~~ao há animais no sistema.")
 
     def listar_animais(self):
         if len(self.__animal_DAO.get_all()) != 0:
@@ -104,3 +112,5 @@ class ControladorAnimal:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
+    def teste(self):
+        print('ok')

@@ -8,7 +8,7 @@ import os
 class TelaDoador:
     def tela_opcoes(self):
         print("Escolha uma opção:")
-        print("[1] Cadastrar doador.")
+        print("[1] Cadastrar doador.") 
         print("[2] Alterar doador.")
         print("[3] Excluir doador.")
         print("[4] Listar doadores.")
