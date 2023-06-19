@@ -1,21 +1,22 @@
 from telas.tela_vacina import TelaVacina
 from entidades.vacina import Vacina
+from DAOs.vacina_dao import VacinaDAO
 import os
 
 
 class ControladorVacina:
     def __init__(self, controlador_sistema):
-        self.__vacinas = []
+        self.__vacina_DAO = VacinaDAO()
         self.__tela_vacina = TelaVacina()
         self.__controlador_sistema = controlador_sistema
         self.__codigos = []
 
     @property
     def vacinas(self):
-        return self.__vacinas
+        return self.__vacina_DAO.get_all()
 
     def pega_vacina_por_codigo(self, codigo):
-        for vacina in self.__vacinas:
+        for vacina in self.__vacina_DAO.get_all():
             if int(vacina.codigo_vacina) == int(codigo):
                 return vacina
         return None
@@ -34,7 +35,7 @@ class ControladorVacina:
         os.system("cls")
         vacina = Vacina(dados_vacina["nome_vacina"], dados_vacina["codigo_vacina"])
         self.__codigos.append(dados_vacina["codigo_vacina"])
-        self.__vacinas.append(vacina)
+        self.__vacina_DAO.add(vacina)
         self.__tela_vacina.mensagem("Vacina cadastrada com sucesso!")
         print()
 
@@ -63,7 +64,7 @@ class ControladorVacina:
         vacina = self.pega_vacina_por_codigo(codigo)
         os.system("cls")
         if isinstance(vacina, Vacina):
-            self.__vacinas.remove(vacina)
+            self.__vacina_DAO.remove(vacina)
             self.__tela_vacina.mensagem("Vacina removida com sucesso!")
             self.__codigos.remove(codigo)
         else:
@@ -71,10 +72,10 @@ class ControladorVacina:
         print()
 
     def listar_vacina(self):
-        if len(self.__vacinas) != 0:
+        if len(self.__vacina_DAO.get_all()) != 0:
             self.__tela_vacina.mensagem("Lista de vacinas (código - vacina):")
             print()
-            for vacina in self.__vacinas:
+            for vacina in self.__vacina_DAO.get_all():
                 self.__tela_vacina.mostra_vacina(vacina)
                 print()
         else:
