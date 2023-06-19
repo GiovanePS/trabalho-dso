@@ -25,35 +25,38 @@ class ControladorDoacao:
 
     def incluir_doacao(self):
 
-        self.__controlador_sistema.controlador_animal.incluir_animal()
-        self.__controlador_sistema.controlador_animal.listar_animais()
-        self.__controlador_sistema.controlador_doador.listar_doadores()
+        if len(self.__controlador_sistema.controlador_doador.doadores)!=0:
+            self.__controlador_sistema.controlador_animal.incluir_animal()
+            self.__controlador_sistema.controlador_animal.listar_animais()
+            self.__controlador_sistema.controlador_doador.listar_doadores()
 
-        dados_doacao = self.__tela_doacao.pega_dados_doacao()
+            dados_doacao = self.__tela_doacao.pega_dados_doacao()
 
-        self.__tela_doacao.mensagem("Cadastro de doação:")
+            self.__tela_doacao.mensagem("Cadastro de doação:")
 
-        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
-            dados_doacao["codigo_animal"]
-        )  # noqa
-        doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(
-            dados_doacao["cpf_doador"]
-        )  # noqa
+            animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
+                dados_doacao["codigo_animal"]
+            )  # noqa
+            doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(
+                dados_doacao["cpf_doador"]
+            )  # noqa
 
-        if doador is not None and animal is not None:
-            self.__id += 1
-            doacao = Doacao(
-                dados_doacao["data_doacao"],
-                animal,
-                doador,
-                dados_doacao["motivo"],
-                self.__id,
-            )
-            self.__doacoes.append(doacao)
-            os.system("cls")
-            print("Doação cadastrada com sucesso.")
+            if doador is not None and animal is not None:
+                self.__id += 1
+                doacao = Doacao(
+                    dados_doacao["data_doacao"],
+                    animal,
+                    doador,
+                    dados_doacao["motivo"],
+                    self.__id,
+                )
+                self.__doacoes.append(doacao)
+                os.system("cls")
+                print("Doação cadastrada com sucesso.")
+            else:
+                self.__tela_doacao.mensagem("Dados inválidos!")
         else:
-            self.__tela_doacao.mensagem("Dados inválidos!")
+            self.tela_doacao.mensagem("Ainda não há doadores no sistema.")
 
     def alterar_doacao(self):
         self.listar_doacoes()

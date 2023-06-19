@@ -112,5 +112,3 @@ class ControladorAnimal:
                 return
             funcao_escolhida = lista_opcoes[opcao]
             funcao_escolhida()
-    def teste(self):
-        print('ok')

@@ -62,13 +62,14 @@ class TelaDoacao:
                 break
             
             self.controlador_sistema.controlador_animal.teste()
-        # while True:
-        #     codigo = input("Código do animal: ")
-        #     if codigo.isnumeric():
-        #         codigo_animal = codigo
-        #         break
-        #     else:
-        #         print("ERRO. O código deve ser um número inteiro.")
+
+        while True:
+            codigo = input("Código do animal: ")
+            if codigo.isnumeric():
+                codigo_animal = codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
 
         nome_animal = input("Nome do animal: ")
         cpf_doador = input("CPF do doador: ")
@@ -77,7 +78,7 @@ class TelaDoacao:
 
         return {
             "data_doacao": data_doacao,
-            # "codigo_animal": codigo_animal,
+            "codigo_animal": codigo_animal,
             "nome_animal": nome_animal,
             "cpf_doador": cpf_doador,
             "nome_doador": nome_doador,
