@@ -1,28 +1,27 @@
 from telas.tela_doador import TelaDoador
 from entidades.doador import Doador
+from DAOs.doador_dao import DoadorDAO
 import os
 
 
 class ControladorDoador:
     def __init__(self, controlador_sistema):
-        self.__doadores = []
+        self.__doador_DAO = DoadorDAO()
         self.__tela_doador = TelaDoador()
         self.__controlador_sistema = controlador_sistema
 
     @property
     def doadores(self):
-        return self.__doadores
+        return self.__doador_DAO.get_all()
 
     def pega_doador_por_cpf(self, cpf):
-        for doador in self.__doadores:
+        for doador in self.__doador_DAO.get_all():
             if doador.cpf == cpf:
                 return doador
         return None
 
     def verificar_adotante(self, cpf):
-        for (
-            adotante
-        ) in self.__controlador_sistema.controlador_adotante.adotantes:  # noqa
+        for adotante in self.__controlador_sistema.controlador_adotante.adotantes:
             if adotante.cpf == cpf:
                 return True
         return False
@@ -44,7 +43,7 @@ class ControladorDoador:
             dados_doador["data_nascimento"],
             dados_doador["endereco"],
         )
-        self.__doadores.append(doador)
+        self.__doador_DAO.add(doador)
         self.__tela_doador.mensagem("Doador cadastrado com sucesso!")
         print()
 
@@ -60,11 +59,18 @@ class ControladorDoador:
                     "Este novo CPF já está cadastrado como doador.\n"
                 )
                 return
-            doador.cpf = novos_dados_doador["cpf"]
+            
+            if doador.cpf != novos_dados_doador["cpf"]:
+                key_antiga = doador.cpf
+                doador = self.__doador_DAO.get(doador.cpf)
+                self.__doador_DAO.remove(key_antiga)
+                doador.cpf = novos_dados_doador["cpf"]
+                self.__doador_DAO.add(doador)
             doador.nome = novos_dados_doador["nome"]
             doador.data_nascimento = novos_dados_doador["data_nascimento"]
             doador.endereco = novos_dados_doador["endereco"]
             os.system("cls")
+            self.__doador_DAO.update(doador)
             self.__tela_doador.mensagem("Alteração realizada com sucesso!")
         else:
             os.system("cls")
@@ -77,22 +83,19 @@ class ControladorDoador:
         doador = self.pega_doador_por_cpf(cpf)
         os.system("cls")
         if isinstance(doador, Doador):
-            self.__doadores.remove(doador)
+            self.__doador_DAO.remove(doador.cpf)
             self.__tela_doador.mensagem("Doador removido com sucesso!")
         else:
             self.__tela_doador.mensagem("Doador inexistente no sistema.")
         print()
 
     def listar_doadores(self):
-        if len(self.__doadores) != 0:
+        if len(self.__doador_DAO.get_all()) != 0:
             self.__tela_doador.mensagem("Lista de doadores:")
-            for doador in self.__doadores:
+            for doador in self.__doador_DAO.get_all():
                 self.__tela_doador.mostra_doador(doador)
         else:
-            self.__tela_doador.mensagem(
-                "Ainda não há doadores no sistema. Voce deve cadastrar primeiro!"
-            )
-            self.__controlador_sistema.abre_tela()
+            self.__tela_doador.mensagem("Ainda não há doadores no sistema.")
         print()
 
     def abre_tela(self):

@@ -20,7 +20,7 @@ class ControladorAdotante:
         return None
 
     def verificar_doador(self, cpf):
-        for doador in self.__controlador_sistema.controlador_doador.doadores: #RESOLVER QUANDO FOR FAZER DAO DE DOADORES
+        for doador in self.__controlador_sistema.controlador_doador.doadores:
             if doador.cpf == cpf:
                 return True
         return False
