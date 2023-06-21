@@ -79,7 +79,7 @@ class ControladorAdotante:
                 )
                 return
 
-            if adotante.cpf != novos_dados_adotante["cpf"]: # OPERAÇÃO PARA QUE ALTERAÇÃO DA KEY SEJA POSSÍVEL.
+            if adotante.cpf != novos_dados_adotante["cpf"]:
                 key_antiga = adotante.cpf
                 adotante = self.__adotante_DAO.get(adotante.cpf)
                 self.__adotante_DAO.remove(key_antiga)

@@ -34,7 +34,6 @@ class TelaAnimal:
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window("Menu de animais", layout, finalize=True)
-        self.__window.set_min_size((300, 200))
 
     def pega_dados_animal(self):
         width_size = 20

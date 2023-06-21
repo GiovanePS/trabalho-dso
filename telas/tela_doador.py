@@ -1,95 +1,117 @@
-from entidades.doador import Doador
-from exceptions.valor_invalido_exception import ValorInvalido
+import PySimpleGUI as sg
 from utils.cpf_validador import cpf_validador
 from datetime import date
-import os
 
 
 class TelaDoador:
-    def tela_opcoes(self):
-        print("Escolha uma opção:")
-        print("[1] Cadastrar doador.") 
-        print("[2] Alterar doador.")
-        print("[3] Excluir doador.")
-        print("[4] Listar doadores.")
-        print("[0] Retornar para o menu principal.")
-        while True:
-            try:
-                opcao_escolhida = int(input("Opção: "))
-                if 0 > opcao_escolhida or opcao_escolhida > 4:
-                    raise ValorInvalido
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite uma das opções.")
-            else:
-                break
-        os.system("cls")
+    def __init__(self):
+        self.__window = None
+        sg.ChangeLookAndFeel('Light Gray')
+
+    def abre_tela(self):
+        self.tela_principal()
+        button, values = self.open()
+
+        if button in (None, 'Cancelar') or values['0']:
+            opcao_escolhida = 0
+        elif values['1']:
+            opcao_escolhida = 1
+        elif values['2']:
+            opcao_escolhida = 2
+        elif values['3']:
+            opcao_escolhida = 3
+        elif values['4']:
+            opcao_escolhida = 4
+        
+        self.close()
         return opcao_escolhida
 
-    def pega_cpf(self):
-        cpf = input("Digite o CPF do doador: ")
-        return cpf
+    def tela_principal(self):
+        layout = [
+            [sg.Radio("Incluir doador.", 'Radio1', key='1')],
+            [sg.Radio("Alterar doador.", 'Radio1', key='2')],
+            [sg.Radio("Excluir doador.", 'Radio1', key='3')],
+            [sg.Radio("Listar doadores.", 'Radio1', key='4')],
+            [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Menu de doadores', layout, finalize=True)
+        self.__window.set_min_size((300, 200))
 
     def pega_dados_doador(self):
-        while True:
-            cpf = input("CPF: ")
-            if cpf_validador(cpf):
-                break
-            else:
-                print("CPF inválido. Digite novamente.")
+        width_size = 32
+        height_size = 1
+        layout = [
+            [sg.Text("CPF:", size=(width_size, height_size)), sg.InputText('', key='cpf')],
+            [sg.Text("Nome:", size=(width_size, height_size)), sg.InputText('', key='nome')],
+            [sg.Text("Data de nascimento (Exemplo: 31/12/1999):", size=(width_size, height_size)), sg.InputText('', key='data_nascimento')],
+            [sg.Text("Endereço:", size=(width_size, height_size)), sg.InputText('', key='endereco')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Dados do Doador', layout)
+        button, values = self.open()
+        entrada_invalida = False
 
-        nome = input("Nome do doador: ")
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
+        
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido.")
+            entrada_invalida = True
 
-        while True:
-            try:
-                while True:
-                    try:
-                        ano = int(input("Ano de nascimento do doador: "))
-                        if 1900 > ano or ano > 2023:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um ano de nascimento válido!")
+        try:
+            data = [int(x) for x in '12/02/2004'.split('/')]
+            data_nascimento = date(data[2], data[1], data[0])
+        except:
+            sg.popup_error("Data inválida!")
+            entrada_invalida = True
 
-                while True:
-                    try:
-                        mes = int(input("Mês de nascimento do doador: "))
-                        if 1 > mes or mes > 12:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um mês de nascimento válido!")
+        self.close()
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "cpf": values['cpf'],
+                "nome": values['nome'],
+                "data_nascimento": data_nascimento,
+                "endereco": values['endereco']
+            }
 
-                while True:
-                    try:
-                        dia = int(input("Dia de nascimento do doador: "))
-                        if 1 > dia or dia > 31:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um dia de nascimento válido!")
-                data_nascimento = date(ano, mes, dia)
-            except ValueError:
-                print("Data inválida. Digite a data novamente!")
-            else:
-                break
+    def pega_cpf(self):
+        layout = [
+            [sg.Text("CPF: "), sg.InputText('', key='cpf')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Selecionar doador por CPF", layout)
+        button, values = self.open()
 
-        endereco = input("Endereço do doador: ")
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
 
-        return {
-            "cpf": cpf,
-            "nome": nome,
-            "data_nascimento": data_nascimento,
-            "endereco": endereco,
-        }
+        if not cpf_validador(values['cpf']):
+            sg.popup_error("CPF Inválido.")
+            self.close()
+            return
 
-    def mostra_doador(self, doador: Doador):
-        print(
-            f'{doador.cpf} - {doador.nome}, {doador.data_nascimento.strftime("%d/%m/%Y")}\n'
-            f'\tEndereço: {doador.endereco}'
-        )
+        self.close()
+        return values['cpf']
+
+    def mostra_doador(self, dados_doadores: list):
+        string_todos_doadores = ""
+        for doador in dados_doadores:
+            string_todos_doadores += f"{doador['cpf']} - {doador['nome']}, {doador['data_nascimento'].strftime('%d/%m/%Y')}\n"
+            string_todos_doadores += f"\tEndereço: {doador['endereco']}.\n\n"
+
+        sg.Popup("Lista de doadores", string_todos_doadores)
 
     def mensagem(self, mensagem: str):
-        print(mensagem)
+        sg.Popup("", mensagem)
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
+    
+    def close(self):
+        self.__window.Close()

@@ -35,8 +35,8 @@ class TelaAdotante:
             [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
-        self.__window = sg.Window('Menu de adotantes', layout, finalize=True) #finalize é para ser possível definir um tamanho mínimo para a janela
-        self.__window.set_min_size((300, 200)) #tamanho mínimo para a janela.
+        self.__window = sg.Window('Menu de adotantes', layout, finalize=True)
+        self.__window.set_min_size((300, 200))
 
     def pega_dados_adotante(self):
         width_size = 32
@@ -54,7 +54,7 @@ class TelaAdotante:
         button, values = self.open()
         entrada_invalida = False
 
-        if button == 'Cancelar':
+        if button in (None, 'Cancelar'):
             self.close()
             return
         
