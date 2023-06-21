@@ -1,9 +1,14 @@
 from exceptions.valor_invalido_exception import ValorInvalido
 import os
 from datetime import date
+import PySimpleGUI as sg
 
 
 class TelaDoacao:
+    def __init__(self):
+        self.__window = None
+        sg.ChangeLookAndFeel('Light Gray')
+
     def tela_opcoes(self):
         print("Escolha uma opção:")
         print("[1] Registrar doação.")
