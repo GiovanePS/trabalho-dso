@@ -9,7 +9,7 @@ class ControladorAnimal:
         if len(self.__animal_DAO.get_all()) == 0:
             self.__codigo = 0
         else:
-            self.__codigo = list(self.__animal_DAO.get_all())[-1].codigo
+            self.__codigo = int(list(self.__animal_DAO.get_all())[-1].codigo)
         self.__tela_animal = TelaAnimal()
         self.__controlador_sistema = controlador_sistema
 
