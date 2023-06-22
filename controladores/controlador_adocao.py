@@ -119,7 +119,7 @@ class ControladorAdocao:
             0: "Retornar para menu principal",
         }
         while True:
-            opcao = self.__tela_adocao.tela_opcoes()
+            opcao = self.__tela_adocao.abre_tela()
             if opcao == 0:
                 return
             funcao_escolhida = lista_opcoes[opcao]
