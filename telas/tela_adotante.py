@@ -63,7 +63,7 @@ class TelaAdotante:
             entrada_invalida = True
 
         try:
-            data = [int(x) for x in '12/02/2004'.split('/')]
+            data = [int(x) for x in values["data_nascimento"].split('/')]
             data_nascimento = date(data[2], data[1], data[0])
         except:
             sg.popup_error("Data inválida!")

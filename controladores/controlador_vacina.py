@@ -5,10 +5,10 @@ import os
 
 
 class ControladorVacina:
-    def __init__(self, controlador_sistema):
+    def __init__(self, controlador_vacinacao):
         self.__vacina_DAO = VacinaDAO()
         self.__tela_vacina = TelaVacina()
-        self.__controlador_sistema = controlador_sistema
+        self.__controlador_vacinacao = controlador_vacinacao
         self.__codigos = []
 
     @property
@@ -79,11 +79,7 @@ class ControladorVacina:
                 self.__tela_vacina.mostra_vacina(vacina)
                 print()
         else:
-            self.__tela_vacina.mensagem(
-                "Ainda não há vacinas no sistema. " "Você deve cadastrar primeiro!"
-            )
-            self.__controlador_sistema.abre_tela()
-        print()
+            self.__tela_vacina.mensagem("Ainda não há vacinas no sistema. ")
 
     def abre_tela(self):
         lista_opcoes = {

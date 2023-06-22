@@ -59,7 +59,7 @@ class TelaDoacao:
             return
 
         try:
-            data = [int(x) for x in '12/02/2004'.split('/')]
+            data = [int(x) for x in values['data_doacao'].split('/')]
             data_doacao = date(data[2], data[1], data[0])
         except:
             sg.popup_error("Data inválida!")

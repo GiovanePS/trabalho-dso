@@ -5,7 +5,6 @@ from controladores.controlador_adotante import ControladorAdotante
 from controladores.controlador_doacao import ControladorDoacao
 from controladores.controlador_adocao import ControladorAdocao
 from controladores.controlador_vacinacao import ControladorVacinacao
-from controladores.controlador_vacina import ControladorVacina
 from controladores.controlador_menu_relatorios import ControladorMenuRelatorios
 
 
@@ -18,7 +17,6 @@ class ControladorSistema:
         self.__controlador_doacao = ControladorDoacao(self)
         self.__controlador_adocao = ControladorAdocao(self)
         self.__controlador_vacinacao = ControladorVacinacao(self)
-        self.__controlador_vacina = ControladorVacina(self)
         self.__controlador_menu_relatorios = ControladorMenuRelatorios(self)
 
     @property
@@ -32,10 +30,6 @@ class ControladorSistema:
     @property
     def controlador_adotante(self):
         return self.__controlador_adotante
-
-    @property
-    def controlador_vacina(self):
-        return self.__controlador_vacina
 
     @property
     def controlador_adocao(self):
@@ -66,9 +60,6 @@ class ControladorSistema:
     def menu_vacinacao(self):
         self.__controlador_vacinacao.abre_tela()
 
-    def menu_vacina(self):
-        self.__controlador_vacina.abre_tela()
-
     def menu_relatorios(self):
         self.__controlador_menu_relatorios.abre_tela()
 
@@ -82,9 +73,8 @@ class ControladorSistema:
             3: self.menu_adotante,
             4: self.menu_doacao,
             5: self.menu_adocao,
-            6: self.menu_vacina,
-            7: self.menu_vacinacao,
-            8: self.menu_relatorios,
+            6: self.menu_vacinacao,
+            7: self.menu_relatorios,
             0: self.encerra_sistema,
         }
 

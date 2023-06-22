@@ -1,6 +1,7 @@
 from telas.tela_vacinacao import TelaVacinacao
 from entidades.vacinacao import Vacinacao
 from DAOs.vacinacao_dao import VacinacaoDAO
+from controladores.controlador_vacina import ControladorVacina
 import os
 
 
@@ -8,8 +9,12 @@ class ControladorVacinacao:
     def __init__(self, controlador_sistema):
         self.__vacinacao_DAO= VacinacaoDAO()
         self.__controlador_sistema = controlador_sistema
+        self.__controlador_vacina = ControladorVacina(self)
         self.__tela_vacinacao = TelaVacinacao()
-        self.__id = 0
+        if len(self.__vacinacao_DAO.get_all()) == 0:
+            self.__id = 0
+        else:
+            self.__id = int(list(self.__vacinacao_DAO.get_all())[-1].id_vacinacao)
 
     
     @property
@@ -23,11 +28,11 @@ class ControladorVacinacao:
         return None
 
     def incluir_vacinacao(self):
-        self.__controlador_sistema.controlador_vacina.listar_vacina()
+        self.__controlador_vacina.listar_vacina()
         self.__controlador_sistema.controlador_animal.listar_animais()
         dados_vacinacao = self.__tela_vacinacao.pega_dados_vacinacao()
 
-        vacina = self.__controlador_sistema.controlador_vacina.pega_vacina_por_codigo(
+        vacina = self.__controlador_vacina.pega_vacina_por_codigo(
             dados_vacinacao["codigo_vacina"]
         )  # noqa
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
@@ -52,7 +57,7 @@ class ControladorVacinacao:
             ):
                 animal.pode_ser_adotado = True
         else:
-            self.__tela_vacinacao.mostra_mensagem("Dados inválidos!")
+            self.__tela_vacinacao.mensagem("Dados inválidos!")
 
 
     def alterar_vacinacao(self):
@@ -68,45 +73,41 @@ class ControladorVacinacao:
             self.listar_vacinacoes()
 
         else:
-            self.__tela_adocao.mostra_mensagem(
+            self.__tela_vacinacao.mensagem(
                 "Essa vacinação NÃO está registrada neste sistema!"
             )
 
     def excluir_vacinacao(self):
-        self.listar_vacinacoes()
         id_vacinacao = self.__tela_vacinacao.seleciona_vacinacao()
         vacinacao = self.pega_vacinacao_por_id(id_vacinacao)
 
         if vacinacao is not None:
-            self.__vacinacao_DAO.remove(vacinacao)
-            os.system("cls")
-            self.__tela_vacinacao.mostra_mensagem("Vacinação removida com sucesso!")
+            self.__vacinacao_DAO.remove(vacinacao.id_vacinacao)
+            self.__tela_vacinacao.mensagem("Vacinação removida com sucesso!")
         else:
-            self.__tela_vacinacao.mostra_mensagem(
+            self.__tela_vacinacao.mensagem(
                 "Esta vacinação NÃO está registrada neste sistema."
             )
 
     def listar_vacinacoes(self):
-        if len(self.__vacinacao_DAO.get_all())== 0:
-            self.__tela_vacinacao.mostra_mensagem(
+        if len(self.__vacinacao_DAO.get_all()) == 0:
+            self.__tela_vacinacao.mensagem(
                 "Ainda não há vacinações no sistema. Voce deve cadastrar primeiro!"
             )
             self.__controlador_sistema.abre_tela()
         else:
-            print("Vacinações:")
-            print()
+            dados_vacinacoes = []
             for vacinacao in self.__vacinacao_DAO.get_all():
-                self.__tela_vacinacao.mostra_vacinacao(
-                    {
+                dados_vacinacoes.append({
                         "codigo_vacinacao": vacinacao.id_vacinacao,
                         "data_vacinacao": vacinacao.data_vacina,
                         "nome_animal": vacinacao.animal.nome,
                         "codigo_animal": vacinacao.animal.codigo,
                         "nome_vacina": vacinacao.vacina.nome_vacina,
                         "codigo_vacina": vacinacao.vacina.codigo_vacina,
-                    }
-                )
-                print()
+                })
+
+            self.__tela_vacinacao.mostra_vacinacao(dados_vacinacoes)
 
     def abre_tela(self):
         lista_opcoes = {
@@ -114,10 +115,11 @@ class ControladorVacinacao:
             2: self.alterar_vacinacao,
             3: self.excluir_vacinacao,
             4: self.listar_vacinacoes,
+            5: self.__controlador_vacina.abre_tela,
             0: "Retornar para menu principal",
         }
         while True:
-            opcao = self.__tela_vacinacao.tela_opcoes()
+            opcao = self.__tela_vacinacao.abre_tela()
             if opcao == 0:
                 return
             funcao_escolhida = lista_opcoes[opcao]

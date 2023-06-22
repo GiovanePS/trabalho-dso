@@ -27,8 +27,6 @@ class TelaSistema:
             opcao_escolhida = 6
         elif values['7']:
             opcao_escolhida = 7
-        elif values['8']:
-            opcao_escolhida = 8
         self.close()
         return opcao_escolhida
 
@@ -39,9 +37,8 @@ class TelaSistema:
             [sg.Radio("Adotantes.", 'Radio1', key='3')],
             [sg.Radio("Doações.", 'Radio1', key='4')],
             [sg.Radio("Adoções.", 'Radio1', key='5')],
-            [sg.Radio("Vacinas.", 'Radio1', key='6')],
-            [sg.Radio("Vacinações.", 'Radio1', key='7')],
-            [sg.Radio("Menu de relatórios.", 'Radio1', key='8')],
+            [sg.Radio("Vacinações.", 'Radio1', key='6')],
+            [sg.Radio("Menu de relatórios.", 'Radio1', key='7')],
             [sg.Radio("Finalizar sistema.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar')]
         ]

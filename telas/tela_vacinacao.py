@@ -1,95 +1,107 @@
-from exceptions.valor_invalido_exception import ValorInvalido
-import os
+import PySimpleGUI as sg
 from datetime import date
 
-
 class TelaVacinacao:
-    def tela_opcoes(self):
-        print("Escolha uma opção:")
-        print("[1] Registrar vacinação.")
-        print("[2] Alterar vacinação.")
-        print("[3] Excluir vacinação.")
-        print("[4] Listar vacinações.")
-        print("[0] Retornar para o menu principal.")
-        while True:
-            try:
-                opcao_escolhida = int(input("Opção: "))
-                if 0 > opcao_escolhida or opcao_escolhida > 4:
-                    raise ValorInvalido
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite uma das opções.")
-            else:
-                break
-        os.system("cls")
+    def __init__(self):
+        self.__window = None
+        sg.ChangeLookAndFeel('Light Gray')
+
+    def abre_tela(self):
+        self.tela_principal()
+        button, values = self.open()
+
+        if button in (None, 'Cancelar') or values['0']:
+            opcao_escolhida = 0
+        elif values['1']:
+            opcao_escolhida = 1
+        elif values['2']:
+            opcao_escolhida = 2
+        elif values['3']:
+            opcao_escolhida = 3
+        elif values['4']:
+            opcao_escolhida = 4
+        elif values['5']:
+            opcao_escolhida = 5
+
+        self.close()
         return opcao_escolhida
 
+    def tela_principal(self):
+        layout = [
+            [sg.Radio("Incluir vacinação.", 'Radio1', key='1')],
+            [sg.Radio("Alterar vacinação.", 'Radio1', key='2')],
+            [sg.Radio("Excluir vacinação.", 'Radio1', key='3')],
+            [sg.Radio("Listar vacinações.", 'Radio1', key='4')],
+            [sg.Radio("Ver vacinas.", 'Radio1', key='5')],
+            [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Menu de vacinação", layout, finalize=True)
+        self.__window.set_min_size((300, 200))
+
     def pega_dados_vacinacao(self):
-        while True:
-            try:
-                while True:
-                    try:
-                        dia = int(input("Dia da vacinação: "))
-                        if 1 > dia or dia > 31:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um dia válido!")
-                while True:
-                    try:
-                        mes = int(input("Mês da vacinação: "))
-                        if 1 > mes or mes > 12:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um mês válido!")
+        layout = [
+            [sg.Text("Data da vacinação (Exemplo: 31/12/1999):"), sg.InputText('', key='data_vacinacao')],
+            [sg.Text("Código do animal vacinado:"), sg.InputText('', key='codigo_animal_vacinado')],
+            [sg.Text("Código da vacina aplicada:"), sg.InputText('', key='codigo_vacina')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Dados da vacinação", layout)
+        button, values = self.open()
+        entrada_invalida = False
 
-                while True:
-                    try:
-                        ano = int(input("Ano da vacinação: "))
-                        if 1900 > ano or ano > 2023:
-                            raise ValorInvalido
-                        else:
-                            break
-                    except (ValorInvalido, ValueError):
-                        print("Digite um ano válido!")
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
+        
+        try:
+            data = [int(x) for x in values['data_vacinacao'].split('/')]
+            data_vacinacao = date(data[2], data[1], data[0])
+        except:
+            sg.popup_error("Data inválida!")
+            entrada_invalida = True
 
-                data_vacinacao = date(ano, mes, dia)
-            except ValueError:
-                print("Data inválida. Digite a data novamente!")
-            else:
-                break
-        while True:
-            codigo = input("Código do animal vacinado: ")
-            if codigo.isnumeric():
-                codigo_animal_vacinado = codigo
-                break
-            else:
-                print("ERRO. O código deve ser um número inteiro.")
-        codigo_vacina = input("Código da vacina aplicada: ")
-        return {
-            "data_vacinacao": data_vacinacao,
-            "codigo_animal_vacinado": codigo_animal_vacinado,
-            "codigo_vacina": codigo_vacina,
-        }
-
-    def mostra_mensagem(self, msg):
-        print(msg)
-
-    def mostra_vacinacao(self, dados_vacinacao):
-        print("Codigo da vacinação: ", dados_vacinacao["codigo_vacinacao"])
-        print("Data da vacinação: ", dados_vacinacao["data_vacinacao"])
-        print(
-            "Nome/Código do animal vacinado: ",
-            f'{dados_vacinacao["nome_animal"]} / {dados_vacinacao["codigo_animal"]}',
-        )
-        print(
-            "Nome/Código da vacina: ",
-            f'{dados_vacinacao["nome_vacina"]} / {dados_vacinacao["codigo_vacina"]}',
-        )
-        print("\n")
+        self.close()
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "data_vacinacao": data_vacinacao,
+                "codigo_animal_vacinado": values['codigo_animal_vacinado'],
+                "codigo_vacina": values['codigo_vacina']
+            }
 
     def seleciona_vacinacao(self):
-        id_vacinacao = input("Código da vacinação que deseja selecionar: ")
-        return id_vacinacao
+        layout = [
+            [sg.Text("Código da vacinação:"), sg.InputText('', key='id_vacinacao')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Selecionar vacinação", layout)
+        button, values = self.open()
+
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
+        
+        self.close()
+        return values['id_vacinacao']
+
+    def mostra_vacinacao(self, dados_vacinacoes: list):
+        string_todas_vacinacoes = ""
+        for vacinacao in dados_vacinacoes:
+            string_todas_vacinacoes += f"Codigo da vacinação: {vacinacao['codigo_vacinacao']}\n"
+            string_todas_vacinacoes += f"Data da vacinação: {vacinacao['data_vacinacao']}\n"
+            string_todas_vacinacoes += f"Nome/Código do animal vacinado: {vacinacao['nome_animal']} / {vacinacao['codigo_animal']}\n"
+            string_todas_vacinacoes += f"Nome/Código da vacina: {vacinacao['nome_vacina']} / {vacinacao['codigo_vacina']}\n\n"
+
+        sg.Popup("Lista de vacinações", string_todas_vacinacoes)
+
+    def mensagem(self, mensagem: str):
+        sg.Popup("", mensagem)
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
+
+    def close(self):
+        self.__window.Close()
