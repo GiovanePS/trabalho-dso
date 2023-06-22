@@ -66,7 +66,7 @@ class ControladorDoacao:
         doacao = self.pega_doacao_por_codigo(id_doacao)
 
         if doacao is not None:
-            novos_dados_doacao = self.__tela_doacao.pega_dados_doacao()
+            novos_dados_doacao = self.__tela_doacao.pega_dados_doacao_altera()
             doacao.data_doacao = novos_dados_doacao["data_doacao"]
             doacao.animal.nome = novos_dados_doacao["nome_animal"]
             doacao.animal.codigo = novos_dados_doacao["codigo_animal"]
