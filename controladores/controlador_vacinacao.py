@@ -6,7 +6,7 @@ import os
 
 class ControladorVacinacao:
     def __init__(self, controlador_sistema):
-        self.__vacinacoes=[]
+        self.__vacinacao_DAO= VacinacaoDAO
         self.__controlador_sistema = controlador_sistema
         self.__tela_vacinacao = TelaVacinacao()
         self.__id = 0
@@ -14,10 +14,10 @@ class ControladorVacinacao:
     
     @property
     def vacinacoes(self):
-        return self.__vacinacoes
+        return self.__vacinacao_DAO.get_all()
 
     def pega_vacinacao_por_id(self, id):
-        for vacinacao in self.__vacinacoes:
+        for vacinacao in self.__vacinacao_DAO.get_all():
             if int(vacinacao.id_vacinacao) == int(id):
                 return vacinacao
         return None
@@ -40,7 +40,7 @@ class ControladorVacinacao:
                 dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
             )
 
-            self.__vacinacoes.append(vacinacao)
+            self.__vacinacao_DAO.add(vacinacao)
             
             os.system("cls")
             animal.vacinas.append(vacina.nome_vacina)
@@ -78,7 +78,7 @@ class ControladorVacinacao:
         vacinacao = self.pega_vacinacao_por_id(id_vacinacao)
 
         if vacinacao is not None:
-            self.__vacinacoes.remove(vacinacao)
+            self.__vacinacao_DAO.remove(vacinacao)
             os.system("cls")
             self.__tela_vacinacao.mostra_mensagem("Vacinação removida com sucesso!")
         else:
@@ -87,7 +87,7 @@ class ControladorVacinacao:
             )
 
     def listar_vacinacoes(self):
-        if len(self.__vacinacoes)== 0:
+        if len(self.__vacinacao_DAO.get_all())== 0:
             self.__tela_vacinacao.mostra_mensagem(
                 "Ainda não há vacinações no sistema. Voce deve cadastrar primeiro!"
             )
@@ -95,7 +95,7 @@ class ControladorVacinacao:
         else:
             print("Vacinações:")
             print()
-            for vacinacao in self.__vacinacoes:
+            for vacinacao in self.__vacinacao_DAO.get_all():
                 self.__tela_vacinacao.mostra_vacinacao(
                     {
                         "codigo_vacinacao": vacinacao.id_vacinacao,
