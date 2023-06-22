@@ -32,7 +32,7 @@ class ControladorAdocao:
             dados_adocao = self.__tela_adocao.pega_dados_adocao()
 
             adotante = (self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"]))  # noqa
-            animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal_adotado"])# noqa
+            animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal"])# noqa
 
             if adotante is not None and animal is not None:
                 if animal.pode_ser_adotado == True and animal.foi_adotado == False:
@@ -57,9 +57,9 @@ class ControladorAdocao:
                         animal.foi_adotado = True
 
                         os.system("cls")
-                        print("Adoção cadastrada com sucesso!")
+                        self.__tela_adocao.mostra_mensagem("Adoção cadastrada com sucesso!")
                 else:
-                    print(
+                    self.__tela_adocao.mostra_mensagem(
                         "Este animal não está disponível para adoção"
                     )
             else:

@@ -80,7 +80,7 @@ class TelaAdocao:
             return
         else:
             return {
-                "data_doacao": data_adocao,
+                "data_adocao": data_adocao,
                 "codigo_animal": values['codigo_animal'],
                 "cpf_adotante": values['cpf_adotante']
             }
@@ -101,28 +101,51 @@ class TelaAdocao:
         print("\n")
 
     def seleciona_adocao(self):
-        id_adocao = input("Código da adoção que deseja selecionar: ")
-        return id_adocao
+        layout = [
+            [sg.Text("Código da adoção que deseja selecionar: "), sg.InputText('', key='codigo')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Selecionar código de um animal", layout)
+        button, values = self.open()
+
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
+
+        try:
+            values['codigo'] = int(values['codigo'])
+        except:
+            sg.popup_error("Digite um número inteiro.")
+            self.close()
+            return
+
+        self.close()
+        return values['codigo']
 
     def pega_assinatura(self):
-        print("Assinar termo de responsabilidade: ")
-        while True:
-            print("  [1] Sim.")
-            print("  [2] Não.")
-            try:
-                opcao_tipo = int(input("  Opção: "))
-                if opcao_tipo != 1 and opcao_tipo != 2:
-                    raise ValorInvalido
-                elif opcao_tipo == 1:
-                    assinatura = True
-                    break
-                elif opcao_tipo == 2:
-                    assinatura = False
-                    break
-            except (ValorInvalido, ValueError):
-                print("Valor inválido! Digite uma das opções.")
+        width_size = 30
+        height_size = 1
+        layout = [
+            [sg.Text("Assinar termo de responsabilidade:", size=(width_size, height_size)), sg.Radio("Sim", 'Radio1', default=True, key='sim'), sg.Radio("Não", 'Radio1', key='gato')],
+            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window("Termo de responsabilidade", layout)
+        button, values = self.open()
 
-        return {"assinatura": assinatura}
+        if button in (None, 'Cancelar'):
+            self.close()
+            return
+
+        if values['sim']:
+            values['a'] = True
+        else:
+            values['a'] = False
+
+        self.close()
+        return {
+            "assinatura": values['a'],
+        }
+
 
     def pega_dados_adocao_alterar(self):
         width_size = 30

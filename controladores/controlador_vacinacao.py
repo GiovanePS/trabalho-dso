@@ -6,7 +6,7 @@ import os
 
 class ControladorVacinacao:
     def __init__(self, controlador_sistema):
-        self.__vacinacao_DAO = VacinacaoDAO
+        self.__vacinacoes=[]
         self.__controlador_sistema = controlador_sistema
         self.__tela_vacinacao = TelaVacinacao()
         self.__id = 0
@@ -14,10 +14,10 @@ class ControladorVacinacao:
     
     @property
     def vacinacoes(self):
-        return self.__vacinacao_DAO.get_all()
+        return self.__vacinacoes
 
     def pega_vacinacao_por_id(self, id):
-        for vacinacao in self.__vacinacao_DAO.get_all():
+        for vacinacao in self.__vacinacoes:
             if int(vacinacao.id_vacinacao) == int(id):
                 return vacinacao
         return None
@@ -40,7 +40,7 @@ class ControladorVacinacao:
                 dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
             )
 
-            self.__vacinacao_DAO.add(vacinacao)
+            self.__vacinacoes.append(vacinacao)
             
             os.system("cls")
             animal.vacinas.append(vacina.nome_vacina)
@@ -87,7 +87,7 @@ class ControladorVacinacao:
             )
 
     def listar_vacinacoes(self):
-        if len(self.__vacinacao_DAO.get_all()) == 0:
+        if len(self.__vacinacoes)== 0:
             self.__tela_vacinacao.mostra_mensagem(
                 "Ainda não há vacinações no sistema. Voce deve cadastrar primeiro!"
             )
@@ -95,7 +95,7 @@ class ControladorVacinacao:
         else:
             print("Vacinações:")
             print()
-            for vacinacao in self.__vacinacao_DAO.get_all():
+            for vacinacao in self.__vacinacoes:
                 self.__tela_vacinacao.mostra_vacinacao(
                     {
                         "codigo_vacinacao": vacinacao.id_vacinacao,
