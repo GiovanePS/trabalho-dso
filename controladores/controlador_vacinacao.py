@@ -6,7 +6,7 @@ import os
 
 class ControladorVacinacao:
     def __init__(self, controlador_sistema):
-        self.__vacinacao_DAO= VacinacaoDAO
+        self.__vacinacao_DAO= VacinacaoDAO()
         self.__controlador_sistema = controlador_sistema
         self.__tela_vacinacao = TelaVacinacao()
         self.__id = 0
