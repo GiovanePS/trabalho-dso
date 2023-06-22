@@ -97,10 +97,18 @@ class ControladorDoacao:
             )
             self.__controlador_sistema.abre_tela()
         else:
-            print("Doações: \n")
+            dados_doacoes=[]
             for doacao in self.__doacao_DAO.get_all():
-                self.__tela_doacao.mostra_doacao(doacao)
-                print()
+                dados_doacoes.append({
+                    "data_doacao":doacao.data_doacao,
+                    "animal":doacao.animal,
+                    "doador":doacao.doador,
+                    "motivo":doacao.motivo,
+                    "id_doacao":doacao.id_doacao,
+                })
+                
+            self.__tela_doacao.mostra_doacao(dados_doacoes)
+            print()
 
     def abre_tela(self):
         lista_opcoes = {
