@@ -9,7 +9,10 @@ class ControladorAdocao:
         self.__controlador_sistema = controlador_sistema
         self.__adocao_DAO = AdocaoDAO()
         self.__tela_adocao = TelaAdocao()
-        self.__id = 0
+        if len(self.__adocao_DAO.get_all()) == 0:
+            self.__id = 0
+        else:
+            self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao)
 
     @property
     def adocoes(self):

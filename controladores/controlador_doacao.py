@@ -9,7 +9,10 @@ class ControladorDoacao:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__doacao_DAO= DoacaoDAO()
-        self.__id = 0
+        if len(self.__doacao_DAO.get_all()) == 0:
+            self.__id = 0
+        else:
+            self.__id = int(list(self.__doacao_DAO.get_all())[-1].id_doacao)
         self.__tela_doacao = TelaDoacao()
 
     @property
