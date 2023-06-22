@@ -74,7 +74,7 @@ class ControladorAdocao:
         adocao = self.pega_adocao_por_id(id_adocao)
 
         if adocao is not None:
-            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
+            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao_alterar()
             adocao.data_adocao = novos_dados_adocao["data_adocao"]
             adocao.animal_adotado.nome = novos_dados_adocao["nome_animal_adotado"]
             adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal_adotado"]

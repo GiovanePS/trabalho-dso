@@ -68,16 +68,14 @@ class TelaAdocao:
                 break
             else:
                 print("ERRO. O código deve ser um número inteiro.")
-        nome_animal_adotado = input("Nome do animal adotado: ")
+
         cpf_adotante = input("Cpf do adotante: ")
-        nome_adotante = input("Nome do adotante: ")
+
 
         return {
             "data_adocao": data_adocao,
             "codigo_animal_adotado": codigo_animal_adotado,
             "cpf_adotante": cpf_adotante,
-            "nome_adotante": nome_adotante,
-            "nome_animal_adotado": nome_animal_adotado,
         }
 
     def mostra_mensagem(self, msg):
@@ -120,3 +118,60 @@ class TelaAdocao:
                 print("Valor inválido! Digite uma das opções.")
 
         return {"assinatura": assinatura}
+
+    def pega_dados_adocao_alterar(self):
+        while True:
+            try:
+                while True:
+                    try:
+                        dia = int(input("Dia da adoção: "))
+                        if 1 > dia or dia > 31:
+                            raise ValorInvalido
+                        else:
+                            break
+                    except (ValorInvalido, ValueError):
+                        print("Digite um dia válido!")
+                while True:
+                    try:
+                        mes = int(input("Mês da adoção: "))
+                        if 1 > mes or mes > 12:
+                            raise ValorInvalido
+                        else:
+                            break
+                    except (ValorInvalido, ValueError):
+                        print("Digite um mês válido!")
+
+                while True:
+                    try:
+                        ano = int(input("Ano da adoção: "))
+                        if 1900 > ano or ano > 2023:
+                            raise ValorInvalido
+                        else:
+                            break
+                    except (ValorInvalido, ValueError):
+                        print("Digite um ano válido!")
+
+                data_adocao = date(ano, mes, dia)
+            except ValueError:
+                print("Data inválida. Digite a data novamente!")
+            else:
+                break
+
+        while True:
+            codigo = input("Código do animal adotado: ")
+            if codigo.isnumeric():
+                codigo_animal_adotado = codigo
+                break
+            else:
+                print("ERRO. O código deve ser um número inteiro.")
+        nome_animal_adotado = input("Nome do animal adotado: ")
+        cpf_adotante = input("Cpf do adotante: ")
+        nome_adotante = input("Nome do adotante: ")
+
+        return {
+            "data_adocao": data_adocao,
+            "codigo_animal_adotado": codigo_animal_adotado,
+            "cpf_adotante": cpf_adotante,
+            "nome_adotante": nome_adotante,
+            "nome_animal_adotado": nome_animal_adotado,
+        }
