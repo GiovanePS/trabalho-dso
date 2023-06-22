@@ -111,7 +111,7 @@ class ControladorDoacao:
             0: "Retornar para menu principal",
         }
         while True:
-            opcao = self.__tela_doacao.tela_opcoes()
+            opcao = self.__tela_doacao.abre_tela()
             if opcao == 0:
                 return
             funcao_escolhida = lista_opcoes[opcao]
