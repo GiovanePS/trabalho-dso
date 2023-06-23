@@ -22,7 +22,6 @@ class ControladorVacina:
         return None
 
     def incluir_vacina(self):
-        self.__tela_vacina.mensagem("Cadastro de Vacina:")
         while True:
             dados_vacina = self.__tela_vacina.pega_dados_vacina()
             if dados_vacina["codigo_vacina"] in self.__codigos:
@@ -73,11 +72,14 @@ class ControladorVacina:
 
     def listar_vacina(self):
         if len(self.__vacina_DAO.get_all()) != 0:
-            self.__tela_vacina.mensagem("Lista de vacinas (código - vacina):")
-            print()
+            dados_vacinas=[]
             for vacina in self.__vacina_DAO.get_all():
-                self.__tela_vacina.mostra_vacina(vacina)
-                print()
+                dados_vacinas.append({
+                    "nome": vacina.nome_vacina,
+                    "codigo": vacina.codigo_vacina
+                })
+            self.__tela_vacina.mostra_vacina(dados_vacinas)
+                
         else:
             self.__tela_vacina.mensagem("Ainda não há vacinas no sistema. ")
 
