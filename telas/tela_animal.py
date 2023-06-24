@@ -81,7 +81,7 @@ class TelaAnimal:
             string_todos_animais += "Vacinas: "
             if len(animal['vacinas']) > 0:
                 vacinas = ", ".join(animal['vacinas'])
-                string_todos_animais += f"{vacinas}."
+                string_todos_animais += f"{vacinas}.\n"
             else:
                 string_todos_animais += "nenhuma vacina cadastrada.\n"
 

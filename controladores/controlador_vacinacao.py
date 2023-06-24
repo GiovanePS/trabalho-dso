@@ -52,9 +52,9 @@ class ControladorVacinacao:
                 and "Hepatite Infecciosa" in animal.vacinas
             ):
                 animal.pode_ser_adotado = True
+            self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
         else:
             self.__tela_vacinacao.mensagem("Dados inválidos!")
-
 
     def alterar_vacinacao(self):
         self.listar_vacinacoes()
@@ -92,9 +92,8 @@ class ControladorVacinacao:
     def listar_vacinacoes(self):
         if len(self.__vacinacao_DAO.get_all()) == 0:
             self.__tela_vacinacao.mensagem(
-                "Ainda não há vacinações no sistema. Voce deve cadastrar primeiro!"
+                "Ainda não há vacinações no sistema."
             )
-            self.__controlador_sistema.abre_tela()
         else:
             dados_vacinacoes = []
             for vacinacao in self.__vacinacao_DAO.get_all():

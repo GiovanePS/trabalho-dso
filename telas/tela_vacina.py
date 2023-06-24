@@ -34,7 +34,7 @@ class TelaVacina:
             [sg.Radio("Alterar vacina.", 'Radio1', key='2')],
             [sg.Radio("Excluir vacina.", 'Radio1', key='3')],
             [sg.Radio("Listar vacinas.", 'Radio1', key='4')],
-            [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
+            [sg.Radio("Retornar para o menu de vacinações.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window("Menu de animais", layout)
@@ -57,7 +57,7 @@ class TelaVacina:
         
         if values['nome_vacina'] == 'Outra':
             if len(values['nome_outra']) != 0:
-                values['nome_vacina'] == values['nome_outra']
+                values['nome_vacina'] = values['nome_outra']
             else:
                 sg.popup_error("Digite um nome de vacina!")
                 entrada_invalida = True

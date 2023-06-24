@@ -15,6 +15,10 @@ class ControladorAnimal:
         return self.__animal_DAO.get_all()
 
     @property
+    def animal_DAO(self):
+        return self.__animal_DAO
+
+    @property
     def tela_animal(self):
         return self.__tela_animal
 
