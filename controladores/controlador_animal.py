@@ -16,7 +16,7 @@ class ControladorAnimal:
     @property
     def animais(self):
         return self.__animal_DAO
-    
+
     @property
     def tela_animal(self):
         return self.__tela_animal

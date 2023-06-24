@@ -86,19 +86,31 @@ class TelaAdocao:
             }
 
 
-    def mostra_adocao(self, adocao):
-        print("Codigo da adoção:", adocao.id_adocao)
-        print("Data da adoção:", adocao.data_adocao)
-        print(
-            "Nome/Código do animal:",
-            f'{adocao.animal_adotado.nome} / {adocao.animal_adotado.codigo}',
-        )
-        print(
-            "Nome/CPF do adotante:",
-            f'{adocao.adotante.nome} / {adocao.adotante.cpf}',
-        )
-        print("Termo de responsabilidade assinado:", adocao.assinatura)
-        print("\n")
+    def mostra_adocao(self, dados_adocoes: list):
+        string_todas_adocoes = []
+        for adocao in dados_adocoes:
+            string_todas_adocoes += f"Codigo da adoção: {adocao['id_adocao']}\n"
+            string_todas_adocoes += f"Data da adoção: {adocao['data_adocao']}\n"
+            string_todas_adocoes +=  f"Nome/Código do animal:{adocao['animal_adotado_nome']} / {adocao['animal_adotado_codigo']}\n"
+            string_todas_adocoes += f"Nome/CPF do adotante:{adocao['adotante_nome']} / {adocao['adotante_cpf']}\n"
+            string_todas_adocoes += f"Termo de responsabilidade assinado: {adocao['assinatura']}\n\n"
+
+        width_size = 50
+        height_size = 20
+        layout = [
+            [sg.Text("Lista de adoções:")],
+            [sg.Multiline(string_todas_adocoes, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adoções", layout)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def seleciona_adocao(self):
         layout = [
@@ -168,7 +180,7 @@ class TelaAdocao:
             return
 
         try:
-            data = [int(x) for x in '12/02/2004'.split('/')]
+            data = [int(x) for x in values['data_adocao'].split('/')]
             data_adocao = date(data[2], data[1], data[0])
         except:
             sg.popup_error("Data inválida!")
@@ -198,7 +210,7 @@ class TelaAdocao:
 
 
 
-    def mostra_mensagem(self, mensagem: str):
+    def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)
 
     def open(self):

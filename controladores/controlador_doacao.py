@@ -2,8 +2,6 @@ from telas.tela_doacao import TelaDoacao
 from entidades.doacao import Doacao
 from DAOs.doacao_dao import DoacaoDAO
 
-import os
-
 
 class ControladorDoacao:
     def __init__(self, controlador_sistema):
@@ -56,8 +54,7 @@ class ControladorDoacao:
                     self.__id,
                 )
                 self.__doacao_DAO.add(doacao)
-                os.system("cls")
-                print("Doação cadastrada com sucesso.")
+                self.__tela_doacao.mensagem("Doação cadastrada com sucesso.")
             else:
                 self.__tela_doacao.mensagem("Dados inválidos!")
         else:
@@ -88,7 +85,6 @@ class ControladorDoacao:
 
         if doacao is not None:
             self.__doacao_DAO.remove(doacao)
-            os.system("cls")
             self.__tela_doacao.mensagem("Doação removida com sucesso!")
         else:
             self.__tela_doacao.mensagem("Esta doação NÃO EXISTE.")
@@ -111,7 +107,6 @@ class ControladorDoacao:
                 })
                 
             self.__tela_doacao.mostra_doacao(dados_doacoes)
-            print()
 
     def abre_tela(self):
         lista_opcoes = {

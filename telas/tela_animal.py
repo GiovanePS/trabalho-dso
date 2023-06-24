@@ -12,8 +12,6 @@ class TelaAnimal:
 
         if button in (None, 'Cancelar') or values['0']:
             opcao_escolhida = 0
-        # elif values['1']:
-        #     opcao_escolhida = 1 # Incluir animal somente através de uma doação.
         elif values['2']:
             opcao_escolhida = 2
         elif values['3']:
@@ -42,11 +40,12 @@ class TelaAnimal:
             [sg.Text("Nome do animal:", size=(width_size, height_size)), sg.InputText('', key='nome')],
             [sg.Text("Tipo:", size=(width_size, height_size)), sg.Radio("Cachorro", 'Radio1', default=True, key='cachorro'), sg.Radio("Gato", 'Radio1', key='gato')],
             [sg.Text("Raça:", size=(width_size, height_size)), sg.InputText('', key='raca')],
-            [sg.Text("Tamanho (se for cachorro):", size=(width_size, height_size)), sg.Combo(("Pequeno", "Médio", "Grande"), readonly=True, default_value="Pequeno", key='tamanho')],
+            [sg.Text("Tamanho (se for cachorro):", size=(width_size, height_size)), sg.Combo(("Pequeno", "Médio", "Grande"), readonly=True, key='tamanho')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window("Dados do animal", layout)
         button, values = self.open()
+        entrada_invalida = False
 
         if button in (None, 'Cancelar'):
             self.close()
@@ -54,17 +53,23 @@ class TelaAnimal:
 
         if values['cachorro']:
             values['tipo'] = "cachorro"
+            if len(values['tamanho']) == 0:
+                sg.popup_error("Tamanho não selecionado!")
+                entrada_invalida = True
         else:
             values['tipo'] = "gato"
             values['tamanho'] = None
 
         self.close()
-        return {
-            "nome": values['nome'],
-            "tipo": values['tipo'],
-            "raca": values['raca'],
-            "tamanho": values['tamanho']
-        }
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "nome": values['nome'],
+                "tipo": values['tipo'],
+                "raca": values['raca'],
+                "tamanho": values['tamanho']
+            }
 
     def mostra_animal(self, dados_animais: list):
         string_todos_animais = ""
@@ -87,7 +92,22 @@ class TelaAnimal:
             else:
                 string_todos_animais += "   Disponível para adoção: Não, pois não tem as vacinas necessárias.\n\n"
 
-        sg.Popup("Lista de animais (código, nome, tipo, raça, tamanho):", string_todos_animais)
+        width_size = 50
+        height_size = 20
+        layout = [
+            [sg.Text("Lista de adotantes:")],
+            [sg.Multiline(string_todos_animais, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def seleciona_codigo_animal(self):
         layout = [

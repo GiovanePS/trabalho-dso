@@ -37,35 +37,44 @@ class TelaVacina:
             [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
-        self.__window = sg.Window("Menu de animais", layout, finalize=True)
-
+        self.__window = sg.Window("Menu de animais", layout)
 
     def pega_dados_vacina(self):
         width_size = 20
         height_size = 1
         layout = [
-            [sg.Text("Nome da vacina:", size=(width_size, height_size)), sg.InputCombo(("Raiva", "Leptospirose", "Hepatite Infecciosa", "Outra"), readonly=True, default_value="Raiva", key='nome_vacina')],
-            [sg.Text("Código:", size=(width_size, height_size)), sg.InputText('', key='codigo')],
+            [sg.Text("Nome da vacina:", size=(width_size, height_size)), sg.InputCombo(("Raiva", "Leptospirose", "Hepatite Infecciosa", "Outra"), readonly=True, default_value="Outra", key='nome_vacina')],
+            [sg.Text("Nome da vacina (se outra):", size=(width_size, height_size)), sg.InputText("", key='nome_outra')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window("Dados da vacina", layout)
         button, values = self.open()
+        entrada_invalida = False
 
         if button in (None, 'Cancelar'):
             self.close()
             return
         
-        return {
-            "nome_vacina": values['nome_vacina'],
-            "codigo_vacina": values['codigo'],
-        }
+        if values['nome_vacina'] == 'Outra':
+            if len(values['nome_outra']) != 0:
+                values['nome_vacina'] == values['nome_outra']
+            else:
+                sg.popup_error("Digite um nome de vacina!")
+                entrada_invalida = True
 
-        # return {"nome_vacina": nome_vacina, "codigo_vacina": codigo_vacina}
+        self.close()
+        if entrada_invalida:
+            return
+        else:
+            return {
+                "nome_vacina": values['nome_vacina'],
+            }
 
     def mostra_vacina(self, dados_vacina:list):
-        string_vacinas=''
+        string_vacinas = ""
         for vacina in dados_vacina:
-            string_vacinas+=f'{vacina["codigo"]} - {vacina["nome"]} \n'
+            string_vacinas += f'{vacina["codigo"]} - {vacina["nome"]} \n'
+
         sg.Popup("Lista de vacinas cadastradas (código - nome):", string_vacinas)
 
     def seleciona_codigo(self):

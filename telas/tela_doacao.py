@@ -95,7 +95,22 @@ class TelaDoacao:
             string_todas_doacoes += f'Nome/Código do animal: {doacao["animal"].nome} / {doacao["animal"].codigo} \n'
             string_todas_doacoes += f"Motivo da doação: {doacao['motivo']} \n"
 
-        sg.Popup("Lista de doações:", string_todas_doacoes)
+        width_size = 50
+        height_size = 20
+        layout = [
+            [sg.Text("Lista de adotantes:")],
+            [sg.Multiline(string_todas_doacoes, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def seleciona_doacao(self):
         layout = [

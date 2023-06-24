@@ -104,7 +104,22 @@ class TelaDoador:
             string_todos_doadores += f"{doador['cpf']} - {doador['nome']}, {doador['data_nascimento'].strftime('%d/%m/%Y')}\n"
             string_todos_doadores += f"\tEndereço: {doador['endereco']}.\n\n"
 
-        sg.Popup("Lista de doadores", string_todos_doadores)
+        width_size = 50
+        height_size = 20
+        layout = [
+            [sg.Text("Lista de adotantes:")],
+            [sg.Multiline(string_todos_doadores, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)

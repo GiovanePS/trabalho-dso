@@ -11,7 +11,7 @@ class VacinaDAO(DAO):
 
     def update(self, vacina: Vacina):
         if isinstance(vacina, Vacina):
-            super().update(vacina.codigo, vacina)
+            super().update(vacina.codigo_vacina, vacina)
 
     def remove(self, key: int):
         super().remove(key)

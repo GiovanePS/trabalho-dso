@@ -2,7 +2,6 @@ from telas.tela_vacinacao import TelaVacinacao
 from entidades.vacinacao import Vacinacao
 from DAOs.vacinacao_dao import VacinacaoDAO
 from controladores.controlador_vacina import ControladorVacina
-import os
 
 
 class ControladorVacinacao:
@@ -28,28 +27,26 @@ class ControladorVacinacao:
         return None
 
     def incluir_vacinacao(self):
-        self.__controlador_vacina.listar_vacina()
-        self.__controlador_sistema.controlador_animal.listar_animais()
         dados_vacinacao = self.__tela_vacinacao.pega_dados_vacinacao()
+        if dados_vacinacao is None:
+            self.__tela_vacinacao.mensagem("Vacinação não registrada.")
+            return
 
         vacina = self.__controlador_vacina.pega_vacina_por_codigo(
             dados_vacinacao["codigo_vacina"]
-        )  # noqa
+        )
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
             dados_vacinacao["codigo_animal_vacinado"]
-        )  # noqa
+        )
 
         if vacina is not None and animal is not None:
             self.__id += 1
             vacinacao = Vacinacao(
                 dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
             )
-
             self.__vacinacao_DAO.add(vacinacao)
-            
-            os.system("cls")
             animal.vacinas.append(vacina.nome_vacina)
-            print("Vacinação registrada com sucesso!")
+            self.__tela_vacinacao.mensagem("Vacinação registrada com sucesso!")
             if (
                 "Raiva" in animal.vacinas
                 and "Leptospirose" in animal.vacinas
@@ -67,10 +64,14 @@ class ControladorVacinacao:
 
         if vacinacao is not None:
             novos_dados_vacinacao = self.__tela_vacinacao.pega_dados_vacinacao()
+            if novos_dados_vacinacao is None:
+                self.__tela_vacinacao.mensagem("Vacinação não alterada.")
+                return
+
             vacinacao.data_vacinacao = novos_dados_vacinacao["data_vacinacao"]
             vacinacao.animal.codigo = novos_dados_vacinacao["codigo_animal_vacinado"]
             vacinacao.vacina.codigo_vacina = novos_dados_vacinacao["codigo_vacina"]
-            self.listar_vacinacoes()
+            self.__tela_vacinacao.mensagem("Vacinação alterada com sucesso!")
 
         else:
             self.__tela_vacinacao.mensagem(

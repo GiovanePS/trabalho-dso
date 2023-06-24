@@ -90,11 +90,26 @@ class TelaVacinacao:
         string_todas_vacinacoes = ""
         for vacinacao in dados_vacinacoes:
             string_todas_vacinacoes += f"Codigo da vacinação: {vacinacao['codigo_vacinacao']}\n"
-            string_todas_vacinacoes += f"Data da vacinação: {vacinacao['data_vacinacao']}\n"
+            string_todas_vacinacoes += f"Data da vacinação: {vacinacao['data_vacinacao'].strftime('%d/%m/%Y')}\n"
             string_todas_vacinacoes += f"Nome/Código do animal vacinado: {vacinacao['nome_animal']} / {vacinacao['codigo_animal']}\n"
             string_todas_vacinacoes += f"Nome/Código da vacina: {vacinacao['nome_vacina']} / {vacinacao['codigo_vacina']}\n\n"
 
-        sg.Popup("Lista de vacinações", string_todas_vacinacoes)
+        width_size = 50
+        height_size = 20
+        layout = [
+            [sg.Text("Lista de adotantes:")],
+            [sg.Multiline(string_todas_vacinacoes, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)
