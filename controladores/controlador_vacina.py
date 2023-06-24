@@ -6,20 +6,13 @@ from DAOs.vacina_dao import VacinaDAO
 class ControladorVacina:
     def __init__(self, controlador_vacinacao):
         self.__vacina_DAO = VacinaDAO()
-        if len(self.__vacina_DAO.get_all()) == 0:
-            self.__codigo = 0
-        else:
-            self.__codigo = int(list(self.__vacina_DAO.get_all())[-1].codigo_vacina)
+        self.__codigo = 0
         self.__tela_vacina = TelaVacina()
         self.__controlador_vacinacao = controlador_vacinacao
 
     @property
     def vacinas(self):
         return self.__vacina_DAO.get_all()
-
-    @property
-    def codigo(self):
-        return self.__codigo
 
     @property
     def controlador_vacinacao(self):
@@ -42,7 +35,10 @@ class ControladorVacina:
                 self.__tela_vacina.mensagem("Esta vacina já está cadastrada.")
                 return
 
-        self.__codigo += 1
+        try:
+            self.__codigo = int(list(self.__vacina_DAO.get_all())[-1].codigo_vacina) + 1
+        except IndexError:
+            self.__codigo = 1
         vacina = Vacina(dados_vacina["nome_vacina"], self.__codigo)
         self.__vacina_DAO.add(vacina)
         self.__tela_vacina.mensagem("Vacina cadastrada com sucesso!")

@@ -90,7 +90,7 @@ class TelaAdocao:
         string_todas_adocoes = []
         for adocao in dados_adocoes:
             string_todas_adocoes += f"Codigo da adoção: {adocao['id_adocao']}\n"
-            string_todas_adocoes += f"Data da adoção: {adocao['data_adocao']}\n"
+            string_todas_adocoes += f"Data da adoção: {adocao['data_adocao'].strftime('%d/%m/%Y')}\n"
             string_todas_adocoes +=  f"Nome/Código do animal:{adocao['animal_adotado_nome']} / {adocao['animal_adotado_codigo']}\n"
             string_todas_adocoes += f"Nome/CPF do adotante:{adocao['adotante_nome']} / {adocao['adotante_cpf']}\n"
             string_todas_adocoes += f"Termo de responsabilidade assinado: {adocao['assinatura']}\n\n"

@@ -44,7 +44,6 @@ class TelaDoacao:
         height_size = 1
         layout = [
             [sg.Text("Data da doação (Exemplo: 31/12/1999):", size=(width_size, height_size)), sg.InputText('', key='data_doacao')],
-            [sg.Text("Código do animal:", size=(width_size, height_size)),sg.InputText('', key='codigo_animal')],
             [sg.Text("CPF do doador:", size=(width_size, height_size)), sg.InputText('', key='cpf_doador')],
             [sg.Text("Motivo da doação:", size=(width_size, height_size)), sg.InputText('', key='motivo')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
@@ -64,12 +63,6 @@ class TelaDoacao:
         except:
             sg.popup_error("Data inválida!")
             entrada_invalida = True
-        
-        if values['codigo_animal'].isnumeric():
-                pass
-        else:
-            sg.popup_error("Código deve ser um número inteiro!")
-            entrada_invalida = True
 
         if not cpf_validador(values['cpf_doador']):
             sg.popup_error("CPF Inválido.")
@@ -81,7 +74,6 @@ class TelaDoacao:
         else:
             return {
                 "data_doacao": data_doacao,
-                "codigo_animal": values['codigo_animal'],
                 "cpf_doador": values['cpf_doador'],
                 "motivo": values['motivo']
             }
@@ -89,11 +81,11 @@ class TelaDoacao:
     def mostra_doacao(self, dados_doacoes:list):
         string_todas_doacoes = ""
         for doacao in dados_doacoes:
-            string_todas_doacoes += f"Código da doação: {doacao['id_doacao']} \n"
-            string_todas_doacoes += f"Data da doação: {doacao['data_doacao']} \n"
-            string_todas_doacoes += f'Nome/CPF do doador: {doacao["doador"].nome} / {doacao["doador"].cpf} \n'
-            string_todas_doacoes += f'Nome/Código do animal: {doacao["animal"].nome} / {doacao["animal"].codigo} \n'
-            string_todas_doacoes += f"Motivo da doação: {doacao['motivo']} \n"
+            string_todas_doacoes += f"Código da doação: {doacao['id_doacao']}\n"
+            string_todas_doacoes += f"Data da doação: {doacao['data_doacao'].strftime('%d/%m/%Y')}\n"
+            string_todas_doacoes += f'Nome/CPF do doador: {doacao["doador_nome"]} / {doacao["doador_cpf"]}\n'
+            string_todas_doacoes += f'Nome/Código do animal: {doacao["animal_nome"]} / {doacao["animal_codigo"]}\n'
+            string_todas_doacoes += f"Motivo da doação: {doacao['motivo']}\n\n"
 
         width_size = 50
         height_size = 20
@@ -134,7 +126,6 @@ class TelaDoacao:
         self.close()
         return values['codigo']
 
-    
     def pega_dados_doacao_altera(self):
 
         width_size = 30
@@ -158,16 +149,14 @@ class TelaDoacao:
             return
 
         try:
-            data = [int(x) for x in '12/02/2004'.split('/')]
+            data = [int(x) for x in values['data_doacao'].split('/')]
             data_doacao = date(data[2], data[1], data[0])
         except:
             sg.popup_error("Data inválida!")
             entrada_invalida = True
         
-        if values['codigo_animal'].isnumeric():
-                pass
-        else:
-            sg.popup_error("Código deve ser um número inteiro!")
+        if not values['codigo_animal'].isnumeric():
+            sg.popup_error("O código deve ser um número inteiro!")
             entrada_invalida = True
 
         if not cpf_validador(values['cpf_doador']):
@@ -187,13 +176,12 @@ class TelaDoacao:
                 "motivo": values['motivo']
             }
 
-
     def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)
 
     def open(self):
         button, values = self.__window.Read()
         return button, values
-    
+
     def close(self):
         self.__window.Close()

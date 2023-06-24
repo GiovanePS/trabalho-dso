@@ -7,11 +7,8 @@ class ControladorDoacao:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__doacao_DAO= DoacaoDAO()
-        if len(self.__doacao_DAO.get_all()) == 0:
-            self.__id = 0
-        else:
-            self.__id = int(list(self.__doacao_DAO.get_all())[-1].id_doacao)
         self.__tela_doacao = TelaDoacao()
+        self.__id = 0
 
     @property
     def doacoes(self):
@@ -27,25 +24,29 @@ class ControladorDoacao:
                 return doacao
 
     def incluir_doacao(self):
-
-        if len(self.__controlador_sistema.controlador_doador.doadores)!=0:
-            self.__controlador_sistema.controlador_animal.incluir_animal()
-            self.__controlador_sistema.controlador_animal.listar_animais()
-            self.__controlador_sistema.controlador_doador.listar_doadores()
-
+        if len(self.__controlador_sistema.controlador_doador.doadores) != 0:
             dados_doacao = self.__tela_doacao.pega_dados_doacao()
+            if dados_doacao is None:
+                self.__tela_doacao.mensagem("Doação não cadastrada.")
+                return
 
-            self.__tela_doacao.mensagem("Cadastro de doação:")
-            
-            animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
-                dados_doacao["codigo_animal"]
-            )  # noqa
             doador = self.__controlador_sistema.controlador_doador.pega_doador_por_cpf(
                 dados_doacao["cpf_doador"]
-            )  # noqa
+            )
 
-            if doador is not None and animal is not None:
-                self.__id += 1
+            if doador is not None:
+                codigo_animal_cadastrado = self.__controlador_sistema.controlador_animal.incluir_animal()
+                if codigo_animal_cadastrado is None:
+                    self.__tela_doacao.mensagem("Doação não cadastrada.")
+                    return
+
+                animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
+                    codigo_animal_cadastrado
+                )
+                try:
+                    self.__id = int(list(self.__doacao_DAO.get_all())[-1].id_doacao) + 1
+                except IndexError:
+                    self.__id = 1
                 doacao = Doacao(
                     dados_doacao["data_doacao"],
                     animal,
@@ -61,49 +62,55 @@ class ControladorDoacao:
             self.tela_doacao.mensagem("Ainda não há doadores no sistema.")
 
     def alterar_doacao(self):
-        self.listar_doacoes()
         id_doacao = self.__tela_doacao.seleciona_doacao()
+        if id_doacao is None:
+            self.__tela_doacao.mensagem("Doação não alterada.")
+            return
+
         doacao = self.pega_doacao_por_codigo(id_doacao)
 
         if doacao is not None:
             novos_dados_doacao = self.__tela_doacao.pega_dados_doacao_altera()
+            if novos_dados_doacao is None:
+                self.__tela_doacao.mensagem("Doação não alterada.")
+                return
             doacao.data_doacao = novos_dados_doacao["data_doacao"]
             doacao.animal.nome = novos_dados_doacao["nome_animal"]
             doacao.animal.codigo = novos_dados_doacao["codigo_animal"]
             doacao.doador.nome = novos_dados_doacao["nome_doador"]
             doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
             doacao.motivo = novos_dados_doacao["motivo"]
-            self.listar_doacoes()
-
         else:
-            self.__tela_doacao.mensagem("Essa doação NÃO EXISTE!")
+            self.__tela_doacao.mensagem("Essa doação não existe.")
 
     def excluir_doacao(self):
-        self.listar_doacoes()
         id_doacao = self.__tela_doacao.seleciona_doacao()
+        if id_doacao is None:
+            self.__tela_doacao.mensagem("Doação não excluída.")
+            return
+
         doacao = self.pega_doacao_por_codigo(id_doacao)
 
         if doacao is not None:
-            self.__doacao_DAO.remove(doacao)
+            self.__doacao_DAO.remove(doacao.id_doacao)
             self.__tela_doacao.mensagem("Doação removida com sucesso!")
         else:
-            self.__tela_doacao.mensagem("Esta doação NÃO EXISTE.")
+            self.__tela_doacao.mensagem("Essa doação não existe.")
 
     def listar_doacoes(self):
         if len(self.__doacao_DAO.get_all()) == 0:
-            self.__tela_doacao.mensagem(
-                "Ainda não há doações no sistema. Voce deve cadastrar primeiro!"
-            )
-            self.__controlador_sistema.abre_tela()
+            self.__tela_doacao.mensagem("Ainda não há doações no sistema.")
         else:
-            dados_doacoes=[]
+            dados_doacoes = []
             for doacao in self.__doacao_DAO.get_all():
                 dados_doacoes.append({
-                    "data_doacao":doacao.data_doacao,
-                    "animal":doacao.animal,
-                    "doador":doacao.doador,
-                    "motivo":doacao.motivo,
                     "id_doacao":doacao.id_doacao,
+                    "data_doacao":doacao.data_doacao,
+                    "doador_nome":doacao.doador.nome,
+                    "doador_cpf":doacao.doador.cpf,
+                    "animal_nome":doacao.animal.nome,
+                    "animal_codigo":doacao.animal.codigo,
+                    "motivo":doacao.motivo,
                 })
                 
             self.__tela_doacao.mostra_doacao(dados_doacoes)

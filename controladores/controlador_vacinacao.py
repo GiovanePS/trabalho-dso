@@ -10,12 +10,8 @@ class ControladorVacinacao:
         self.__controlador_sistema = controlador_sistema
         self.__controlador_vacina = ControladorVacina(self)
         self.__tela_vacinacao = TelaVacinacao()
-        if len(self.__vacinacao_DAO.get_all()) == 0:
-            self.__id = 0
-        else:
-            self.__id = int(list(self.__vacinacao_DAO.get_all())[-1].id_vacinacao)
+        self.__id = 0
 
-    
     @property
     def vacinacoes(self):
         return self.__vacinacao_DAO.get_all()
@@ -40,7 +36,10 @@ class ControladorVacinacao:
         )
 
         if vacina is not None and animal is not None:
-            self.__id += 1
+            try:
+                self.__id = int(list(self.__vacinacao_DAO.get_all())[-1].id_vacinacao) + 1
+            except IndexError:
+                self.__id = 1
             vacinacao = Vacinacao(
                 dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
             )

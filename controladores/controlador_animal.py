@@ -6,16 +6,13 @@ from DAOs.animal_dao import AnimalDAO
 class ControladorAnimal:
     def __init__(self, controlador_sistema):
         self.__animal_DAO = AnimalDAO()
-        if len(self.__animal_DAO.get_all()) == 0:
-            self.__codigo = 0
-        else:
-            self.__codigo = int(list(self.__animal_DAO.get_all())[-1].codigo)
+        self.__codigo = 0
         self.__tela_animal = TelaAnimal()
         self.__controlador_sistema = controlador_sistema
 
     @property
     def animais(self):
-        return self.__animal_DAO
+        return self.__animal_DAO.get_all()
 
     @property
     def tela_animal(self):
@@ -30,10 +27,12 @@ class ControladorAnimal:
     def incluir_animal(self):
         dados_animal = self.__tela_animal.pega_dados_animal()
         if dados_animal == None:
-            self.__tela_animal.mensagem("Animal não cadastrado.")
             return
 
-        self.__codigo += 1
+        try:
+            self.__codigo = int(list(self.__animal_DAO.get_all())[-1].codigo) + 1
+        except IndexError:
+            self.__codigo = 1
         animal = Animal(
             self.__codigo,
             dados_animal["nome"],
@@ -42,11 +41,10 @@ class ControladorAnimal:
             dados_animal["tamanho"],
         )
         self.__animal_DAO.add(animal)
-        self.__tela_animal.mensagem("Animal cadastrado com sucesso!")
+        return animal.codigo
 
     def alterar_animal(self):
         if len(self.__animal_DAO.get_all()) != 0:
-            ControladorAnimal.listar_animais(self)
             codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
             animal = self.pegar_animal_por_codigo(codigo_selecionado)
             if isinstance(animal, Animal):
@@ -67,7 +65,6 @@ class ControladorAnimal:
 
     def excluir_animal(self):
         if len(self.__animal_DAO.get_all()) != 0:
-            ControladorAnimal.listar_animais(self)
             codigo_selecionado = self.__tela_animal.seleciona_codigo_animal()
             animal = self.pegar_animal_por_codigo(codigo_selecionado)
             if isinstance(animal, Animal):
@@ -76,7 +73,7 @@ class ControladorAnimal:
             else:
                 self.__tela_animal.mensagem("Animal inexistente no sistema.")
         else:
-            self.__tela_animal.mensagem("Ainda n~~ao há animais no sistema.")
+            self.__tela_animal.mensagem("Ainda não há animais no sistema.")
 
     def listar_animais(self):
         if len(self.__animal_DAO.get_all()) != 0:

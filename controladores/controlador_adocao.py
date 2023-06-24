@@ -8,10 +8,7 @@ class ControladorAdocao:
         self.__controlador_sistema = controlador_sistema
         self.__adocao_DAO = AdocaoDAO()
         self.__tela_adocao = TelaAdocao()
-        if len(self.__adocao_DAO.get_all()) == 0:
-            self.__id = 0
-        else:
-            self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao)
+        self.__id = 0
 
     @property
     def adocoes(self):
@@ -47,7 +44,10 @@ class ControladorAdocao:
                         )
                     else:
                         dados_assinatura = self.__tela_adocao.pega_assinatura()
-                        self.__id += 1
+                        try:
+                            self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao) + 1
+                        except IndexError:
+                            self.__id = 1
                         adocao = Adocao(
                             dados_adocao["data_adocao"],
                             animal,

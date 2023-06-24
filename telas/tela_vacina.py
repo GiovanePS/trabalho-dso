@@ -71,11 +71,26 @@ class TelaVacina:
             }
 
     def mostra_vacina(self, dados_vacina:list):
-        string_vacinas = ""
+        string_todas_vacinas = ""
         for vacina in dados_vacina:
-            string_vacinas += f'{vacina["codigo"]} - {vacina["nome"]} \n'
+            string_todas_vacinas += f'{vacina["codigo"]} - {vacina["nome"]}\n'
 
-        sg.Popup("Lista de vacinas cadastradas (código - nome):", string_vacinas)
+        width_size = 30
+        height_size = 10
+        layout = [
+            [sg.Text("Lista de vacinas cadastradas\n(código - nome):")],
+            [sg.Multiline(string_todas_vacinas, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [sg.Push(), sg.Button("Ok"), sg.Push()],
+        ]
+
+        self.__window = sg.Window("Lista de adotantes", layout)
+
+        while True:
+            button, values = self.open()
+            if button in (None, 'Ok'):
+                break
+
+        self.close()
 
     def seleciona_codigo(self):
         layout = [
