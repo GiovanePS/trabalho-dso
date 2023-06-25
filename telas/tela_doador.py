@@ -107,12 +107,12 @@ class TelaDoador:
         width_size = 50
         height_size = 20
         layout = [
-            [sg.Text("Lista de adotantes:")],
+            [sg.Text("Lista de doadores:")],
             [sg.Multiline(string_todos_doadores, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
             [sg.Push(), sg.Button("Ok"), sg.Push()],
         ]
 
-        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+        self.__window = sg.Window("Lista de doadores", layout, finalize=True)
 
         while True:
             button, values = self.open()
