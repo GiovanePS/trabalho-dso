@@ -80,6 +80,7 @@ class ControladorDoacao:
             doacao.doador.nome = novos_dados_doacao["nome_doador"]
             doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
             doacao.motivo = novos_dados_doacao["motivo"]
+            self.__doacao_DAO.update(doacao)
         else:
             self.__tela_doacao.mensagem("Essa doação não existe.")
 

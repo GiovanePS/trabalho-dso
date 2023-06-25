@@ -53,6 +53,7 @@ class ControladorVacina:
                 return
 
             vacina.nome_vacina = novos_dados_vacina["nome_vacina"]
+            self.__vacina_DAO.update(vacina)
             self.__tela_vacina.mensagem("Alteração realizada com sucesso!")
         else:
             self.__tela_vacina.mensagem("Vacina inexistente no sistema.")
