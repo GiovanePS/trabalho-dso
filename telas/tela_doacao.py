@@ -78,7 +78,7 @@ class TelaDoacao:
                 "motivo": values['motivo']
             }
 
-    def mostra_doacao(self, dados_doacoes:list):
+    def mostra_doacao(self, dados_doacoes:list, mensagem: str = "Lista de doações:"):
         string_todas_doacoes = ""
         for doacao in dados_doacoes:
             string_todas_doacoes += f"Código da doação: {doacao['id_doacao']}\n"
@@ -90,12 +90,12 @@ class TelaDoacao:
         width_size = 50
         height_size = 20
         layout = [
-            [sg.Text("Lista de adotantes:")],
+            [sg.Text(mensagem)],
             [sg.Multiline(string_todas_doacoes, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
             [sg.Push(), sg.Button("Ok"), sg.Push()],
         ]
 
-        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+        self.__window = sg.Window("Lista de doações", layout, finalize=True)
 
         while True:
             button, values = self.open()

@@ -86,19 +86,20 @@ class TelaAdocao:
             }
 
 
-    def mostra_adocao(self, dados_adocoes: list):
-        string_todas_adocoes = []
+    def mostra_adocao(self, dados_adocoes: list, mensagem: str = "Lista de adoções:"):
+        string_todas_adocoes = ""
         for adocao in dados_adocoes:
             string_todas_adocoes += f"Codigo da adoção: {adocao['id_adocao']}\n"
             string_todas_adocoes += f"Data da adoção: {adocao['data_adocao'].strftime('%d/%m/%Y')}\n"
-            string_todas_adocoes +=  f"Nome/Código do animal:{adocao['animal_adotado_nome']} / {adocao['animal_adotado_codigo']}\n"
-            string_todas_adocoes += f"Nome/CPF do adotante:{adocao['adotante_nome']} / {adocao['adotante_cpf']}\n"
-            string_todas_adocoes += f"Termo de responsabilidade assinado: {adocao['assinatura']}\n\n"
+            string_todas_adocoes +=  f"Nome/Código do animal: {adocao['animal_adotado_nome']} / {adocao['animal_adotado_codigo']}\n"
+            string_todas_adocoes += f"Nome/CPF do adotante: {adocao['adotante_nome']} / {adocao['adotante_cpf']}\n"
+            string_todas_adocoes += "Termo de responsabilidade assinado: "
+            string_todas_adocoes += "Sim.\n\n" if adocao['assinatura'] else "Não.\n\n"
 
         width_size = 50
         height_size = 20
         layout = [
-            [sg.Text("Lista de adoções:")],
+            [sg.Text(mensagem)],
             [sg.Multiline(string_todas_adocoes, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
             [sg.Push(), sg.Button("Ok"), sg.Push()],
         ]

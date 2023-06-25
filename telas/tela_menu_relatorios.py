@@ -28,15 +28,15 @@ class TelaMenuRelatorios:
             [sg.Radio("Animais disponíveis para adoção.", 'Radio1', key='1')],
             [sg.Radio("Adoções de animais, filtrada por período.", 'Radio1', key='2')],
             [sg.Radio("Doações de animais, filtrada por período.", 'Radio1', key='3')],
-            [sg.Radio("Retornar para o menu principal.", 'Radio1', key='0')],
+            [sg.Radio("Retornar para o menu principal.", 'Radio1', default=True, key='0')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window("Menu de Relatórios", layout)
     
     def pega_periodo(self):
         layout = [
-            [sg.Text("Período inicial:"), sg.InputText("", key='periodo_inicial')],
-            [sg.Text("Período final:"), sg.InputText("", key='periodo_final')],
+            [sg.Text("Período inicial (exemplo: 31/12/1999):"), sg.Push(), sg.InputText("", key='periodo_inicial')],
+            [sg.Text("Período final (exemplo: 31/12/1999):"), sg.Push(), sg.InputText("", key='periodo_final')],
             [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Seleção de período', layout)

@@ -76,7 +76,7 @@ class TelaAnimal:
         for animal in dados_animais:
             string_todos_animais += f"{animal['codigo']} - {animal['nome']}, " \
                 f"{animal['tipo']}, {animal['raca']}"
-            string_todos_animais += f", {animal['tamanho']}.\n" if animal['tipo'] == "Cachorro" else ".\n"
+            string_todos_animais += f", porte {animal['tamanho'].lower()}.\n" if animal['tipo'] == "cachorro" else ".\n"
 
             string_todos_animais += "Vacinas: "
             if len(animal['vacinas']) > 0:
@@ -95,12 +95,11 @@ class TelaAnimal:
         width_size = 50
         height_size = 20
         layout = [
-            [sg.Text("Lista de adotantes:")],
             [sg.Multiline(string_todos_animais, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
             [sg.Push(), sg.Button("Ok"), sg.Push()],
         ]
 
-        self.__window = sg.Window("Lista de adotantes", layout, finalize=True)
+        self.__window = sg.Window("Lista de animais", layout, finalize=True)
 
         while True:
             button, values = self.open()

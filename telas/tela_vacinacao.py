@@ -28,7 +28,7 @@ class TelaVacinacao:
 
     def tela_principal(self):
         layout = [
-            [sg.Radio("Incluir vacinação.", 'Radio1', key='1')],
+            [sg.Radio("Registrar vacinação.", 'Radio1', key='1')],
             [sg.Radio("Alterar vacinação.", 'Radio1', key='2')],
             [sg.Radio("Excluir vacinação.", 'Radio1', key='3')],
             [sg.Radio("Listar vacinações.", 'Radio1', key='4')],

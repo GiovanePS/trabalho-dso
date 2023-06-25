@@ -44,6 +44,9 @@ class ControladorAdocao:
                         )
                     else:
                         dados_assinatura = self.__tela_adocao.pega_assinatura()
+                        if dados_assinatura is None:
+                            self.__tela_adocao.mensagem("Adoção não cadastrada.")
+                            return
                         try:
                             self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao) + 1
                         except IndexError:
@@ -57,7 +60,7 @@ class ControladorAdocao:
                         )
                         self.__adocao_DAO.add(adocao)
                         animal.foi_adotado = True
-
+                        self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
                         self.__tela_adocao.mensagem("Adoção cadastrada com sucesso!")
                 else:
                     self.__tela_adocao.mensagem(
@@ -79,20 +82,20 @@ class ControladorAdocao:
             adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal_adotado"]
             adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
             adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
-            self.listar_adocoes()
-
+            self.__adocao_DAO.update(adocao)
+            self.__tela_adocao.mensagem("Adoção alterada com sucesso!")
         else:
-            self.__tela_adocao.mensagem("Essa adoção NÃO EXISTE!")
+            self.__tela_adocao.mensagem("Essa adoção não existe.")
 
     def excluir_adocao(self):
         id_adocao = self.__tela_adocao.seleciona_adocao()
         adocao = self.pega_adocao_por_id(id_adocao)
 
         if adocao is not None:
-            self.__adocao_DAO.remove(adocao)
+            self.__adocao_DAO.remove(adocao.id_adocao)
             self.__tela_adocao.mensagem("Adoção removida com sucesso!")
         else:
-            self.__tela_adocao.mensagem("Esta adoção NÃO EXISTE.")
+            self.__tela_adocao.mensagem("Esta adoção não existe.")
 
     def listar_adocoes(self):
         if len(self.__adocao_DAO.get_all()) == 0:
@@ -105,7 +108,7 @@ class ControladorAdocao:
                 dados_adocoes.append({
                     "id_adocao": adocao.id_adocao,
                     "data_adocao": adocao.data_adocao,
-                    "animal_adotado_nome": adocao.animal_adotaodo.nome,
+                    "animal_adotado_nome": adocao.animal_adotado.nome,
                     "animal_adotado_codigo": adocao.animal_adotado.codigo,
                     "adotante_nome": adocao.adotante.nome,
                     "adotante_cpf": adocao.adotante.cpf,
