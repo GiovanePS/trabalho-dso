@@ -62,7 +62,7 @@ class ControladorDoador:
                     "Este novo CPF já está cadastrado como doador.\n"
                 )
                 return
-            
+
             if doador.cpf != novos_dados_doador["cpf"]:
                 key_antiga = doador.cpf
                 doador = self.__doador_DAO.get(doador.cpf)
@@ -90,17 +90,18 @@ class ControladorDoador:
         dados_doadores = []
         if len(self.__doador_DAO.get_all()) != 0:
             for doador in self.__doador_DAO.get_all():
-                dados_doadores.append({
-                    'cpf': doador.cpf,
-                    'nome': doador.nome,
-                    'data_nascimento': doador.data_nascimento,
-                    'endereco': doador.endereco,
-                })
+                dados_doadores.append(
+                    {
+                        "cpf": doador.cpf,
+                        "nome": doador.nome,
+                        "data_nascimento": doador.data_nascimento,
+                        "endereco": doador.endereco,
+                    }
+                )
 
             self.__tela_doador.mostra_doador(dados_doadores)
         else:
-            self.__tela_doador.mensagem(
-                "Ainda não há doadores no sistema.")
+            self.__tela_doador.mensagem("Ainda não há doadores no sistema.")
 
     def abre_tela(self):
         lista_opcoes = {

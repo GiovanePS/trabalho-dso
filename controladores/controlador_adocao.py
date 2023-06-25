@@ -25,7 +25,7 @@ class ControladorAdocao:
         return None
 
     def incluir_adocao(self):
-        if len(self.__controlador_sistema.controlador_adotante.adotantes)==0:
+        if len(self.__controlador_sistema.controlador_adotante.adotantes) == 0:
             self.tela_adocao.mensagem("Ainda não há adotantes no sistema")
             return
 
@@ -35,8 +35,14 @@ class ControladorAdocao:
             self.__tela_adocao.mensagem("Adoção não cadastrada.")
             return
 
-        adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"])
-        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal"])
+        adotante = (
+            self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(
+                dados_adocao["cpf_adotante"]
+            )
+        )
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
+            dados_adocao["codigo_animal"]
+        )
 
         if adotante is None:
             self.__tela_adocao.mensagem("Adotante não existente no sistema.")
@@ -45,13 +51,14 @@ class ControladorAdocao:
         if animal is None:
             self.__tela_adocao.mensagem("Animal não existente no sistema.")
             return
-        
+
         if not animal.pode_ser_adotado or animal.foi_adotado:
             self.__tela_adocao.mensagem("Este animal não está disponível para adoção")
             return
 
-        if animal.tamanho == "Grande" and \
-            adotante.tipo_habitacao == ("Apartamento pequeno"):
+        if animal.tamanho == "Grande" and adotante.tipo_habitacao == (
+            "Apartamento pequeno"
+        ):
             self.__tela_adocao.mensagem(
                 "Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!"
             )
@@ -108,21 +115,21 @@ class ControladorAdocao:
 
     def listar_adocoes(self):
         if len(self.__adocao_DAO.get_all()) == 0:
-            self.__tela_adocao.mensagem(
-                "Ainda não há adoções no sistema."
-            )
+            self.__tela_adocao.mensagem("Ainda não há adoções no sistema.")
         else:
             dados_adocoes = []
             for adocao in self.__adocao_DAO.get_all():
-                dados_adocoes.append({
-                    "id_adocao": adocao.id_adocao,
-                    "data_adocao": adocao.data_adocao,
-                    "animal_adotado_nome": adocao.animal_adotado.nome,
-                    "animal_adotado_codigo": adocao.animal_adotado.codigo,
-                    "adotante_nome": adocao.adotante.nome,
-                    "adotante_cpf": adocao.adotante.cpf,
-                    "assinatura": adocao.assinatura
-                })
+                dados_adocoes.append(
+                    {
+                        "id_adocao": adocao.id_adocao,
+                        "data_adocao": adocao.data_adocao,
+                        "animal_adotado_nome": adocao.animal_adotado.nome,
+                        "animal_adotado_codigo": adocao.animal_adotado.codigo,
+                        "adotante_nome": adocao.adotante.nome,
+                        "adotante_cpf": adocao.adotante.cpf,
+                        "assinatura": adocao.assinatura,
+                    }
+                )
 
             self.__tela_adocao.mostra_adocao(dados_adocoes)
 

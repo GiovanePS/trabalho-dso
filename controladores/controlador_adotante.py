@@ -108,17 +108,18 @@ class ControladorAdotante:
         dados_adotantes = []
         if len(self.__adotante_DAO.get_all()) != 0:
             for adotante in self.__adotante_DAO.get_all():
-                dados_adotantes.append({
-                    'cpf': adotante.cpf,
-                    'nome': adotante.nome,
-                    'data_nascimento': adotante.data_nascimento,
-                    'endereco': adotante.endereco,
-                })
-            
+                dados_adotantes.append(
+                    {
+                        "cpf": adotante.cpf,
+                        "nome": adotante.nome,
+                        "data_nascimento": adotante.data_nascimento,
+                        "endereco": adotante.endereco,
+                    }
+                )
+
             self.__tela_adotante.mostra_adotante(dados_adotantes)
         else:
-            self.__tela_adotante.mensagem(
-                "Ainda não há adotantes no sistema.")
+            self.__tela_adotante.mensagem("Ainda não há adotantes no sistema.")
 
     def abre_tela(self):
         lista_opcoes = {

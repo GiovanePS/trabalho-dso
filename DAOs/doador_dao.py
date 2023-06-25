@@ -1,9 +1,10 @@
 from DAOs.dao import DAO
 from entidades.doador import Doador
 
+
 class DoadorDAO(DAO):
     def __init__(self):
-        super().__init__('doadores.pkl')
+        super().__init__("doadores.pkl")
 
     def add(self, doador: Doador):
         if isinstance(doador, Doador):
@@ -14,7 +15,7 @@ class DoadorDAO(DAO):
             super().update(doador.cpf, doador)
 
     def remove(self, key: str):
-            super().remove(key)
+        super().remove(key)
 
     def get(self, key: int):
-            return super().get(key)
+        return super().get(key)

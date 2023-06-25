@@ -5,37 +5,43 @@ import PySimpleGUI as sg
 
 
 class TelaVacina:
-
     def __init__(self):
         self.__window = None
-        sg.ChangeLookAndFeel('Light Gray')
+        sg.ChangeLookAndFeel("Light Gray")
 
     def abre_tela(self):
         self.tela_principal()
         button, values = self.open()
 
-        if button in (None, 'Cancelar') or values['0']:
+        if button in (None, "Cancelar") or values["0"]:
             opcao_escolhida = 0
-        elif values['1']:
-            opcao_escolhida = 1 
-        elif values['2']:
+        elif values["1"]:
+            opcao_escolhida = 1
+        elif values["2"]:
             opcao_escolhida = 2
-        elif values['3']:
+        elif values["3"]:
             opcao_escolhida = 3
-        elif values['4']:
+        elif values["4"]:
             opcao_escolhida = 4
-        
+
         self.close()
         return opcao_escolhida
-    
+
     def tela_principal(self):
         layout = [
-            [sg.Radio("Cadastrar vacina.", 'Radio1', key='1')],
-            [sg.Radio("Alterar vacina.", 'Radio1', key='2')],
-            [sg.Radio("Excluir vacina.", 'Radio1', key='3')],
-            [sg.Radio("Listar vacinas.", 'Radio1', key='4')],
-            [sg.Radio("Retornar para o menu de vacinações.", 'Radio1', default=True, key='0')],
-            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Radio("Cadastrar vacina.", "Radio1", key="1")],
+            [sg.Radio("Alterar vacina.", "Radio1", key="2")],
+            [sg.Radio("Excluir vacina.", "Radio1", key="3")],
+            [sg.Radio("Listar vacinas.", "Radio1", key="4")],
+            [
+                sg.Radio(
+                    "Retornar para o menu de vacinações.",
+                    "Radio1",
+                    default=True,
+                    key="0",
+                )
+            ],
+            [sg.Push(), sg.Button("Confirmar"), sg.Cancel("Cancelar")],
         ]
         self.__window = sg.Window("Menu de animais", layout)
 
@@ -43,21 +49,32 @@ class TelaVacina:
         width_size = 20
         height_size = 1
         layout = [
-            [sg.Text("Nome da vacina:", size=(width_size, height_size)), sg.InputCombo(("Raiva", "Leptospirose", "Hepatite Infecciosa", "Outra"), readonly=True, default_value="Outra", key='nome_vacina')],
-            [sg.Text("Nome da vacina (se outra):", size=(width_size, height_size)), sg.InputText("", key='nome_outra')],
-            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [
+                sg.Text("Nome da vacina:", size=(width_size, height_size)),
+                sg.InputCombo(
+                    ("Raiva", "Leptospirose", "Hepatite Infecciosa", "Outra"),
+                    readonly=True,
+                    default_value="Outra",
+                    key="nome_vacina",
+                ),
+            ],
+            [
+                sg.Text("Nome da vacina (se outra):", size=(width_size, height_size)),
+                sg.InputText("", key="nome_outra"),
+            ],
+            [sg.Push(), sg.Button("Confirmar"), sg.Cancel("Cancelar")],
         ]
         self.__window = sg.Window("Dados da vacina", layout)
         button, values = self.open()
         entrada_invalida = False
 
-        if button in (None, 'Cancelar'):
+        if button in (None, "Cancelar"):
             self.close()
             return
-        
-        if values['nome_vacina'] == 'Outra':
-            if len(values['nome_outra']) != 0:
-                values['nome_vacina'] = values['nome_outra']
+
+        if values["nome_vacina"] == "Outra":
+            if len(values["nome_outra"]) != 0:
+                values["nome_vacina"] = values["nome_outra"]
             else:
                 sg.popup_error("Digite um nome de vacina!")
                 entrada_invalida = True
@@ -67,10 +84,10 @@ class TelaVacina:
             return
         else:
             return {
-                "nome_vacina": values['nome_vacina'],
+                "nome_vacina": values["nome_vacina"],
             }
 
-    def mostra_vacina(self, dados_vacina:list):
+    def mostra_vacina(self, dados_vacina: list):
         string_todas_vacinas = ""
         for vacina in dados_vacina:
             string_todas_vacinas += f'{vacina["codigo"]} - {vacina["nome"]}\n'
@@ -79,7 +96,15 @@ class TelaVacina:
         height_size = 10
         layout = [
             [sg.Text("Lista de vacinas cadastradas\n(código - nome):")],
-            [sg.Multiline(string_todas_vacinas, size=(width_size, height_size), disabled=True, text_color='#000', background_color='#FFF')],
+            [
+                sg.Multiline(
+                    string_todas_vacinas,
+                    size=(width_size, height_size),
+                    disabled=True,
+                    text_color="#000",
+                    background_color="#FFF",
+                )
+            ],
             [sg.Push(), sg.Button("Ok"), sg.Push()],
         ]
 
@@ -87,32 +112,32 @@ class TelaVacina:
 
         while True:
             button, values = self.open()
-            if button in (None, 'Ok'):
+            if button in (None, "Ok"):
                 break
 
         self.close()
 
     def seleciona_codigo(self):
         layout = [
-            [sg.Text("Código: "), sg.InputText('', key='codigo')],
-            [sg.Push(), sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Text("Código: "), sg.InputText("", key="codigo")],
+            [sg.Push(), sg.Button("Confirmar"), sg.Cancel("Cancelar")],
         ]
         self.__window = sg.Window("Selecionar código de um animal", layout)
         button, values = self.open()
 
-        if button in (None, 'Cancelar'):
+        if button in (None, "Cancelar"):
             self.close()
             return
 
         try:
-            values['codigo'] = int(values['codigo'])
+            values["codigo"] = int(values["codigo"])
         except:
             sg.popup_error("Digite um número inteiro.")
             self.close()
             return
 
         self.close()
-        return values['codigo']
+        return values["codigo"]
 
     def mensagem(self, mensagem: str):
         sg.Popup("", mensagem)

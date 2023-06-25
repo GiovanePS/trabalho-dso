@@ -6,7 +6,7 @@ from DAOs.doacao_dao import DoacaoDAO
 class ControladorDoacao:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__doacao_DAO= DoacaoDAO()
+        self.__doacao_DAO = DoacaoDAO()
         self.__tela_doacao = TelaDoacao()
         self.__id = 0
 
@@ -35,7 +35,9 @@ class ControladorDoacao:
             )
 
             if doador is not None:
-                codigo_animal_cadastrado = self.__controlador_sistema.controlador_animal.incluir_animal()
+                codigo_animal_cadastrado = (
+                    self.__controlador_sistema.controlador_animal.incluir_animal()
+                )
                 if codigo_animal_cadastrado is None:
                     self.__tela_doacao.mensagem("Doação não cadastrada.")
                     return
@@ -105,16 +107,18 @@ class ControladorDoacao:
         else:
             dados_doacoes = []
             for doacao in self.__doacao_DAO.get_all():
-                dados_doacoes.append({
-                    "id_doacao":doacao.id_doacao,
-                    "data_doacao":doacao.data_doacao,
-                    "doador_nome":doacao.doador.nome,
-                    "doador_cpf":doacao.doador.cpf,
-                    "animal_nome":doacao.animal.nome,
-                    "animal_codigo":doacao.animal.codigo,
-                    "motivo":doacao.motivo,
-                })
-                
+                dados_doacoes.append(
+                    {
+                        "id_doacao": doacao.id_doacao,
+                        "data_doacao": doacao.data_doacao,
+                        "doador_nome": doacao.doador.nome,
+                        "doador_cpf": doacao.doador.cpf,
+                        "animal_nome": doacao.animal.nome,
+                        "animal_codigo": doacao.animal.codigo,
+                        "motivo": doacao.motivo,
+                    }
+                )
+
             self.__tela_doacao.mostra_doacao(dados_doacoes)
 
     def abre_tela(self):

@@ -6,7 +6,7 @@ from controladores.controlador_vacina import ControladorVacina
 
 class ControladorVacinacao:
     def __init__(self, controlador_sistema):
-        self.__vacinacao_DAO= VacinacaoDAO()
+        self.__vacinacao_DAO = VacinacaoDAO()
         self.__controlador_sistema = controlador_sistema
         self.__controlador_vacina = ControladorVacina(self)
         self.__tela_vacinacao = TelaVacinacao()
@@ -97,20 +97,20 @@ class ControladorVacinacao:
 
     def listar_vacinacoes(self):
         if len(self.__vacinacao_DAO.get_all()) == 0:
-            self.__tela_vacinacao.mensagem(
-                "Ainda não há vacinações no sistema."
-            )
+            self.__tela_vacinacao.mensagem("Ainda não há vacinações no sistema.")
         else:
             dados_vacinacoes = []
             for vacinacao in self.__vacinacao_DAO.get_all():
-                dados_vacinacoes.append({
+                dados_vacinacoes.append(
+                    {
                         "codigo_vacinacao": vacinacao.id_vacinacao,
                         "data_vacinacao": vacinacao.data_vacina,
                         "nome_animal": vacinacao.animal.nome,
                         "codigo_animal": vacinacao.animal.codigo,
                         "nome_vacina": vacinacao.vacina.nome_vacina,
                         "codigo_vacina": vacinacao.vacina.codigo_vacina,
-                })
+                    }
+                )
 
             self.__tela_vacinacao.mostra_vacinacao(dados_vacinacoes)
 

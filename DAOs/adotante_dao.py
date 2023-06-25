@@ -1,9 +1,10 @@
 from DAOs.dao import DAO
 from entidades.adotante import Adotante
 
+
 class AdotanteDAO(DAO):
     def __init__(self):
-        super().__init__('adotantes.pkl')
+        super().__init__("adotantes.pkl")
 
     def add(self, adotante: Adotante):
         if isinstance(adotante, Adotante):
@@ -14,7 +15,7 @@ class AdotanteDAO(DAO):
             super().update(adotante.cpf, adotante)
 
     def remove(self, key: str):
-            super().remove(key)
+        super().remove(key)
 
     def get(self, key: int):
-            return super().get(key)
+        return super().get(key)

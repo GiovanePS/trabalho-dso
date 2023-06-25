@@ -31,7 +31,7 @@ class ControladorVacina:
             return
 
         for vacina in self.vacinas:
-            if (vacina.nome_vacina).upper() == dados_vacina['nome_vacina'].upper():
+            if (vacina.nome_vacina).upper() == dados_vacina["nome_vacina"].upper():
                 self.__tela_vacina.mensagem("Esta vacina já está cadastrada.")
                 return
 
@@ -71,10 +71,9 @@ class ControladorVacina:
         if len(self.__vacina_DAO.get_all()) != 0:
             dados_vacinas = []
             for vacina in self.__vacina_DAO.get_all():
-                dados_vacinas.append({
-                    "nome": vacina.nome_vacina,
-                    "codigo": vacina.codigo_vacina
-                })
+                dados_vacinas.append(
+                    {"nome": vacina.nome_vacina, "codigo": vacina.codigo_vacina}
+                )
 
             self.__tela_vacina.mostra_vacina(dados_vacinas)
         else:

@@ -1,10 +1,11 @@
 from DAOs.dao import DAO
 from entidades.adocao import Adocao
 
+
 class AdocaoDAO(DAO):
     def __init__(self):
-        super().__init__('adocoes.pkl')
-        
+        super().__init__("adocoes.pkl")
+
     def add(self, adocao: Adocao):
         if isinstance(adocao, Adocao):
             super().add(adocao.id_adocao, adocao)

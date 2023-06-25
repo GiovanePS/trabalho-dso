@@ -83,16 +83,18 @@ class ControladorAnimal:
         if len(self.__animal_DAO.get_all()) != 0:
             dados_animais = []
             for animal in self.__animal_DAO.get_all():
-                dados_animais.append({
-                    "codigo": animal.codigo,
-                    "nome": animal.nome,
-                    "tipo": animal.tipo,
-                    "raca": animal.raca,
-                    "tamanho": animal.tamanho,
-                    "vacinas": animal.vacinas,
-                    "pode_ser_adotado": animal.pode_ser_adotado,
-                    "foi_adotado": animal.foi_adotado
-                })
+                dados_animais.append(
+                    {
+                        "codigo": animal.codigo,
+                        "nome": animal.nome,
+                        "tipo": animal.tipo,
+                        "raca": animal.raca,
+                        "tamanho": animal.tamanho,
+                        "vacinas": animal.vacinas,
+                        "pode_ser_adotado": animal.pode_ser_adotado,
+                        "foi_adotado": animal.foi_adotado,
+                    }
+                )
 
             self.__tela_animal.mostra_animal(dados_animais)
         else:
