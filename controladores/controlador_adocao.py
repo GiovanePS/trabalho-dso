@@ -25,51 +25,60 @@ class ControladorAdocao:
         return None
 
     def incluir_adocao(self):
-        if len(self.__controlador_sistema.controlador_adotante.adotantes)!=0:
-            dados_adocao = self.__tela_adocao.pega_dados_adocao()
-            if dados_adocao is None:
-                self.__tela_adocao.mensagem("Adoção não cadastrada.")
-                return
-
-            adotante = (self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"]))
-            animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal"])
-
-            if adotante is not None and animal is not None:
-                if animal.pode_ser_adotado == True and animal.foi_adotado == False:
-                    if animal.tamanho == "Grande" and adotante.tipo_habitacao == (
-                        "Apartamento pequeno"
-                    ):
-                        self.__tela_adocao.mensagem(
-                            "Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!"
-                        )
-                    else:
-                        dados_assinatura = self.__tela_adocao.pega_assinatura()
-                        if dados_assinatura is None:
-                            self.__tela_adocao.mensagem("Adoção não cadastrada.")
-                            return
-                        try:
-                            self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao) + 1
-                        except IndexError:
-                            self.__id = 1
-                        adocao = Adocao(
-                            dados_adocao["data_adocao"],
-                            animal,
-                            adotante,
-                            dados_assinatura["assinatura"],
-                            self.__id,
-                        )
-                        self.__adocao_DAO.add(adocao)
-                        animal.foi_adotado = True
-                        self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
-                        self.__tela_adocao.mensagem("Adoção cadastrada com sucesso!")
-                else:
-                    self.__tela_adocao.mensagem(
-                        "Este animal não está disponível para adoção"
-                    )
-            else:
-                self.__tela_adocao.mensagem("Dados inválidos!")
-        else:
+        if len(self.__controlador_sistema.controlador_adotante.adotantes)==0:
             self.tela_adocao.mensagem("Ainda não há adotantes no sistema")
+            return
+
+        dados_adocao = self.__tela_adocao.pega_dados_adocao()
+
+        if dados_adocao is None:
+            self.__tela_adocao.mensagem("Adoção não cadastrada.")
+            return
+
+        adotante = self.__controlador_sistema.controlador_adotante.pega_adotante_por_cpf(dados_adocao["cpf_adotante"])
+        animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(dados_adocao["codigo_animal"])
+
+        if adotante is None:
+            self.__tela_adocao.mensagem("Adotante não existente no sistema.")
+            return
+
+        if animal is None:
+            self.__tela_adocao.mensagem("Animal não existente no sistema.")
+            return
+        
+        if not animal.pode_ser_adotado or animal.foi_adotado:
+            self.__tela_adocao.mensagem("Este animal não está disponível para adoção")
+            return
+
+        if animal.tamanho == "Grande" and \
+            adotante.tipo_habitacao == ("Apartamento pequeno"):
+            self.__tela_adocao.mensagem(
+                "Pessoas que vivem em apartamentos pequenos não podem adotar cães de porte grande!"
+            )
+            return
+
+        dados_assinatura = self.__tela_adocao.pega_assinatura()
+
+        if dados_assinatura is None:
+            self.__tela_adocao.mensagem("Adoção não cadastrada.")
+            return
+
+        try:
+            self.__id = int(list(self.__adocao_DAO.get_all())[-1].id_adocao) + 1
+        except IndexError:
+            self.__id = 1
+
+        adocao = Adocao(
+            dados_adocao["data_adocao"],
+            animal,
+            adotante,
+            dados_assinatura["assinatura"],
+            self.__id,
+        )
+        self.__adocao_DAO.add(adocao)
+        animal.foi_adotado = True
+        self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
+        self.__tela_adocao.mensagem("Adoção cadastrada com sucesso!")
 
     def alterar_adocao(self):
         id_adocao = self.__tela_adocao.seleciona_adocao()

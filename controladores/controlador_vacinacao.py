@@ -31,30 +31,36 @@ class ControladorVacinacao:
         vacina = self.__controlador_vacina.pega_vacina_por_codigo(
             dados_vacinacao["codigo_vacina"]
         )
+
+        if vacina is None:
+            self.__tela_vacinacao.mensagem("Vacina inexistente no sistema..")
+            return
+
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(
             dados_vacinacao["codigo_animal_vacinado"]
         )
 
-        if vacina is not None and animal is not None:
-            try:
-                self.__id = int(list(self.__vacinacao_DAO.get_all())[-1].id_vacinacao) + 1
-            except IndexError:
-                self.__id = 1
-            vacinacao = Vacinacao(
-                dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
-            )
-            self.__vacinacao_DAO.add(vacinacao)
-            animal.vacinas.append(vacina.nome_vacina)
-            self.__tela_vacinacao.mensagem("Vacinação registrada com sucesso!")
-            if (
-                "Raiva" in animal.vacinas
-                and "Leptospirose" in animal.vacinas
-                and "Hepatite Infecciosa" in animal.vacinas
-            ):
-                animal.pode_ser_adotado = True
-            self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
-        else:
-            self.__tela_vacinacao.mensagem("Dados inválidos!")
+        if animal is None:
+            self.__tela_vacinacao.mensagem("Animal inexistente no sistema.")
+            return
+
+        try:
+            self.__id = int(list(self.__vacinacao_DAO.get_all())[-1].id_vacinacao) + 1
+        except IndexError:
+            self.__id = 1
+        vacinacao = Vacinacao(
+            dados_vacinacao["data_vacinacao"], vacina, animal, self.__id
+        )
+        self.__vacinacao_DAO.add(vacinacao)
+        animal.vacinas.append(vacina.nome_vacina)
+        if (
+            "Raiva" in animal.vacinas
+            and "Leptospirose" in animal.vacinas
+            and "Hepatite Infecciosa" in animal.vacinas
+        ):
+            animal.pode_ser_adotado = True
+        self.__controlador_sistema.controlador_animal.animal_DAO.update(animal)
+        self.__tela_vacinacao.mensagem("Vacinação registrada com sucesso!")
 
     def alterar_vacinacao(self):
         self.listar_vacinacoes()

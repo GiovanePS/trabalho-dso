@@ -53,7 +53,7 @@ class ControladorDoador:
         if isinstance(doador, Doador):
             novos_dados_doador = self.__tela_doador.pega_dados_doador()
             if novos_dados_doador is None:
-                self.__tela_doador.mensagem("Adotante não alterado.")
+                self.__tela_doador.mensagem("Doador não alterado.")
                 return
 
             if self.verificar_adotante(novos_dados_doador["cpf"]):
@@ -73,7 +73,7 @@ class ControladorDoador:
             doador.data_nascimento = novos_dados_doador["data_nascimento"]
             doador.endereco = novos_dados_doador["endereco"]
             self.__doador_DAO.update(doador)
-            self.__tela_doador.mensagem("Alteração realizada com sucesso!")
+            self.__tela_doador.mensagem("Doador alterado com sucesso!")
         else:
             self.__tela_doador.mensagem("Doador inexistente no sistema.")
 

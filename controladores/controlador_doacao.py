@@ -57,7 +57,7 @@ class ControladorDoacao:
                 self.__doacao_DAO.add(doacao)
                 self.__tela_doacao.mensagem("Doação cadastrada com sucesso.")
             else:
-                self.__tela_doacao.mensagem("Dados inválidos!")
+                self.__tela_doacao.mensagem("Doador não existe.")
         else:
             self.tela_doacao.mensagem("Ainda não há doadores no sistema.")
 
@@ -81,6 +81,7 @@ class ControladorDoacao:
             doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
             doacao.motivo = novos_dados_doacao["motivo"]
             self.__doacao_DAO.update(doacao)
+            self.__tela_doacao.mensagem("Doação alterada com sucesso!")
         else:
             self.__tela_doacao.mensagem("Essa doação não existe.")
 

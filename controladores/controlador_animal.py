@@ -61,7 +61,7 @@ class ControladorAnimal:
                 animal.raca = novos_dados_animal["raca"]
                 animal.tamanho = novos_dados_animal["tamanho"]
                 self.__animal_DAO.update(animal)
-                self.__tela_animal.mensagem("Alteração realizada com sucesso!")
+                self.__tela_animal.mensagem("Animal alterado com sucesso!")
             else:
                 self.__tela_animal.mensagem("Animal inexistente no sistema.")
         else:
