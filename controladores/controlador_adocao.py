@@ -15,6 +15,10 @@ class ControladorAdocao:
         return self.__adocao_DAO.get_all()
 
     @property
+    def adocao_DAO(self):
+        return self.__adocao_DAO
+
+    @property
     def tela_adocao(self):
         return self.__tela_adocao
 

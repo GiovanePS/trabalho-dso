@@ -60,6 +60,12 @@ class ControladorAnimal:
                 animal.tipo = novos_dados_animal["tipo"]
                 animal.raca = novos_dados_animal["raca"]
                 animal.tamanho = novos_dados_animal["tamanho"]
+                if animal.foi_adotado:
+                    for adocao in self.__controlador_sistema.controlador_adocao.adocoes:
+                        if adocao.animal_adotado.codigo == animal.codigo:
+                            adocao.animal_adotado = animal
+                            self.__controlador_sistema.controlador_adocao.adocao_DAO.update(adocao)
+                            break
                 self.__animal_DAO.update(animal)
                 self.__tela_animal.mensagem("Animal alterado com sucesso!")
             else:
