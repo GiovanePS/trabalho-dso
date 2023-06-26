@@ -52,8 +52,11 @@ class ControladorAdocao:
             self.__tela_adocao.mensagem("Animal não existente no sistema.")
             return
 
-        if not animal.pode_ser_adotado or animal.foi_adotado:
-            self.__tela_adocao.mensagem("Este animal não está disponível para adoção")
+        if not animal.pode_ser_adotado and not animal.foi_adotado:
+            self.__tela_adocao.mensagem("Este animal não está disponível para adoção pois não tem as vacinas necessárias.")
+            return
+        elif  animal.pode_ser_adotado and  animal.foi_adotado:
+            self.__tela_adocao.mensagem("Este animal já foi adotado, por isso não está mais disponível.")
             return
 
         if animal.tamanho == "Grande" and adotante.tipo_habitacao == (
