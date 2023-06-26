@@ -33,7 +33,7 @@ class ControladorVacinacao:
         )
 
         if vacina is None:
-            self.__tela_vacinacao.mensagem("Vacina inexistente no sistema..")
+            self.__tela_vacinacao.mensagem("Vacina inexistente no sistema.")
             return
 
         animal = self.__controlador_sistema.controlador_animal.pegar_animal_por_codigo(

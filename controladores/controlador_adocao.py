@@ -92,19 +92,53 @@ class ControladorAdocao:
 
     def alterar_adocao(self):
         id_adocao = self.__tela_adocao.seleciona_adocao()
+
+        if id_adocao is None:
+            self.__tela_adocao.mensagem("Adoção não alterada.")
+            return
+
         adocao = self.pega_adocao_por_id(id_adocao)
 
-        if adocao is not None:
-            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
-            adocao.data_adocao = novos_dados_adocao["data_adocao"]
-            # adocao.animal_adotado.nome = novos_dados_adocao["nome_animal"]
-            adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal"]
-            # adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
-            adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
-            self.__adocao_DAO.update(adocao)
-            self.__tela_adocao.mensagem("Adoção alterada com sucesso!")
-        else:
+        if adocao is None:
             self.__tela_adocao.mensagem("Essa adoção não existe.")
+            return
+
+        novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
+        if novos_dados_adocao is None:
+            self.__tela_adocao.mensagem("Adoção não alterada.")
+            return
+
+        animal_existe = False
+        for animal in self.__controlador_sistema.controlador_animal.animais:
+            if int(animal.codigo) == int(novos_dados_adocao["codigo_animal"]):
+                animal_existe = True
+                novo_animal = animal
+                break
+
+        if not animal_existe:
+            self.__tela_adocao.mensagem("Animal inexistente no sistema.")
+            return
+        
+        adotante_existe = False
+        for adotante in self.__controlador_sistema.controlador_adotante.adotantes:
+            if adotante.cpf == novos_dados_adocao["cpf_adotante"]:
+                adotante_existe = True
+                novo_adotante = adotante
+                break
+
+        if not adotante_existe:
+            self.__tela_adocao.mensagem("Adotante inexistente no sistema.")
+            return
+
+        adocao.data_adocao = novos_dados_adocao["data_adocao"]
+        adocao.animal_adotado.foi_adotado = False
+        novo_animal.foi_adotado = True
+        self.__controlador_sistema.controlador_animal.animal_DAO.update(adocao.animal_adotado)
+        self.__controlador_sistema.controlador_animal.animal_DAO.update(novo_animal)
+        adocao.animal_adotado = novo_animal
+        adocao.adotante = novo_adotante
+        self.__adocao_DAO.update(adocao)
+        self.__tela_adocao.mensagem("Adoção alterada com sucesso!")
 
     def excluir_adocao(self):
         id_adocao = self.__tela_adocao.seleciona_adocao()
