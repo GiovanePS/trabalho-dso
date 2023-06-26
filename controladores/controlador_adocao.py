@@ -149,6 +149,8 @@ class ControladorAdocao:
         adocao = self.pega_adocao_por_id(id_adocao)
 
         if adocao is not None:
+            adocao.animal_adotado.foi_adotado = False
+            self.__controlador_sistema.controlador_animal.animal_DAO.update(adocao.animal_adotado)
             self.__adocao_DAO.remove(adocao.id_adocao)
             self.__tela_adocao.mensagem("Adoção removida com sucesso!")
         else:
