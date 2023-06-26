@@ -95,11 +95,11 @@ class ControladorAdocao:
         adocao = self.pega_adocao_por_id(id_adocao)
 
         if adocao is not None:
-            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao_alterar()
+            novos_dados_adocao = self.__tela_adocao.pega_dados_adocao()
             adocao.data_adocao = novos_dados_adocao["data_adocao"]
-            adocao.animal_adotado.nome = novos_dados_adocao["nome_animal"]
+            # adocao.animal_adotado.nome = novos_dados_adocao["nome_animal"]
             adocao.animal_adotado.codigo = novos_dados_adocao["codigo_animal"]
-            adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
+            # adocao.adotante.nome = novos_dados_adocao["nome_adotante"]
             adocao.adotante.cpf = novos_dados_adocao["cpf_adotante"]
             self.__adocao_DAO.update(adocao)
             self.__tela_adocao.mensagem("Adoção alterada com sucesso!")
