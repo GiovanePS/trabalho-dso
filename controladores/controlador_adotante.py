@@ -25,6 +25,12 @@ class ControladorAdotante:
                 return True
         return False
 
+    def verificar_adotante(self, cpf):
+        for adotante in self.__controlador_sistema.controlador_adotante.adotantes:
+            if adotante.cpf == cpf:
+                return True
+        return False
+
     def verificar_de_menor(self, data_nascimento):
         from datetime import datetime
 
@@ -45,6 +51,14 @@ class ControladorAdotante:
                 "Essa pessoa já está cadastrada como doadora."
             )
             return
+        
+        if self.verificar_adotante(dados_adotante["cpf"]):
+            self.__tela_adotante.mensagem(
+                "Não foi possível concluir a ação."
+                "Essa pessoa já está cadastrada como adotante."
+            )
+            return
+
         if self.verificar_de_menor(dados_adotante["data_nascimento"]):
             self.__tela_adotante.mensagem(
                 "Não foi possível cadastrar esta pessoa. "

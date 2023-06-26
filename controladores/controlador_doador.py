@@ -25,6 +25,12 @@ class ControladorDoador:
                 return True
         return False
 
+    def verificar_doador(self, cpf):
+        for doador in self.__controlador_sistema.controlador_doador.doadores:
+            if doador.cpf == cpf:
+                return True
+        return False
+
     def incluir_doador(self):
         dados_doador = self.__tela_doador.pega_dados_doador()
         if dados_doador is None:
@@ -35,6 +41,13 @@ class ControladorDoador:
             self.__tela_doador.mensagem(
                 "Não foi possível cadastrar esta pessoa. "
                 "Essa pessoa já está cadastrada como adotante."
+            )
+            return
+        
+        if self.verificar_doador(dados_doador["cpf"]):
+            self.__tela_doador.mensagem(
+                "Não foi possível concluir a ação. "
+                "Essa pessoa já está cadastrada como doador."
             )
             return
 
