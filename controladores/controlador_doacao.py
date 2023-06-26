@@ -77,9 +77,6 @@ class ControladorDoacao:
                 self.__tela_doacao.mensagem("Doação não alterada.")
                 return
             doacao.data_doacao = novos_dados_doacao["data_doacao"]
-            # doacao.animal.nome = novos_dados_doacao["nome_animal"]
-            # doacao.animal.codigo = novos_dados_doacao["codigo_animal"]
-            # doacao.doador.nome = novos_dados_doacao["nome_doador"]
             doacao.doador.cpf = novos_dados_doacao["cpf_doador"]
             doacao.motivo = novos_dados_doacao["motivo"]
             self.__doacao_DAO.update(doacao)
